@@ -1,0 +1,4 @@
+File=utopialyrics.kcfg
+ClassName=UtopiaLyricsSettings
+Singleton=true
+Mutators=true

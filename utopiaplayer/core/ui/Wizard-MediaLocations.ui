@@ -1,0 +1,123 @@
+<ui version="4.0" >
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>621</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Media Locations</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout_3" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>621</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>6</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:Sans Serif; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:Sans;">Now is the time to let UtopiaPlayer know where your music is located. You can add your media locations to the list on the right. For each &lt;span style=" font-style:italic;">Media Location&lt;/span>, you may set some options.&lt;br />&lt;br />&lt;span style=" text-decoration: underline;">Media Location Options&lt;/span>&lt;br />&lt;/p>
+&lt;ul style="-qt-list-indent: 1;">&lt;li style=" font-family:Sans;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Search Subdirectories&lt;/span> will search for songs inside each directory inside the specified &lt;span style=" font-style:italic;">Media Location&lt;/span> and directories inside those directories, and so on.&lt;/li>
+&lt;li style=" font-family:Sans;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Keep My Music Organized&lt;/span> will rename and move your music within the specifid &lt;span style=" font-style:italic;">Media Location&lt;/span> to keep your music easy to find with other applications.&lt;/li>
+&lt;li style=" font-family:Sans;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Watch Locations for Updates&lt;/span> will automatically add, remove, or update music and tags from any files that have changed within the given &lt;span style=" font-style:italic;">Media Location&lt;/span>.&lt;/li>&lt;/ul>&lt;/body>&lt;/html></string>
+        </property>
+        <property name="alignment" >
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="minimumSize" >
+       <size>
+        <width>250</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title" >
+       <string>Media Locations</string>
+      </property>
+      <widget class="QWidget" name="verticalLayout_2" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>231</width>
+         <height>311</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>6</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QListWidget" name="listWidget" />
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_4" >
+            <property name="text" >
+             <string>&amp;Add</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_5" >
+            <property name="text" >
+             <string>&amp;Remove</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

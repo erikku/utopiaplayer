@@ -1,0 +1,44 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+	<file alias="SplashScreen.png">SplashScreen.png</file>
+	<file alias="16x16/clock.png">16x16/clock.png</file>
+	<file alias="16x16/configure.png">16x16/configure.png</file>
+	<file alias="16x16/connect_established.png">16x16/connect_established.png</file>
+	<file alias="16x16/editcopy.png">16x16/editcopy.png</file>
+	<file alias="16x16/editcut.png">16x16/editcut.png</file>
+	<file alias="16x16/editpaste.png">16x16/editpaste.png</file>
+	<file alias="16x16/fileclose.png">16x16/fileclose.png</file>
+	<file alias="16x16/fileopen.png">16x16/fileopen.png</file>
+	<file alias="16x16/juk.png">16x16/juk.png</file>
+	<file alias="16x16/kmix.png">16x16/kmix.png</file>
+	<file alias="16x16/player_play.png">16x16/player_play.png</file>
+	<file alias="16x16/reload.png">16x16/reload.png</file>
+	<file alias="16x16/roll.png">16x16/roll.png</file>
+	<file alias="16x16/UtopiaPlayer.png">16x16/UtopiaPlayer.png</file>
+	<file alias="32x32/button_ok.png">32x32/button_ok.png</file>
+	<file alias="32x32/configure.png">32x32/configure.png</file>
+	<file alias="32x32/contents.png">32x32/contents.png</file>
+	<file alias="32x32/cdtrack.png">32x32/cdtrack.png</file>
+	<file alias="32x32/decrypted.png">32x32/decrypted.png</file>
+	<file alias="32x32/document.png">32x32/document.png</file>
+	<file alias="32x32/edit.png">32x32/edit.png</file>
+	<file alias="32x32/editdelete.png">32x32/editdelete.png</file>
+	<file alias="32x32/filenew.png">32x32/filenew.png</file>
+	<file alias="32x32/filter.png">32x32/filter.png</file>
+	<file alias="32x32/find.png">32x32/find.png</file>
+	<file alias="32x32/juk.png">32x32/juk.png</file>
+	<file alias="32x32/player_start.png">32x32/player_start.png</file>
+	<file alias="32x32/player_stop.png">32x32/player_stop.png</file>
+	<file alias="32x32/player_pause.png">32x32/player_pause.png</file>
+	<file alias="32x32/player_play.png">32x32/player_play.png</file>
+	<file alias="32x32/player_end.png">32x32/player_end.png</file>
+	<file alias="32x32/player_playlist.png">32x32/player_playlist.png</file>
+	<file alias="32x32/roll.png">32x32/roll.png</file>
+	<file alias="32x32/vcard.png">32x32/vcard.png</file>
+	<file alias="noart.png">noart.png</file>
+</qresource>
+<qresource lang="en">
+	<!-- <file alias="SplashScreen.png">SplashScreen.png</file> -->
+</qresource>
+</RCC>

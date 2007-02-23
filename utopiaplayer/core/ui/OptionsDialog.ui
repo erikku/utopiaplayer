@@ -1,0 +1,414 @@
+<ui version="4.0" >
+ <class>OptionsDialog</class>
+ <widget class="QWidget" name="OptionsDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>671</width>
+    <height>441</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>UtopiaPlayer - Options</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout_3" >
+   <property name="geometry" >
+    <rect>
+     <x>9</x>
+     <y>389</y>
+     <width>651</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="HelpButton" >
+      <property name="text" >
+       <string>&amp;Help</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="OKButton" >
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="ApplyButton" >
+      <property name="text" >
+       <string>&amp;Apply</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="PathOptionsFrame" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>651</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>631</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="1" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="LyricsDirectoryEdit" />
+       </item>
+       <item>
+        <widget class="QPushButton" name="LyricsDirectoryBrowse" >
+         <property name="icon" >
+          <iconset resource="../res/utopiaplayer.qrc" >:/16x16/fileopen.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="LyricsDirectoryLabel" >
+       <property name="text" >
+        <string>Lyrics Directory:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="MusicDirectoryLabel" >
+       <property name="text" >
+        <string>Music Directory:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="MusicDirectoryEdit" />
+       </item>
+       <item>
+        <widget class="QPushButton" name="MusicDirectoryBrowse" >
+         <property name="icon" >
+          <iconset resource="../res/utopiaplayer.qrc" >:/16x16/fileopen.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="CoversDirectoryEdit" />
+       </item>
+       <item>
+        <widget class="QPushButton" name="CoversDirectoryBrowse" >
+         <property name="icon" >
+          <iconset resource="../res/utopiaplayer.qrc" >:/16x16/fileopen.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="CoversDirectoryLabel" >
+       <property name="text" >
+        <string>Covers Directory:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>651</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QCheckBox" name="LoginAtStart" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>124</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Login at Startup</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="UseKanji" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>241</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Use Kanji names instead of Romaji</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_2" >
+    <property name="geometry" >
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>251</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="frameShape" >
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow" >
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="gridLayout_2" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>231</width>
+       <height>112</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="1" column="1" >
+       <widget class="QRadioButton" name="radioButton_4" >
+        <property name="text" >
+         <string>Trans. Artist</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QRadioButton" name="radioButton" >
+        <property name="text" >
+         <string>Original Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QRadioButton" name="radioButton_2" >
+        <property name="text" >
+         <string>Trans. Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QRadioButton" name="radioButton_3" >
+        <property name="text" >
+         <string>Original Artist</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QRadioButton" name="radioButton_6" >
+        <property name="text" >
+         <string>Trans. Album</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QRadioButton" name="radioButton_5" >
+        <property name="text" >
+         <string>Original Album</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QRadioButton" name="radioButton_7" >
+        <property name="text" >
+         <string>Original Genre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QRadioButton" name="radioButton_8" >
+        <property name="text" >
+         <string>Trans. Genre</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QComboBox" name="comboBox" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>231</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Original Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Transliterated Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Individual Settings</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="Line" name="line" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>231</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="horizontalLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>301</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="OutputPluginLabel" >
+       <property name="text" >
+        <string>Output Plugin:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="OutputPluginCombo" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="UtopiaPlayer.qrc" />
+  <include location="../res/utopiaplayer.qrc" />
+ </resources>
+ <connections/>
+</ui>

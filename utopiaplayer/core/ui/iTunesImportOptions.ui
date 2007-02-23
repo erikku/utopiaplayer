@@ -1,0 +1,218 @@
+<ui version="4.0" >
+ <class>iTunesImportOptions</class>
+ <widget class="QWidget" name="iTunesImportOptions" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>iTunes Library Import Options</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="NoticeLabel" >
+      <property name="text" >
+       <string>&lt;b>PLEASE NOTE:&lt;/b> The script only reads one database, so if you have multiple databases, expect it to only read one (if any). Also note that you first need to consolidate your library as we will not look all over your hard drive for your music (this is so we can find your music if you moved your foler or happen to be on a different OS and the music has a path that differs from the one stored in the xml file).</string>
+      </property>
+      <property name="wordWrap" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="iTunesFolderEdit" />
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="MusicFolderEdit" />
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="MusicFolderLabel" >
+        <property name="text" >
+         <string>Music Folder:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="iTunesFolderLabel" >
+        <property name="text" >
+         <string>iTunes Folder:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QPushButton" name="iTunesFolderBrowse" />
+      </item>
+      <item row="1" column="2" >
+       <widget class="QPushButton" name="MusicFolderBrowse" />
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>270</x>
+     <y>300</y>
+     <width>121</width>
+     <height>62</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="ImportButton" >
+      <property name="text" >
+       <string>Import</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="text" >
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="OptionsGroupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>210</y>
+     <width>251</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Options</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>235</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="ArtworkCheckbox" >
+       <property name="text" >
+        <string>Import artwork from CoverFlow cache</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="StatsCheckbox" >
+       <property name="text" >
+        <string>Import play statistics</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="PlaylistsCheckbox" >
+       <property name="text" >
+        <string>Import playlists</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="RetagCheckbox" >
+       <property name="text" >
+        <string>Clean and re-tag files</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="StatsGroupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>270</x>
+     <y>210</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Stats</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="SongCountLabel" >
+       <property name="text" >
+        <string>3000 Songs</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="PlaylistCountLabel" >
+       <property name="text" >
+        <string>2 Playlists</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

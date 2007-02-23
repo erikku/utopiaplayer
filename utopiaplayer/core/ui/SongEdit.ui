@@ -1,0 +1,829 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>SongEdit</class>
+ <widget class="QWidget" name="SongEdit" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>541</width>
+    <height>481</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>UtopiaPlayer - Edit Song</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>521</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="PreviousSongButton" >
+      <property name="sizePolicy" >
+       <sizepolicy>
+        <hsizetype>5</hsizetype>
+        <vsizetype>0</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip" >
+       <string>Save song changes and edit the previous song</string>
+      </property>
+      <property name="text" >
+       <string>&lt;&lt;&lt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="NextSongButton" >
+      <property name="toolTip" >
+       <string>Save song changes and edit the next song</string>
+      </property>
+      <property name="text" >
+       <string>>>></string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="OKButton" >
+      <property name="toolTip" >
+       <string>Save song changes</string>
+      </property>
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="toolTip" >
+       <string>Discard song changes</string>
+      </property>
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="AlbumAndArtistFrame" >
+   <property name="geometry" >
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>361</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>5</y>
+      <width>341</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="KanjiArtistLabel" >
+       <property name="text" >
+        <string>アーチスト:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="KanjiAlbumLabel" >
+       <property name="text" >
+        <string>アルバム:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="RomajiAlbumLabel" >
+       <property name="text" >
+        <string>Album:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="RomajiArtistLabel" >
+       <property name="text" >
+        <string>Artist:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QComboBox" name="KanjiAlbumCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The original Japanese version of the album</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="KanjiAlbumAdd" >
+         <property name="toolTip" >
+          <string>Click here to edit the selected album</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="KanjiAlbumEdit" >
+         <property name="toolTip" >
+          <string>Click here to add an album</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QComboBox" name="RomajiAlbumCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The rōmaji version of the album</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RomajiAlbumAdd" >
+         <property name="toolTip" >
+          <string>Click here to edit the selected album</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RomajiAlbumEdit" >
+         <property name="toolTip" >
+          <string>Click here to add an album</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QComboBox" name="KanjiArtistCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The original Japanese version of the artist name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="KanjiArtistAdd" >
+         <property name="toolTip" >
+          <string>Click here to edit the selected artist</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="KanjiArtistEdit" >
+         <property name="toolTip" >
+          <string>Click here to add an artist</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QComboBox" name="RomajiArtistCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The rōmaji version of the artist name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RomajiArtistAdd" >
+         <property name="toolTip" >
+          <string>Click here to edit the selected artist</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RomajiArtistEdit" >
+         <property name="toolTip" >
+          <string>Click here to add an artist</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="SongInfoFrame1" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>291</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>271</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="2" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QComboBox" name="KanjiGenreCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The original Japanese version of the song genre</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="GenreSeaparator" >
+         <property name="text" >
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="RomajiGenreCombo" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>The rōmaji version of the song genre</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="GenreLabel" >
+       <property name="text" >
+        <string>Genre:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="TrackLabel" >
+       <property name="text" >
+        <string>Track:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="TrackMinEdit" >
+         <property name="toolTip" >
+          <string>The track number of this song</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="TrackSeaparator" >
+         <property name="text" >
+          <string>of</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="TrackMaxEdit" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Total number of tracks in the album</string>
+         </property>
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="KanjiTitleEdit" >
+       <property name="toolTip" >
+        <string>The original Japanese version of the song title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="KanjiTitleLabel" >
+       <property name="text" >
+        <string>タイトル:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="RomajiTitleLabel" >
+       <property name="text" >
+        <string>Title:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QLineEdit" name="RomajiTitleEdit" >
+       <property name="toolTip" >
+        <string>The rōmaji version of the song title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" >
+      <widget class="QCheckBox" name="RandomPlay" >
+       <property name="text" >
+        <string>Include in random play</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="SongPathsFrame" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>350</y>
+     <width>521</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout_4" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>501</width>
+      <height>62</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="SongPathEdit" >
+       <property name="toolTip" >
+        <string>The path to the song file</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QLineEdit" name="LyricsPathEdit" >
+       <property name="toolTip" >
+        <string>The path to the lyrics file</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="SongPathLabel" >
+       <property name="text" >
+        <string>Song:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="SongPathLyrics" >
+       <property name="text" >
+        <string>Lyrics:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" >
+      <widget class="QPushButton" name="SongPathButton" />
+     </item>
+     <item row="1" column="2" >
+      <widget class="QPushButton" name="LyricsPathButton" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="SongInfoFrame2" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>170</y>
+     <width>221</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout_3" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>201</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="0" column="1" >
+      <widget class="QComboBox" name="RatingCombo" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip" >
+        <string>You rating of this song</string>
+       </property>
+       <property name="editable" >
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text" >
+         <string>☆☆☆☆☆</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>☆☆☆☆★</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>☆☆☆★★</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>☆☆★★★</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>☆★★★★</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>★★★★★</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="PlayCountLabel" >
+       <property name="text" >
+        <string>Play count:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" >
+      <widget class="QLabel" name="LengthEdit" >
+       <property name="toolTip" >
+        <string>The length of the song</string>
+       </property>
+       <property name="text" >
+        <string>3:23</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="RatingLabel" >
+       <property name="text" >
+        <string>Rating:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="LengthLabel" >
+       <property name="text" >
+        <string>Length:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QSpinBox" name="PlayCountEdit" >
+         <property name="toolTip" >
+          <string>How many times this song has been played</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="PlayCountButton" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>5</hsizetype>
+           <vsizetype>0</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip" >
+          <string>Reset the ammount of times the song has been played</string>
+         </property>
+         <property name="text" >
+          <string>&amp;Reset</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="BitrateLabel" >
+       <property name="text" >
+        <string>Bitrate:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QLabel" name="BitrateEdit" >
+       <property name="toolTip" >
+        <string>The bitrate of the song</string>
+       </property>
+       <property name="text" >
+        <string>128kbps</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" >
+      <widget class="QLabel" name="FileFormatLabel" >
+       <property name="text" >
+        <string>Format:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" >
+      <widget class="QLabel" name="FileFormatEdit" >
+       <property name="toolTip" >
+        <string>The file format of the song</string>
+       </property>
+       <property name="text" >
+        <string>OGG Vorbis</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="AlbumCoverEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>151</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="sizePolicy" >
+    <sizepolicy>
+     <hsizetype>0</hsizetype>
+     <vsizetype>0</vsizetype>
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTip" >
+    <string>The album cover</string>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <tabstops>
+  <tabstop>KanjiTitleEdit</tabstop>
+  <tabstop>RomajiTitleEdit</tabstop>
+  <tabstop>KanjiGenreCombo</tabstop>
+  <tabstop>RomajiGenreCombo</tabstop>
+  <tabstop>TrackMinEdit</tabstop>
+  <tabstop>TrackMaxEdit</tabstop>
+  <tabstop>RandomPlay</tabstop>
+  <tabstop>RatingCombo</tabstop>
+  <tabstop>PlayCountEdit</tabstop>
+  <tabstop>PlayCountButton</tabstop>
+  <tabstop>SongPathEdit</tabstop>
+  <tabstop>SongPathButton</tabstop>
+  <tabstop>LyricsPathEdit</tabstop>
+  <tabstop>LyricsPathButton</tabstop>
+  <tabstop>OKButton</tabstop>
+  <tabstop>CancelButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

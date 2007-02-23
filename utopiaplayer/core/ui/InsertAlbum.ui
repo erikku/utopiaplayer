@@ -1,0 +1,297 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>InsertAlbum</class>
+ <widget class="QWidget" name="InsertAlbum" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>211</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>UtopiaPlayer - New Album</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>591</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="OKButton" >
+      <property name="toolTip" >
+       <string>Click here to insert the album record</string>
+      </property>
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="toolTip" >
+       <string>Click here to cancel insert operations</string>
+      </property>
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="DataFrame" >
+   <property name="geometry" >
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>431</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>411</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="1" column="1" >
+      <widget class="QLineEdit" name="RomajiAlbumEdit" >
+       <property name="toolTip" >
+        <string>The rōmaji version of the album</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QDateEdit" name="ReleaseDateEdit" >
+       <property name="toolTip" >
+        <string>The date the album/single was released</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="KanjiAlbumLabel" >
+       <property name="text" >
+        <string>アルバム:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="ReleaseDateLabel" >
+       <property name="text" >
+        <string>Release Date:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="KanjiAlbumEdit" >
+       <property name="toolTip" >
+        <string>The original Japanese version of the album</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="RomajiAlbumLabel" >
+       <property name="text" >
+        <string>Album:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="AlbumCoverEdit" >
+         <property name="toolTip" >
+          <string>Relative path to the album cover</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="BrowseButton" >
+         <property name="icon" >
+          <iconset/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="AlbumCoverLabel" >
+       <property name="text" >
+        <string>Album Cover:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="gridLayout_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>151</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>0</number>
+    </property>
+    <item row="0" column="1" >
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" >
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="2" >
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1" >
+     <widget class="QLabel" name="AlbumCover" >
+      <property name="sizePolicy" >
+       <sizepolicy>
+        <hsizetype>7</hsizetype>
+        <vsizetype>7</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip" >
+       <string>The album cover</string>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" >
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <tabstops>
+  <tabstop>KanjiAlbumEdit</tabstop>
+  <tabstop>RomajiAlbumEdit</tabstop>
+  <tabstop>ReleaseDateEdit</tabstop>
+  <tabstop>AlbumCoverEdit</tabstop>
+  <tabstop>BrowseButton</tabstop>
+  <tabstop>OKButton</tabstop>
+  <tabstop>CancelButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="UtopiaPlayer.qrc" />
+ </resources>
+ <connections/>
+</ui>

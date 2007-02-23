@@ -1,0 +1,161 @@
+<ui version="4.0" >
+ <class>mhdb</class>
+ <widget class="QWidget" name="mhdb" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="headerID" >
+      <property name="font" >
+       <font>
+        <family>Sans Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text" >
+       <string>&lt;b>&lt;u>mhdb&lt;/u>&lt;/b></string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Header Length:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLabel" name="headerSize" >
+        <property name="sizePolicy" >
+         <sizepolicy>
+          <hsizetype>7</hsizetype>
+          <vsizetype>5</vsizetype>
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Total Length:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_4" >
+        <property name="text" >
+         <string>Unknown:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>Unknown:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" >
+       <widget class="QLabel" name="lbl_unk3" >
+        <property name="text" >
+         <string>Unknown:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="label_7" >
+        <property name="text" >
+         <string>Version Number:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="label_8" >
+        <property name="text" >
+         <string>ID:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="label_9" >
+        <property name="text" >
+         <string>Child Count:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLabel" name="totalSize" />
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLabel" name="unk1" />
+      </item>
+      <item row="3" column="1" >
+       <widget class="QLabel" name="versionNumber" />
+      </item>
+      <item row="4" column="1" >
+       <widget class="QLabel" name="childCount" />
+      </item>
+      <item row="5" column="1" >
+       <widget class="QLabel" name="id" />
+      </item>
+      <item row="6" column="1" >
+       <widget class="QLabel" name="unk2" />
+      </item>
+      <item row="7" column="1" >
+       <widget class="QLabel" name="unk3" />
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

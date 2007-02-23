@@ -1,0 +1,27 @@
+PROJECT(XinePlugin)
+
+INCLUDE(${QT_USE_FILE})
+INCLUDE(UsePkgConfig)
+
+PKGCONFIG(libxine XINE_INCLUDE_DIR XINE_LIB_DIR XINE_LD_FLAGS XINE_CPP_FLAGS)
+
+INCLUDE_DIRECTORIES(${XINE_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/core/interfaces)
+
+ADD_DEFINITIONS(-DQT_PLUGIN -DQT_SHARED)
+ADD_DEFINITIONS(${XINE_CPP_FLAGS})
+
+SET(XinePlugin_SRCS
+    xineplugin.cpp
+)
+
+SET(XinePlugin_HDRS
+	xineplugin.h
+)
+
+QT4_WRAP_CPP(XinePlugin_SRCS ${XinePlugin_HDRS})
+
+ADD_LIBRARY(utopiaplayer_xine_plugin SHARED ${XinePlugin_SRCS})
+
+TARGET_LINK_LIBRARIES(utopiaplayer_xine_plugin ${QT_LIBRARIES} ${XINE_LD_FLAGS})
+
+INSTALL(TARGETS utopiaplayer_xine_plugin DESTINATION share/utopiaplayer/plugins/output)

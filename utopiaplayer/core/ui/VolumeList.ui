@@ -1,0 +1,125 @@
+<ui version="4.0" >
+ <class>VolumeList</class>
+ <widget class="QWidget" name="VolumeList" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>430</width>
+    <height>270</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Volumes</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>411</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="mVolumeList" />
+    </item>
+    <item>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="mOKButton" >
+        <property name="text" >
+         <string>&amp;OK</string>
+        </property>
+        <property name="default" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mApplyButton" >
+        <property name="text" >
+         <string>&amp;Apply</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mCancelButton" >
+        <property name="text" >
+         <string>&amp;Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mAddButton" >
+        <property name="text" >
+         <string>&amp;Add Volume...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mEditButton" >
+        <property name="text" >
+         <string>&amp;Edit Volume...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mRemoveButton" >
+        <property name="text" >
+         <string>&amp;Remove Volume...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="mHelpButton" >
+        <property name="text" >
+         <string>&amp;Help...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>mVolumeList</tabstop>
+  <tabstop>mOKButton</tabstop>
+  <tabstop>mApplyButton</tabstop>
+  <tabstop>mCancelButton</tabstop>
+  <tabstop>mAddButton</tabstop>
+  <tabstop>mEditButton</tabstop>
+  <tabstop>mRemoveButton</tabstop>
+  <tabstop>mHelpButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

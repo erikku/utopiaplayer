@@ -1,0 +1,10 @@
+* Move around items in the CMake files so each plugin, etc. can be compiled by itself.
+* Finish renaming stuff, go through the files and clean them, fixing capitalization and licenses.
+* Move loadPlugins and the other loading stuff around.
+* Replace toUtf8() and fromUtf8() ~ when not getting the text directly from the source ~ to use the locale instead.
+* Translations, tr() damn it!
+* Get plugins working with KDE4
+
+* iPod/iRiver/Generic device support
+* flacc/m4a
+* audio scrobbler

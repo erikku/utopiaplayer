@@ -1,0 +1,118 @@
+<ui version="4.0" >
+ <class>UtopiaDBImportOptions</class>
+ <widget class="QWidget" name="UtopiaDBImportOptions" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>210</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>UtopiaDB XML Import Options</string>
+  </property>
+  <widget class="QWidget" name="" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>581</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLineEdit" name="FilePathEdit" />
+      </item>
+      <item>
+       <widget class="QPushButton" name="FileBrowseButton" />
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="ImportMethodBox" >
+      <property name="title" >
+       <string>Import Method</string>
+      </property>
+      <widget class="QWidget" name="" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>554</width>
+         <height>83</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QRadioButton" name="ReplaceRadio" >
+          <property name="text" >
+           <string>Replace - This will replace everything in the database, leaving only the new data.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="AddRadio" >
+          <property name="text" >
+           <string>Add - This will add entries to the database and could create duplicate entries.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="MergeRadio" >
+          <property name="text" >
+           <string>Merge - This will try to match artists, albums, etc. with existing ones in the database.</string>
+          </property>
+          <property name="checked" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QDialogButtonBox" name="ButtonBox" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons" >
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

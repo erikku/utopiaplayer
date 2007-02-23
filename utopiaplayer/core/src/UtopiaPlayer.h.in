@@ -1,0 +1,45 @@
+/******************************************************************************\
+*  Utopia Player - A cross-platform, multilingual, tagging media manager       *
+*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*                                                                              *
+*  This program is free software; you can redistribute it and/or modify        *
+*  it under the terms of the GNU General Public License version 2 as           *
+*  published by the Free Software Foundation.                                  *
+*                                                                              *
+*  This program is distributed in the hope that it will be useful,             *
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of              *
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+*  GNU General Public License for more details.                                *
+*                                                                              *
+*  You should have received a copy of the GNU General Public License           *
+*  along with this program; if not, write to the                               *
+*  Free Software Foundation, Inc.,                                             *
+*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
+\******************************************************************************/
+
+#ifndef __UtopiaPlayer_h__
+#define __UtopiaPlayer_h__
+
+#define UTOPIAPLAYER_PREFIX "@CMAKE_INSTALL_PREFIX@"
+
+#define UTOPIAPLAYER_VERSION "@UTOPIAPLAYER_VERSION@"
+#define UTOPIAPLAYER_SANE_VERSION "@UTOPIAPLAYER_SANE_VERSION@"
+
+#define UTOPIAPLAYER_VERSION_MAJOR @UTOPIAPLAYER_VERSION_MAJOR@
+#define UTOPIAPLAYER_VERSION_MINOR @UTOPIAPLAYER_VERSION_MINOR@
+#define UTOPIAPLAYER_VERSION_PATCH @UTOPIAPLAYER_VERSION_PATCH@
+
+#define UTOPIAPLAYER_OFFICIAL @UTOPIAPLAYER_OFFICIAL@
+#define UTOPIAPLAYER_REVISION @UTOPIAPLAYER_REVISION@
+
+#ifdef Q_WS_WIN
+#ifdef LIBBUIL
+#define UPLAYER_EXPORT __declspec(dllexport)
+#else
+#define UPLAYER_EXPORT __declspec(dllimport)
+#endif // LIBBUILD
+#else
+#define UPLAYER_EXPORT
+#endif
+
+#endif // __UtopiaPlayer_h__

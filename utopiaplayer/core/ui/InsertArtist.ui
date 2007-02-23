@@ -1,0 +1,150 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>InsertArtist</class>
+ <widget class="QWidget" name="InsertArtist" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>451</width>
+    <height>141</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>UtopiaPlayer - New Artist</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="OKButton" >
+      <property name="toolTip" >
+       <string>Click here to insert the artist record</string>
+      </property>
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="toolTip" >
+       <string>Click here to cancel insert operations</string>
+      </property>
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="DataFrame" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>431</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayout_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>411</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="RomajiArtistLabel" >
+       <property name="text" >
+        <string>Artist:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="KanjiArtistLabel" >
+       <property name="text" >
+        <string>アーチスト:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="KanjiArtistEdit" >
+       <property name="toolTip" >
+        <string>The original Japanese version of the artist name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QLineEdit" name="RomajiArtistEdit" >
+       <property name="toolTip" >
+        <string>The rōmaji version of the artist name</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <tabstops>
+  <tabstop>OKButton</tabstop>
+  <tabstop>CancelButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="UtopiaPlayer.qrc" />
+ </resources>
+ <connections/>
+</ui>

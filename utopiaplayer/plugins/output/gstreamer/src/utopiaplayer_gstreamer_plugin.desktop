@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=UtopiaPlayer/Plugin
+X-KDE-Library=utopiaplayer_gstreamer_plugin
+X-UtopiaPlayer-Version=0.1.0
+Name=GStreamer Output Plugin
+Name[x-test]=xxGStreamer Output Pluginxx
+Comment=A GStreamer output plugin for UtopiaPlayer
+Comment[x-test]=xxA GStreamer output plugin for UtopiaPlayerxx
+X-UtopiaPlayer-MajorProfiles=UtopiaPlayer
+X-UtopiaPlayer-MinorProfiles=*
+MimeType=text/plain

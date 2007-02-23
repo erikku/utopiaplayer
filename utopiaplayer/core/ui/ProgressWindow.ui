@@ -1,0 +1,57 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>ProgressWindow</class>
+ <widget class="QWidget" name="ProgressWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>60</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>401</width>
+     <height>62</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>6</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="ProgressLabel" >
+      <property name="text" >
+       <string>Progress Info Here</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="ProgressBar" >
+      <property name="value" >
+       <number>24</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

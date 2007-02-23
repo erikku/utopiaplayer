@@ -1,0 +1,17 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/utopiaplayer/player">
+	<interface name="UtopiaPlayer.PlayerInterface">
+		<property name="defaultLang" type="s" access="readwrite"/>
+		<property name="langOverride" type="s" access="readwrite"/>
+		<property name="langOrder" type="s" access="readwrite"/>
+		<method name="artist">
+			<arg name="lang" type="s" direction="in"/>
+			<arg name="artist" type="s" direction="out"/>
+		</method>
+		<method name="accelerate"/>
+		<method name="decelerate"/>
+		<method name="turnLeft"/>
+		<method name="turnRight"/>
+		<signal name="crashed"/>
+		</interface>
+</node>

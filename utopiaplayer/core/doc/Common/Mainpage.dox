@@ -1,0 +1,44 @@
+/*************************************************************************\
+*  UtopiaPlayer - A song manager and icecast streaming agent              *
+*  Copyright (C) 2006 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*                                                                         *
+*  This program is free software; you can redistribute it and/or modify   *
+*  it under the terms of the GNU General Public License version 2 as      *
+*  published by the Free Software Foundation.                             *
+*                                                                         *
+*  This program is distributed in the hope that it will be useful,        *
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+*  GNU General Public License for more details.                           *
+*                                                                         *
+*  You should have received a copy of the GNU General Public License      *
+*  along with this program; if not, write to the                          *
+*  Free Software Foundation, Inc.,                                        *
+*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+\*************************************************************************/
+
+/**
+ * @mainpage
+ * @image html splash.png
+ *
+ * UtopiaPlayer is a song manager and icecast streaming agent. While it was
+ * specifically built for use with icecast, UtopiaPlayer does not require
+ * icecast, and can still be used as a replacement for your standard music
+ * player.
+ *
+ * UtopiaPlayer is built on top of the Qt library. For your convenience, this
+ * documentation has been linked to the Qt documentation. If the Qt links do
+ * not work, cd to the documentation directory and run the following command:
+ * @code
+ * # ./installdox -l qt-4.1.2.tag@some_location
+ * @endcode
+ * Replacing @c some_location with either a local path, or a URL. For example,
+ * you can link to the documentation on the official site with:
+ * @code
+ * # ./installdox -l qt-4.1.2.tag@http://doc.trolltech.com/4.1
+ * @endcode
+ *
+ * UtopiaPlayer has the following features:
+ * @li MySQL and SQLite backends
+ * @li Both original and transliterated fields
+ */

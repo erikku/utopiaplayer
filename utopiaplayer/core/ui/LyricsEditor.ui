@@ -1,0 +1,458 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>661</width>
+    <height>621</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Lyrics Editor - merry_go_round.xml</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>641</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="label" >
+      <property name="text" >
+       <string>Language:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox" >
+      <property name="minimumSize" >
+       <size>
+        <width>131</width>
+        <height>0</height>
+       </size>
+      </property>
+      <item>
+       <property name="text" >
+        <string>日本語 (ja_JP)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>English (en_US)</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType" >
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>6</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton" >
+      <property name="toolTip" >
+       <string>Add</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/add.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="toolTip" >
+       <string>Remove</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/remove.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_12" >
+      <property name="toolTip" >
+       <string>Edit Song Info</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/edit.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType" >
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>6</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_13" >
+      <property name="toolTip" >
+       <string>Drop Start Here</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/predrop.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_14" >
+      <property name="toolTip" >
+       <string>Drop Stop Here</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/postdrop.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType" >
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>6</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_7" >
+      <property name="toolTip" >
+       <string>Preview</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/preview.png</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+      <property name="checked" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_6" >
+      <property name="toolTip" >
+       <string>Guess Furigana</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/furigana.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_5" >
+      <property name="toolTip" >
+       <string>Translate</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="LyricsEditor.qrc" >:/translate.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType" >
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>6</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>641</width>
+     <height>481</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QTextEdit" name="textEdit" />
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton" >
+        <property name="text" >
+         <string>Furigana</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_4" >
+        <property name="text" >
+         <string>Kanji</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_3" >
+        <property name="text" >
+         <string>Kana</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_2" >
+        <property name="text" >
+         <string>Romaji</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="frame" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>641</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="frameShape" >
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow" >
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="horizontalLayout_3" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>621</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_8" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_start.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_9" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_rew.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_stop.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_play.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_11" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_fwd.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_10" >
+       <property name="icon" >
+        <iconset resource="LyricsEditor.qrc" >:/player_end.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayout_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>621</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QSlider" name="horizontalSlider" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>0</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>41</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string>00:00</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources>
+  <include location="LyricsEditor.qrc" />
+ </resources>
+ <connections/>
+</ui>
