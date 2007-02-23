@@ -1,0 +1,99 @@
+<ui version="4.0" >
+ <class>UtopiaBlock</class>
+ <widget class="QWidget" name="UtopiaBlock" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>511</width>
+    <height>401</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Utopia Block</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>511</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>6</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="0" >
+     <widget class="QLabel" name="IDLabel" >
+      <property name="text" >
+       <string>ID:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" >
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" >
+     <widget class="QLabel" name="NameLabel" >
+      <property name="text" >
+       <string>Name:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" >
+     <widget class="QLabel" name="NativeLangLabel" >
+      <property name="text" >
+       <string>Native Lang:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" >
+     <widget class="QLineEdit" name="Name" />
+    </item>
+    <item row="2" column="1" >
+     <widget class="QComboBox" name="NativeLang" />
+    </item>
+    <item row="0" column="1" >
+     <widget class="QSpinBox" name="ID" />
+    </item>
+    <item row="3" column="0" >
+     <widget class="QLabel" name="OverrideLangLabel" >
+      <property name="text" >
+       <string>Override Lang:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" >
+     <widget class="QComboBox" name="OverrideLang" />
+    </item>
+    <item row="4" column="1" >
+     <widget class="QTextEdit" name="Comments" />
+    </item>
+    <item row="4" column="0" >
+     <widget class="QLabel" name="CommentsLabel" >
+      <property name="text" >
+       <string>Comments:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,50 @@
+This project uses CMake (as opposed to autotools i.e. ./configure; make; make
+install). The steps to install are quite simple.
+
+== SVN Checkout ==
+If you want to check out a copy of this project from SVN, you can use the
+following:
+  user@localhost:~$ svn co http://utopiaplayer.googlecode.com/svn/trunk/utopiadb
+
+Likewise, to check out the 0.1 branch, you can use:
+  user@localhost:~$ svn co http://utopiaplayer.googlecode.com/svn/branches/utopiadb/0.1 utopiadb
+
+An finally, if you want a specific version from SVN instead of a package off
+the main site, you could use the following command:
+  user@localhost:~$ svn co http://utopiaplayer.googlecode.com/svn/tags/utopiadb/0.1 utopiadb
+
+NOTE: Replace the version number with the one desired. If you need to know what
+versions are avaliable, you can point your browser to the above link.
+
+== Dependencies ==
+* Qt 4.1.x (I use Qt 4.2.2 at the time of this writing)
+* CMake 2.4.6
+
+== Installation ==
+To install this package, follow these simple steps:
+
+1) Change to the utopiadb directory
+  user@localhost:~$ cd utopiadb-<version>
+
+2) Make a build directory
+  user@localhost:~$ mkdir build
+
+3) Change to the build directory
+  user@localhost:~$ cd build
+
+4) Run CMake with your desired options
+  user@localhost:~$ cmake ..
+
+5) Run make to compile the app
+  user@localhost:~$ make
+
+6) Run make install to install the application
+  user@localhost:~$ sudo make install
+
+== CMake Options ==
+
+=== Install Prefix ===
+To install in a different folder (like /usr for this example), pass the
+following command for step #4 in the installation section:
+  user@localhost:~$ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+

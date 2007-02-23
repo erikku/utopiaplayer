@@ -1,0 +1,62 @@
+<ui version="4.0" >
+ <class>BlockViewer</class>
+ <widget class="QWidget" name="BlockViewer" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>681</width>
+    <height>501</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Block Viewer</string>
+  </property>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>681</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTableWidget" name="BlockList" >
+       <column>
+        <property name="text" >
+         <string>ID</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Type</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QTabWidget" name="BlockTabs" >
+       <widget class="QWidget" name="UtopiaBlockTab" >
+        <attribute name="title" >
+         <string>Utopia Block</string>
+        </attribute>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,368 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>911</width>
+    <height>211</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Media Relationships for [BLEACH]</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>291</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Anime</string>
+   </property>
+   <widget class="QListWidget" name="listWidget_4" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>221</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>BLEACH</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QWidget" name="verticalLayout_2" >
+    <property name="geometry" >
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>44</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_11" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/new.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_12" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/edit.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_13" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/delete.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="horizontalLayout_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>891</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="pushButton_4" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/start.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_17" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/back.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label" >
+      <property name="text" >
+       <string>1/1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_18" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/forward.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_5" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/finish.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_6" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/new.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_7" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/delete.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3" >
+      <property name="text" >
+       <string>&amp;Apply</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton" >
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>291</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Manga</string>
+   </property>
+   <widget class="QListWidget" name="listWidget_3" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>221</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>BLEACH</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>150</y>
+     <width>891</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>250</x>
+     <y>30</y>
+     <width>44</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="pushButton_8" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/new.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_9" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/edit.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_10" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/delete.png</iconset>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3" >
+   <property name="geometry" >
+    <rect>
+     <x>610</x>
+     <y>10</y>
+     <width>291</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Games</string>
+   </property>
+   <widget class="QListWidget" name="listWidget_5" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>221</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>BLEACH: Heat the Soul</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QWidget" name="verticalLayout_3" >
+    <property name="geometry" >
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>44</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_14" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/new.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_15" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/edit.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_16" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/delete.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources>
+  <include location="Resources/Resources.qrc" />
+  <include location="../res/resources.qrc" />
+ </resources>
+ <connections/>
+</ui>

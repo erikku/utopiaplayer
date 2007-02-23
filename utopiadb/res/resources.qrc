@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>back.png</file>
+        <file>bottom.png</file>
+        <file>copy.png</file>
+        <file>cut.png</file>
+        <file>delete.png</file>
+        <file>down.png</file>
+        <file>edit.png</file>
+        <file>finish.png</file>
+        <file>forward.png</file>
+        <file>new.png</file>
+        <file>open.png</file>
+        <file>start.png</file>
+        <file>top.png</file>
+        <file>up.png</file>
+    </qresource>
+</RCC>

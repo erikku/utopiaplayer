@@ -1,0 +1,381 @@
+<ui version="4.0" >
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>551</width>
+    <height>421</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox" >
+   <property name="geometry" >
+    <rect>
+     <x>380</x>
+     <y>390</y>
+     <width>156</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons" >
+    <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="Line" name="line_3" >
+   <property name="geometry" >
+    <rect>
+     <x>7</x>
+     <y>370</y>
+     <width>531</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>210</y>
+     <width>531</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Doxygen Description</string>
+   </property>
+   <widget class="QWidget" name="gridLayout_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>511</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label_6" >
+       <property name="text" >
+        <string>Data Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QTextEdit" name="textEdit" />
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLabel" name="label_7" >
+       <property name="text" >
+        <string>Accessor Method:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QTextEdit" name="textEdit_2" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>210</x>
+     <y>20</y>
+     <width>331</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Accessor Methods</string>
+   </property>
+   <widget class="QWidget" name="verticalLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>20</y>
+      <width>171</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="checkBox" >
+       <property name="text" >
+        <string>Enabled</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit" />
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string>Default 1:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2" />
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_5" >
+         <property name="text" >
+          <string>Default 2:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_3" />
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QListWidget" name="listWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>131</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>Get</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Set</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Add</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Remove</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Clear</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Contains</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Keys</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>Values</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>191</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Data Type</string>
+   </property>
+   <widget class="Line" name="line" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>171</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>171</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>171</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string>Type 2:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QComboBox" name="comboBox_2" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Type 1:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QComboBox" name="comboBox_3" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="lineEdit_4" />
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label_8" >
+       <property name="text" >
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>textEdit_2</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

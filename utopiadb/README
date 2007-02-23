@@ -1,0 +1,7 @@
+UtopiaDB is the metadata backend library for Utopia Player.
+
+Utopia Player is a media player/manager for Windows, Linux, and Mac OSX that uses the Qt4 library. Utopia Player aims to allow you to store more metadata about your media then you probably want. For example you could store the Japanese title of a song, a romanized English version of the song title, and a English translation, then link this two an artist who also has their name in multiple 'languages' (we consider romaji (romanized Japanese) a language for these purposes). Utopia Player attempts to provide as many advanced features for the power user while remaining easy to use and simple at first glance.
+
+For more information on UtopiaDB or Utopia Player, visit our project page at:
+http://code.google.com/p/utopiaplayer
+

@@ -1,0 +1,213 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>641</width>
+    <height>301</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Volume/Chapter/Copy List</string>
+  </property>
+  <widget class="QListWidget" name="listWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>571</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text" >
+     <string>The Death and the Strawberry</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>12</x>
+     <y>200</y>
+     <width>571</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="pushButton" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/new.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/copy.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_6" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/edit.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_9" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/cut.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/delete.png</iconset>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>590</x>
+     <y>10</y>
+     <width>44</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="pushButton_7" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/top.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_4" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/up.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_5" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/down.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_8" >
+      <property name="icon" >
+       <iconset resource="../res/resources.qrc" >:/bottom.png</iconset>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayout_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>260</y>
+     <width>621</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_10" >
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_11" >
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>240</y>
+     <width>621</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources>
+  <include location="Resources/Resources.qrc" />
+  <include location="../res/resources.qrc" />
+ </resources>
+ <connections/>
+</ui>

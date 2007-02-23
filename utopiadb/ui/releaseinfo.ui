@@ -1,0 +1,225 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>311</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Release Information [BLEACH - The Death and the Strawberry]</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>291</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>ISBN</string>
+   </property>
+   <widget class="QLineEdit" name="lineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>271</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>4-08-873213-8</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>291</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Date</string>
+   </property>
+   <widget class="QDateEdit" name="dateEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>271</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>291</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Location</string>
+   </property>
+   <widget class="QComboBox" name="comboBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>271</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="editable" >
+     <bool>true</bool>
+    </property>
+    <item>
+     <property name="text" >
+      <string>Japan</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>United States</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>291</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Edition</string>
+   </property>
+   <widget class="QComboBox" name="comboBox_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>271</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="editable" >
+     <bool>true</bool>
+    </property>
+    <item>
+     <property name="text" >
+      <string>Original</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>291</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Options</string>
+   </property>
+   <widget class="QCheckBox" name="checkBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Special Release</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>310</y>
+     <width>291</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton" >
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

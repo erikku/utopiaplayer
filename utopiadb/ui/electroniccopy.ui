@@ -1,0 +1,284 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>Form</class>
+ <widget class="QWidget" name="Form" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>391</width>
+    <height>381</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Electronic Copy</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>371</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Meta Data</string>
+   </property>
+   <widget class="QWidget" name="gridLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>351</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="label_3" >
+       <property name="text" >
+        <string>Checksum:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string>File Size:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>File Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QLabel" name="label_4" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>ZIP Archive</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QLabel" name="label_5" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>14,321 bytes (13.2MB)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QLabel" name="label_6" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>560ed51d589a90e6404b28f2ddc3dea2</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>371</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Path</string>
+   </property>
+   <widget class="QWidget" name="horizontalLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>351</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLineEdit" name="lineEdit" />
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton" >
+       <property name="icon" >
+        <iconset resource="../res/resources.qrc" >:/open.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="horizontalLayout_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>371</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" >
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="text" >
+       <string>&amp;OK</string>
+      </property>
+      <property name="default" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3" >
+      <property name="text" >
+       <string>&amp;Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Collection</string>
+   </property>
+   <widget class="QComboBox" name="comboBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>351</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>/media/utopia/manga</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>260</y>
+     <width>371</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Release</string>
+   </property>
+   <widget class="QComboBox" name="comboBox_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>351</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text" >
+      <string>Japan [Original]</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>United States [Local Release]</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>320</y>
+     <width>371</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources>
+  <include location="../res/resources.qrc" />
+ </resources>
+ <connections/>
+</ui>
