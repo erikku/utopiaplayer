@@ -29,10 +29,10 @@
 
 AudioThread::AudioThread()
 {
-	AudioFile *file = new WavPackFile("/home/erikku/Bokura ga Ikiru MY ASIA/track01.cdda.wv");
+	//AudioFile *file = new WavPackFile("/home/erikku/Bokura ga Ikiru MY ASIA/track01.cdda.wv");
 	//AudioFile *file = new OGGFile("/home/eric/src/example.ogg");
-	file->load();
-	mFiles << file;
+	//file->load();
+	//mFiles << file;
 };
 
 AudioThread::~AudioThread()
