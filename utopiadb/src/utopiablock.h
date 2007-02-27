@@ -40,7 +40,7 @@ namespace Utopia
 class UtopiaBlockData : public QSharedData
 {
 public:
-	UtopiaBlockData() { mID = -1; };
+	UtopiaBlockData() { mID = 0; };
 
 	/// The uniqure ID of the object
 	uid mID;
