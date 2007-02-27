@@ -191,6 +191,7 @@ AudioThread* Application::audioThread() const
 void Application::loadPlugins()
 {
 	mDeviceManager->registerPlugin(new VolumePlugin);
+	std::cout << "Added plugin Volume (builtin)" << std::endl;
 
 	PluginInterface *plugin;
 
@@ -227,7 +228,7 @@ void Application::loadPlugins()
 					QMessageBox::critical(0, applicationName(), tr("Error loading plugin <i>%1</i>: Unknown plugin type!").arg(plugin->pluginName()));
 					break;
 			}
-			std::cout << "Added plugin" << qobject_cast<PluginInterface*>(plugin)->pluginName().toLocal8Bit().data() << std::endl;
+			std::cout << "Added plugin " << qobject_cast<PluginInterface*>(plugin)->pluginName().toLocal8Bit().data() << std::endl;
 		}
 		else
 		{

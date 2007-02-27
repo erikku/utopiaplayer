@@ -31,6 +31,7 @@ using namespace std;
 PluginManager::PluginManager(QObject* parent) : QObject(parent)
 {
 	OutputInterface* plugin = new NullOutput;
+	std::cout << "Added plugin Null (builtin)" << std::endl;
 	addOutputPlugin(plugin);
 	mCurrentOutputPlugin = plugin;
 	connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
@@ -55,8 +56,6 @@ void PluginManager::addOutputPlugin(OutputInterface* interface)
 {
 	if(!outputPlugins.contains(interface->pluginName()))
 		outputPlugins[interface->pluginName()] = interface;
-
-	std::cout << "Adding plugin " << interface->pluginName().toLocal8Bit().data() << std::endl;
 
 	interface->setAudioThread(uApp->audioThread());
 };
