@@ -1,4 +1,4 @@
-PROJECT(UtopiaPlayer)
+PROJECT(UtopiaPlayerLib)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(icons)

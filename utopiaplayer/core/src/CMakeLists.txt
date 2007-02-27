@@ -97,7 +97,6 @@ SET(UtopiaPlayer_SRCS
     SplashScreen.cpp
 	UtopiaDBImportOptions.cpp
     #UtopiaExport.cpp
-    UtopiaPlayer.cpp
 	VolumeDevice.cpp
 	VolumeEdit.cpp
 	VolumeList.cpp
@@ -179,7 +178,9 @@ QT4_WRAP_UI(UtopiaPlayer_SRCS ${UtopiaPlayer_UIS})
 
 QT4_WRAP_CPP(UtopiaPlayer_SRCS ${UtopiaPlayer_HDRS})
 
-ADD_EXECUTABLE(utopiaplayer ${UtopiaPlayer_SRCS} ${UtopiaPlayer_RCC_SRCS})
+ADD_LIBRARY(utopiaplayer SHARED ${UtopiaPlayer_SRCS} ${UtopiaPlayer_RCC_SRCS})
+
+SET_TARGET_PROPERTIES(utopiaplayer PROPERTIES VERSION ${UTOPIAPLAYER_SANE_VERSION} SOVERSION ${UTOPIAPLAYER_VERSION_MAJOR})
 
 SET(utopiaplayer_LIBS ${QT_LIBRARIES} ${TAGLIB_LIBRARIES} ${UTOPIADB_LINK_FLAGS} ${VORBIS_LINK_FLAGS} ${VORBISFILE_LINK_FLAGS} ${OGG_LINK_FLAGS} ${WAVPACK_LINK_FLAGS})
 
@@ -191,4 +192,4 @@ ENDIF(WIN32)
 
 TARGET_LINK_LIBRARIES(utopiaplayer ${utopiaplayer_LIBS})
 
-INSTALL(TARGETS utopiaplayer DESTINATION bin)
+INSTALL(TARGETS utopiaplayer DESTINATION lib)

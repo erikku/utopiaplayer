@@ -67,8 +67,8 @@ Application::Application(int argc, char *argv[]) : QApplication(argc, argv), mPl
 	mDeviceManager = new DeviceManager;
 	mPluginManager = new PluginManager;
 
-	mAudioThread = new AudioThread;
-	mAudioThread->start();
+	//mAudioThread = new AudioThread;
+	//mAudioThread->start();
 
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
 
@@ -227,6 +227,7 @@ void Application::loadPlugins()
 					QMessageBox::critical(0, applicationName(), tr("Error loading plugin <i>%1</i>: Unknown plugin type!").arg(plugin->pluginName()));
 					break;
 			}
+			std::cout << "Added plugin" << qobject_cast<PluginInterface*>(plugin)->pluginName().toLocal8Bit().data() << std::endl;
 		}
 		else
 		{
