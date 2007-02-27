@@ -200,8 +200,12 @@ void Application::loadPlugins()
 		plugin = qobject_cast<PluginInterface*>(object);
 	}
 
+#if defined(Q_WS_WIN)
+	QString pluginDir = applicationDirPath() + QDir::separator() + "plugins";
+#else
 	QString pluginDir = QString("share") + QDir::separator() + "utopiaplayer" + QDir::separator() + "plugins";
 	pluginDir = QString(UTOPIAPLAYER_PREFIX) + QDir::separator() + pluginDir;
+#endif
 
 	QStringList pluginFiles = listRecursiveDirectoryContents( QDir(pluginDir) );
 
