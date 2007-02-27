@@ -248,6 +248,11 @@ void MainWindow::createMainSongList()
 	mProgressSlider = new ProgressSlider(mMasterWidget);
 	mProgressSlider->setValue(50);
 	mMasterLayout->addWidget(mProgressSlider);
+
+	mRapidEdit = new QLineEdit;
+	connect(mRapidEdit, SIGNAL(textChanged(const QString&)), this, SLOT(rapidFire(const QString&)));
+	mMasterLayout->addWidget(mRapidEdit);
+
 	QTimer *timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
 	timer->start(250);
@@ -498,4 +503,29 @@ void MainWindow::addDevice(Device *device)
 
 void MainWindow::removeDevice(Device *device)
 {
+};
+
+void MainWindow::rapidFire(const QString& location)
+{
+	if(location.isEmpty())
+		return;
+
+	mRapidEdit->setText( QString() );
+
+	QUrl url(location);
+
+	if(!url.isValid())
+		url = QUrl::fromLocalFile(location);
+
+	QStringList cover = url.toLocalFile().split("/");
+	cover.removeLast();
+	cover.append( QString("cover.png") );
+
+	if( QFile(cover.join("/")).exists() )
+	{
+		std::cout << "Loading cover: " << cover.join("/").toLocal8Bit().data() << std::endl;
+		mCoverLabel->setPixmap( QPixmap(cover.join("/")) );
+	}
+
+	uApp->pluginManager()->play(location);
 };

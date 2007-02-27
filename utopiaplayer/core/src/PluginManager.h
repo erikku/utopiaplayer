@@ -47,6 +47,7 @@ public:
     qint64 currentTime() const;
 
 public slots:
+	void play(const QUrl& url);
 	void setVolume(int volume);
 
 signals:

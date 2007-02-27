@@ -46,6 +46,8 @@ QPixmap ArtLabel::pixmap() const
 void ArtLabel::setPixmap(const QPixmap& pixmap)
 {
 	mArt = pixmap;
+	cacheImage();
+	repaint();
 };
 
 void ArtLabel::paintEvent(QPaintEvent *event)
@@ -55,6 +57,11 @@ void ArtLabel::paintEvent(QPaintEvent *event)
 };
 
 void ArtLabel::resizeEvent(QResizeEvent *event)
+{
+	cacheImage();
+};
+
+void ArtLabel::cacheImage()
 {
 	QImage art = mArt.toImage();
 

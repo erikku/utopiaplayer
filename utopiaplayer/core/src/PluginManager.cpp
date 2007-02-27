@@ -81,9 +81,6 @@ void PluginManager::setCurrentOutputPlugin(const QString& name)
 	/////////////////////////////////////////////////////////////////////////////////
 	if(name == "Null Output")
 		return;
-
-	mCurrentOutputPlugin->play( QUrl("/home/erikku/Music/Egao YES nuudo/01 - egao YES NUUDO.wv") );
-	//mCurrentOutputPlugin->play( QUrl("/home/erikku/Bokura ga Ikiru MY ASIA/track01.cdda.wv") );
 };
 /*
 void PluginManager::setCurrentOutputPlugin(OutputInterface* plugin)
@@ -133,4 +130,10 @@ qint64 PluginManager::currentTime() const
 		return mCurrentOutputPlugin->currentTime();
 
 	return 0;
+};
+
+void PluginManager::play(const QUrl& url)
+{
+	if(mCurrentOutputPlugin)
+		mCurrentOutputPlugin->play(url);
 };

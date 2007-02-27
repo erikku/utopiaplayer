@@ -38,6 +38,7 @@ public slots:
 	void setPixmap(const QPixmap& pixmap);
 
 protected:
+	void cacheImage();
 	void paintEvent(QPaintEvent *event);
 	void resizeEvent(QResizeEvent *event);
 

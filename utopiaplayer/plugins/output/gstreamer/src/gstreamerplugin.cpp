@@ -62,7 +62,6 @@ static GstBusSyncReply messageHandler(GstBus*, GstMessage* message, gpointer dat
 	if(GST_MESSAGE_TYPE(message) == GST_MESSAGE_EOS)
 	{
 		GStreamerPlugin* player = static_cast<GStreamerPlugin*>(data);
-		QTimer::singleShot(0, player, SLOT(stop()));
 		player->emitSongFinished();
     }
 
@@ -72,15 +71,17 @@ static GstBusSyncReply messageHandler(GstBus*, GstMessage* message, gpointer dat
 
 void GStreamerPlugin::play(const QUrl& url)
 {
-	if(url.isEmpty())
+	if(!url.isValid())
+	{
+		std::cout << "Invalid URL: " << url.errorString().toLocal8Bit().data() << std::endl;
 		return;
+	}
 
 	stop();
-	gchar *uri = g_filename_to_uri(url.path().toUtf8().data(), NULL, NULL);
-	g_object_set(G_OBJECT(mPlayBin), "uri", uri, static_cast<gpointer>(0));
+	g_object_set(G_OBJECT(mPlayBin), "uri", url.toString().toLocal8Bit().data(), static_cast<gpointer>(0));
 	mCurrentFile = url;
 
-	std::cout << "Using the GStreamer plugin to play " << url.path().toUtf8().data() << std::endl;
+	std::cout << "Using the GStreamer plugin to play " << url.toString().toLocal8Bit().data() << std::endl;
 
 	gst_element_set_state(mPlayBin, GST_STATE_PLAYING);
 };
@@ -98,10 +99,7 @@ void GStreamerPlugin::unpause()
 void GStreamerPlugin::stop()
 {
 	gst_element_set_state(mPlayBin, GST_STATE_NULL);
-	if(!mCurrentFile.isEmpty())
-	{
-		mCurrentFile.clear();
-	}
+	mCurrentFile.clear();
 };
 
 void GStreamerPlugin::setVolume(float volume)

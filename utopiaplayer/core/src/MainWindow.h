@@ -27,6 +27,7 @@
 class QLabel;
 class QTimer;
 class QWidget;
+class QLineEdit;
 class QTabWidget;
 class QTreeWidget;
 class QDockWidget;
@@ -63,6 +64,8 @@ public slots:
 
 	void addStatusWidget(QWidget *widget);
 	void removeStatusWidget(QWidget *widget);
+
+	void rapidFire(const QString& location);
 
 signals:
 	void closeTab();
@@ -111,6 +114,7 @@ protected:
 
 	ProgressSlider *mProgressSlider;
 
+	QLineEdit *mRapidEdit;
 	QTabWidget *mSongTabs;
 };
 
