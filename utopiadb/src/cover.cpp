@@ -102,7 +102,7 @@ void Cover::load()
 
 void Cover::save()
 {
-	d->mCover.save(d->mPath);
+	d->mCover.save(d->mPath, "PNG");
 };
 
 void Cover::clear()
