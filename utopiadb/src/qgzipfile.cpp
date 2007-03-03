@@ -29,11 +29,11 @@ QGzipFile::QGzipFile(const QString& path)
 
 bool QGzipFile::open(OpenMode mode)
 {
-	if(mode.testFlag(QIODevice::ReadOnly))
+	if(mode & QIODevice::ReadOnly)
 		mHandle = gzopen(mPath.toLocal8Bit().data(), "rb");
-	else if(mode.testFlag(QIODevice::ReadWrite))
+	else if(mode & QIODevice::ReadWrite)
 		mHandle = gzopen(mPath.toLocal8Bit().data(), "wb+");
-	else if(mode.testFlag(QIODevice::WriteOnly))
+	else if(mode & QIODevice::WriteOnly)
 		mHandle = gzopen(mPath.toLocal8Bit().data(), "wb");
 
 	if(mHandle == NULL)
