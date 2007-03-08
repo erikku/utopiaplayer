@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *

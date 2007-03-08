@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -22,6 +22,7 @@
  */
 
 // Qt includes
+#include <QtCore>
 #include <QtGui/QMessageBox>
 
 // KDE includes
@@ -32,6 +33,10 @@
 // UtopiaPlayer includes
 #include "UtopiaPlayer.h"
 #include "Application.h"
+
+#if (IPOD_PLUGIN_STATIC == ON)
+Q_IMPORT_PLUGIN(ipodplugin)
+#endif
 
 void DisplayError(int argc, char* argv[], QString error)
 {
@@ -50,28 +55,17 @@ int main(int argc, char* argv[])
 	bool Started = false;
 
 	try
-	{
-		//KAboutData about("utopiaplayer", QObject::tr("Utopia Player"), UTOPIAPLAYER_VERSION,
-			//QObject::tr("A multi-lingual media player."), KAboutData::License_GPL_V2, "© 2006 John Eric Martin", "http://www.emotionalcoder.com/utopiaplayer");
-
-		//about.addAuthor("John Eric Martin", QObject::tr("Author & Maintainer"), "john.eric.martin@gmail.com", "http://www.emotionalcoder.com");
-		//about.addCredit("James Harris", QObject::tr("Icons"), "jdmjim@gmail.com");
-
-		//KCmdLineArgs::init(argc, argv, &about);
-
-		//Application::setStyle( new QDarkPlastiqueStyle );
+	{	
 		Application App(argc, argv);
 
 		Started = true;
 
-        // Setup the application
         App.Init();
 
 		return App.exec();
 	}
 	catch (const std::exception& e)
 	{
-		// Send error to a message box
 		if(!Started)
 			DisplayError(argc, argv, e.what());
 		else

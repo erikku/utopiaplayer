@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -21,23 +21,19 @@
 #define __MediaSourceInterface_h__
 
 #include "Node.h"
-#include "PluginInterface.h"
 
 #include <QtCore/QUrl>
 
-class MediaSourceInterface : public Node, PluginInterface
+class MediaSourceInterface : public Node
 {
-	Q_OBJECT
-
 public:
-	MediaSourceInterface(QObject *parent = 0, const QStringList& args = QStringList()) : Node(0, 1), PluginInterface(parent, args) { };
+	MediaSourceInterface() : Node(0, 1) { };
 	~MediaSourceInterface() { };
 
 	QUrl url() const;
 
 	virtual NodeType type() = { return Source; };
 
-public slots:
 	virtual void setURL(const QUrl& url) { mCurrentURL = url; };
 
 protected:

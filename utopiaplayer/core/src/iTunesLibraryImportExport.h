@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -20,13 +20,14 @@
 #ifndef __iTunesLibraryImportExport_h__
 #define __iTunesLibraryImportExport_h__
 
+#include "PluginInterface.h"
 #include "ImportExportInterface.h"
 
 #include <QtCore/QStack>
 #include <QtCore/QVariant>
 #include <QtXml/QXmlDefaultHandler>
 
-class iTunesLibraryImportExport : public ImportExportInterface
+class iTunesLibraryImportExport : public QObject, public PluginInterface, public ImportExportInterface
 {
 	Q_OBJECT
 
@@ -37,7 +38,7 @@ public:
 	virtual QAction* importAction();
 	virtual QAction* exportAction();
 
-	virtual QString pluginName() const { return tr("iTunesImportExport"); };
+	virtual QString name() const { return tr("iTunesImportExport"); };
 
 public slots:
 	virtual void doImport();

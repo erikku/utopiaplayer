@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -20,10 +20,10 @@
 #include <QtCore/QPluginLoader>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTextCodec>
-#include <QtCore/QSettings>
 #include <QtCore/QDir>
 #include <QtGui/QIcon>
 #include <QtGui/QFont>
+#include <QtGui/QStyleFactory>
 #include <iostream>
 
 // UtopiaPlayer includes
@@ -36,6 +36,8 @@
 #include "SongManager.h"
 #include "DeviceManager.h"
 #include "PluginManager.h"
+#include "SettingsManager.h"
+#include "GUIManager.h"
 #include "AudioThread.h"
 #include "Login.h"
 
@@ -48,51 +50,11 @@
 
 Application::Application(int argc, char *argv[]) : QApplication(argc, argv), mPluginManager(0)
 {
-	Utopia::BlockParser::initParsers();
-
-	mSettingsDir = QDir::home();
-#if defined(Q_WS_WIN)
-	mSettingsDir.cd("Application Data");
-	mSettingsDir.mkdir("Utopia Player");
-	mSettingsDir.cd("Utopia Player");
-#else
-	mSettingsDir.mkdir(".utopiaplayer");
-	mSettingsDir.cd(".utopiaplayer");
-#endif
-
-	mSettings = new QSettings(mSettingsDir.absoluteFilePath("settings.ini"), QSettings::IniFormat);
-
-	mMetaBase = Utopia::XmlMetaBase::fromFile( mSettingsDir.absoluteFilePath("utopiadb") );
-	mSongManager = new SongManager;
-	mDeviceManager = new DeviceManager;
-	mPluginManager = new PluginManager;
-
-	//mAudioThread = new AudioThread;
-	//mAudioThread->start();
-
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-
-	setOrganizationName( tr("Emotional Coder") );
-	setOrganizationDomain( tr("www.emotionalcoder.net") );
-	setApplicationName( tr("Utopia Player") );
-
-	if( mSettings->contains("Palettes/Dark") )
-		setPalette( mSettings->value("Palettes/Dark").value<QPalette>() );
-	else
-		setPalette( style()->standardPalette() );
-
-	setupWizard();
-
-	/*
-	new CarAdaptor(car);
-    QDBusConnection connection = QDBusConnection::sessionBus();
-    connection.registerObject("/Car", car);
-    connection.registerService("com.trolltech.CarExample");
-	*/
-
-	new CurrentSongAdaptor(this);
-	QDBusConnection::sessionBus().registerObject("/CurrentSong", this);
-	QDBusConnection::sessionBus().registerService("net.emotional-coder.UtopiaPlayer");
+	
+	setApplicationName("Utopia Player");
+	setOrganizationName("Utopia Player Team");
+	setOrganizationDomain("code.google.com");	
 };
 
 QIcon Application::icon(const QString& name)
@@ -106,7 +68,12 @@ QIcon Application::icon(const QString& name)
 
 	foreach(int size, sizes)
 	{
+#if defined(Q_WS_WIN)
+		QString fileName = QString("%1/%2/%3x%4/%5.png").arg(applicationDirPath()).arg("icons").arg(size).arg(size).arg(name);
+#else
 		QString fileName = QString("%1/%2/%3x%4/%5.png").arg(UTOPIAPLAYER_PREFIX).arg("share/utopiaplayer/icons").arg(size).arg(size).arg(name);
+#endif
+
 		if(QFile(fileName).exists())
 			nIcon.addFile(fileName, QSize(size, size), QIcon::Normal, QIcon::On);
 	}
@@ -124,28 +91,19 @@ Application::~Application()
 	delete mSongManager;
 	delete mDeviceManager;
 	delete mPluginManager;
-	delete mSettings;
+	delete mSettingsManager;
 
 	Utopia::BlockParser::cleanupParsers();
 };
 
 void Application::Init()
 {
-	// Set the look of the Qt widgets
-	//setStyle("Plastique");
-	//setFont(QFont("Kochi Mincho", 11));
-
-	setWindowIcon(QIcon(":/16x16/juk.png"));
-	//setWindowIcon(KIcon("utopiaplayer"));
-
-	//QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf8"));
-	//new Login();
-
-	mMainWindow = new MainWindow;
-
-	loadPlugins();
-
-	mMainWindow->show();
+	loadSettings();
+	checkArgs();
+	loadCore();
+	//loadPlugins();
+	loadGUI();
+	displayGUI();
 };
 
 Utopia::MetaBase* Application::metaBase() const
@@ -156,6 +114,11 @@ Utopia::MetaBase* Application::metaBase() const
 MainWindow* Application::mainWindow() const
 {
 	return mMainWindow;
+};
+
+GUIManager* Application::guiManager() const
+{
+	return mGUIManager;
 };
 
 SongManager* Application::songManager() const
@@ -178,27 +141,87 @@ QDir Application::settingsDir() const
 	return mSettingsDir;
 };
 
-QSettings* Application::settings() const
-{
-	return mSettings;
-};
-
 AudioThread* Application::audioThread() const
 {
 	return mAudioThread;
 };
 
+SettingsManager* Application::settingsManager() const
+{
+	return mSettingsManager;
+};
+
+void Application::loadSettings()
+{
+	mSettingsDir = QDir::home();
+#if defined(Q_WS_WIN)
+	mSettingsDir.cd("Application Data");
+	mSettingsDir.mkdir("Utopia Player");
+	mSettingsDir.cd("Utopia Player");
+#else
+	mSettingsDir.mkdir(".utopiaplayer");
+	mSettingsDir.cd(".utopiaplayer");
+#endif
+
+	mSettingsManager = new SettingsManager( mSettingsDir.absoluteFilePath("settings.ini") );
+};
+
+void Application::checkArgs()
+{
+	QStringList args = arguments();
+	
+	if( args.contains("--disable-style") )
+	{
+		mSettingsManager->setDisableStyle(true);
+	}
+};
+
+void Application::loadCore()
+{
+	Utopia::BlockParser::initParsers();
+	
+	if( !mSettingsManager->disableStyle() )
+	{
+		QStyle *style = 0;
+
+		style = QStyleFactory::create( mSettingsManager->style() );
+
+		if(style)
+			setStyle(style);
+			
+		if( mSettingsManager->contains("Palettes/Dark") )
+			setPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() );
+	}
+	
+	mMetaBase = Utopia::XmlMetaBase::fromFile( mSettingsDir.absoluteFilePath("utopiadb") );
+	mSongManager = new SongManager;
+	mDeviceManager = new DeviceManager;
+	mPluginManager = new PluginManager;
+
+	/*
+	new CarAdaptor(car);
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    connection.registerObject("/Car", car);
+    connection.registerService("com.trolltech.CarExample");
+	*/
+
+	//new CurrentSongAdaptor(this);
+	//QDBusConnection::sessionBus().registerObject("/CurrentSong", this);
+	//QDBusConnection::sessionBus().registerService("net.emotional-coder.UtopiaPlayer");
+};
+
 void Application::loadPlugins()
 {
 	mDeviceManager->registerPlugin(new VolumePlugin);
-	std::cout << "Added plugin Volume (builtin)" << std::endl;
-
-	PluginInterface *plugin;
+	std::cout << "Found Plugin \"Volume\" (Built-In)" << std::endl;
 
 	// Do our static plugins
 	foreach(QObject *object, QPluginLoader::staticInstances())
 	{
-		plugin = qobject_cast<PluginInterface*>(object);
+		if( mPluginManager->registerPlugin(object) )
+			std::cout << "Found Plugin \"" << qobject_cast<PluginInterface*>(object)->name().toLocal8Bit().data() << "\" (Built-In)" << std::endl;
+		else
+			QMessageBox::critical(0, applicationName(), tr("Error loading plugin!"));
 	}
 
 #if defined(Q_WS_WIN)
@@ -212,34 +235,30 @@ void Application::loadPlugins()
 
 	foreach(QString fileName, pluginFiles)
 	{
-		QPluginLoader loader(fileName);
-		plugin = qobject_cast<PluginInterface*>( loader.instance() );
-		if(plugin)
-		{
-			switch(plugin->pluginType())
-			{
-				case OutputPlugin:
-					mPluginManager->addOutputPlugin( qobject_cast<OutputInterface*>(plugin) );
-					break;
-				case DevicePlugin:
-					mDeviceManager->registerPlugin( qobject_cast<DeviceInterface*>(plugin) );
-					break;
-				default:
-					QMessageBox::critical(0, applicationName(), tr("Error loading plugin <i>%1</i>: Unknown plugin type!").arg(plugin->pluginName()));
-					break;
-			}
-			std::cout << "Added plugin " << qobject_cast<PluginInterface*>(plugin)->pluginName().toLocal8Bit().data() << std::endl;
-		}
+		QPluginLoader loader( QDir::toNativeSeparators(fileName) );
+		if( mPluginManager->registerPlugin(loader.instance()) )
+			std::cout << "Found Plugin \"" << qobject_cast<PluginInterface*>( loader.instance() )->name().toLocal8Bit().data() << "\"" << std::endl;
 		else
-		{
 			QMessageBox::critical(0, applicationName(), tr("Error loading plugin: %1").arg(loader.errorString()));
-		}
 	}
 
-	if(mSettings->contains("General/OutputPlugin"))
+	if(mSettingsManager->contains("General/OutputPlugin"))
 	{
-		mPluginManager->setCurrentOutputPlugin(mSettings->value("General/OutputPlugin").toString());
+		mPluginManager->setCurrentOutputPlugin(mSettingsManager->value("General/OutputPlugin").toString());
 	}
+};
+
+void Application::loadGUI()
+{
+	setWindowIcon( icon("utopiaplayer") );
+
+	mMainWindow = new MainWindow;
+};
+
+void Application::displayGUI()
+{
+	setupWizard();
+	mMainWindow->show();
 };
 
 QStringList Application::listRecursiveDirectoryContents(const QDir& dir, const QStringList& nameFilters, QDir::Filters filters, QDir::SortFlags sort)
@@ -310,7 +329,7 @@ QString Application::makePathCaseSensitive(const QString& path)
 
 void Application::setupWizard()
 {
-	if( mSettings->value("General/LastUsedVersion").toString() != UTOPIAPLAYER_VERSION)
+	if( mSettingsManager->value("General/LastUsedVersion").toString() != UTOPIAPLAYER_VERSION)
 	{
 		QString message;
 		if(UTOPIAPLAYER_OFFICIAL)
@@ -324,6 +343,6 @@ void Application::setupWizard()
 		QMessageBox::warning(0, tr("New Version Information (Version %1)").arg(QString::fromUtf8(UTOPIAPLAYER_VERSION)), message);
 
 		// Save the new version number
-		mSettings->setValue("General/LastUsedVersion", UTOPIAPLAYER_VERSION);
+		mSettingsManager->setValue("General/LastUsedVersion", UTOPIAPLAYER_VERSION);
 	}
 };

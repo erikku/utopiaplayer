@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -24,38 +24,25 @@
 #ifndef __Plugin_h__
 #define __Plugin_h__
 
-#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
 #include <QtCore/QtPlugin>
 
-typedef enum _PluginType
+class PluginInterface
 {
-	OutputPlugin,
-	DevicePlugin,
-	MediaSourcePlugin,
-	ImportExportPlugin
-}PluginType;
-
-class PluginInterface : public QObject
-{
-	Q_OBJECT
-
 public:
-	PluginInterface(QObject *parent = 0, const QStringList& args = QStringList()) : QObject(parent), mLoaded(false) { Q_UNUSED(args) };
-	virtual ~PluginInterface() {};
+	PluginInterface() : mLoaded(false) { };
+	virtual ~PluginInterface() { };
 
-	virtual bool isLoaded() { return mLoaded; };
-
-	virtual QString    pluginName() const = 0;
-	virtual PluginType pluginType() = 0;
-
-public slots:
+	virtual QString name() const = 0;
+	
 	virtual void load() { mLoaded = true; };
 	virtual void unload() { mLoaded = false; };
+	virtual bool isLoaded() { return mLoaded; };
 
 protected:
 	bool mLoaded;
 };
+
+Q_DECLARE_INTERFACE(PluginInterface, "com.emotionalcoder.UtopiaPlayer.PluginInterface/0.1")
 
 #endif // __Plugin_h__

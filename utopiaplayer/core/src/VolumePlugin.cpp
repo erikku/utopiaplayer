@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -30,10 +30,10 @@
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QAction>
 
-VolumePlugin::VolumePlugin(QObject *parent, const QStringList& args) : DeviceInterface(parent, args)
+VolumePlugin::VolumePlugin(QObject *parent) : QObject(parent), DeviceInterface()
 {
 	mDevices << new VolumeDevice("/media/utopia/Music", this);
-	emit deviceAdded( mDevices.at(0) );
+	//emit deviceAdded( mDevices.at(0) );
 
 	QStringList volumePaths;// = UtopiaPlayerSettings::self()->volumePaths();
 	for(int i = 0; i < volumePaths.count(); i++)
@@ -51,12 +51,17 @@ VolumePlugin::VolumePlugin(QObject *parent, const QStringList& args) : DeviceInt
 	}
 
 	QAction *action = new QAction(tr("Manage &Volumes..."), 0);
-	connect(action, SIGNAL(triggered(bool)), this, SLOT(manageVolumes()));
+	//connect(action, SIGNAL(triggered(bool)), this, SLOT(manageVolumes()));
 	mDeviceActions << action;
 };
 
 VolumePlugin::~VolumePlugin()
 {
+};
+
+QString VolumePlugin::deviceName() const
+{
+	return name();
 };
 
 QList<QTreeWidgetItem*> VolumePlugin::deviceItems() const
@@ -96,7 +101,7 @@ QList<QAction*> VolumePlugin::contextMenu(QTreeWidgetItem *device, QTreeWidgetIt
 	return list;
 };
 
-QString VolumePlugin::pluginName() const
+QString VolumePlugin::name() const
 {
 	return tr("Volume");
 };

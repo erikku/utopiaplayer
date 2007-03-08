@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -31,12 +31,12 @@
 
 #include <iostream>
 
-iTunesLibraryImportExport::iTunesLibraryImportExport()
+iTunesLibraryImportExport::iTunesLibraryImportExport() : QObject(0)
 {
 	mImportAction = new QAction(tr("iTunes Music Library..."), 0);
-	connect(mImportAction, SIGNAL(triggered()), this, SLOT(doImport()));
+	//connect(mImportAction, SIGNAL(triggered()), this, SLOT(doImport()));
 	mExportAction = new QAction(tr("iTunes Music Library..."), 0);
-	connect(mExportAction, SIGNAL(triggered()), this, SLOT(doExport()));
+	//connect(mExportAction, SIGNAL(triggered()), this, SLOT(doExport()));
 	//QStringList albumcovers = listRecursiveDirectoryContents(QDir("/media/windows/Documents and Settings/Eric/My Documents/My Music/iTunes/Album Artwork/Local/34A6B8C643F01262"), QStringList() << "*.itc");
 };
 

@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -30,11 +30,13 @@ namespace Utopia
 	class MetaBase;
 };
 
-class QSettings;
+class GUIManager;
+class SettingsManager;
 class MainWindow;
 class SongManager;
 class DeviceManager;
 class PluginManager;
+class PluginInterface;
 
 class AudioThread;
 
@@ -54,12 +56,13 @@ public:
 	Utopia::MetaBase* metaBase() const;
 
 	MainWindow* mainWindow() const;
+	GUIManager* guiManager() const;
 	SongManager* songManager() const;
 	DeviceManager* deviceManager() const;
 	PluginManager* pluginManager() const;
+	SettingsManager* settingsManager() const;
 
 	QDir settingsDir() const;
-	QSettings* settings() const;
 
 	AudioThread* audioThread() const;
 
@@ -69,19 +72,27 @@ public:
 	QIcon icon(const QString& name);
 
 public slots:
-	void loadPlugins();
 	void setupWizard();
 
 protected:
+	// Startup Sections
+	void loadSettings();
+	void checkArgs();
+	void loadCore();
+	void loadPlugins();
+	void loadGUI();
+	void displayGUI();
+
 	Utopia::MetaBase *mMetaBase;
 
 	MainWindow    *mMainWindow;
+	GUIManager    *mGUIManager;
 	SongManager   *mSongManager;
 	DeviceManager *mDeviceManager;
 	PluginManager *mPluginManager;
 
 	QDir mSettingsDir;
-	QSettings *mSettings;
+	SettingsManager *mSettingsManager;
 
 	AudioThread *mAudioThread;
 

@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -24,28 +24,20 @@
 #ifndef __DeviceInterface_h__
 #define __DeviceInterface_h__
 
-#include "PluginInterface.h"
-
 class QTreeWidgetItem;
 class QAction;
 class Device;
 
-class DeviceInterface : public PluginInterface
+class DeviceInterface
 {
-	Q_OBJECT
-
 public:
-	DeviceInterface(QObject *parent = 0, const QStringList& args = QStringList()) : PluginInterface(parent, args) { };
-	virtual ~DeviceInterface() {};
+	virtual ~DeviceInterface() { };
 
 	virtual QList<Device*> devices() const = 0;
 	virtual QList<QTreeWidgetItem*> deviceItems() const = 0;
 	virtual QList<QAction*> contextMenu(QTreeWidgetItem *device, QTreeWidgetItem *item) const = 0;
 
-	virtual QString    pluginName() const = 0;
-	virtual PluginType pluginType() { return DevicePlugin; };
-
-public slots:
+	virtual QString deviceName() const = 0;
 	virtual void refreshDeviceList() = 0;
 	/*
 	void clickEmiter()
@@ -59,12 +51,12 @@ public slots:
 			emit deviceDoubleClicked( static_cast<QTreeWidgetItem*>(sender()) );
 	};
 	*/
-signals:
+//signals:
 	//void deviceClicked(QTreeWidgetItem *device);
 	//void deviceDoubleClicked(QTreeWidgetItem *device);
-	void deviceListChanged();
-	void deviceAdded(Device *device);
-	void deviceRemoved(Device *device);
+	//void deviceListChanged();
+	//void deviceAdded(Device *device);
+	//void deviceRemoved(Device *device);
 };
 
 Q_DECLARE_INTERFACE(DeviceInterface, "com.emotionalcoder.UtopiaPlayer.DeviceInterface/0.1")

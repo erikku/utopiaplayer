@@ -1,21 +1,21 @@
-/*************************************************************************\
-*  UtopiaPlayer - A song manager and icecast streaming agent              *
-*  Copyright (C) 2006 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
-*                                                                         *
-*  This program is free software; you can redistribute it and/or modify   *
-*  it under the terms of the GNU General Public License version 2 as      *
-*  published by the Free Software Foundation.                             *
-*                                                                         *
-*  This program is distributed in the hope that it will be useful,        *
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
-*  GNU General Public License for more details.                           *
-*                                                                         *
-*  You should have received a copy of the GNU General Public License      *
-*  along with this program; if not, write to the                          *
-*  Free Software Foundation, Inc.,                                        *
-*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
-\*************************************************************************/
+/******************************************************************************\
+*  Utopia Player - A cross-platform, multilingual, tagging media manager       *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
+*                                                                              *
+*  This program is free software; you can redistribute it and/or modify        *
+*  it under the terms of the GNU General Public License version 2 as           *
+*  published by the Free Software Foundation.                                  *
+*                                                                              *
+*  This program is distributed in the hope that it will be useful,             *
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of              *
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+*  GNU General Public License for more details.                                *
+*                                                                              *
+*  You should have received a copy of the GNU General Public License           *
+*  along with this program; if not, write to the                               *
+*  Free Software Foundation, Inc.,                                             *
+*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
+\******************************************************************************/
 
 /**
  * @file MainWindow.cpp The Main Window implementation
@@ -23,33 +23,23 @@
 
 // Utopia Lyrics includes
 #include "mainwindow.h"
-#include "utopialyricssettings.h"
 #include "verseedit.h"
 
 #include <iostream>
 
 // Qt includes
+#include <QtGui/QApplication>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QScrollArea>
 #include <QtGui/QScrollBar>
+#include <QtGui/QAction>
 
-// KDE includes
-#include <klocalizedstring.h>
-#include <kapplication.h>
-#include <kstdaction.h>
-#include <kaction.h>
-#include <kicon.h>
-
-MainWindow::MainWindow() : KMainWindow(0, 0)
+MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
 {
 	setObjectName(QLatin1String("MainWindow"));
 
-	settings = UtopiaLyricsSettings::self();
-	settings->readConfig();
-
 	setupActions();
-	setupGUI();
 	setupScrollArea();
 };
 
@@ -167,24 +157,17 @@ void MainWindow::moveDown(int verseNumber)
 
 void MainWindow::setupActions()
 {
-	KAction *a;
+	QAction *action;
 
-	KStdAction::openNew( this, SLOT( slotDocumentNew() ), actionCollection(), "file_new" )->setWhatsThis(i18n("Create a new document"));
-	KStdAction::open( this, SLOT( slotDocumentOpen() ), actionCollection(), "file_open" )->setWhatsThis(i18n("Open an existing document for editing"));
-
-	KStdAction::close( this, SLOT( slotDocumentClose() ), actionCollection(), "file_close" )->setWhatsThis(i18n("Close the current document"));
-
-	a = new KAction( KIcon("color_all"), i18n("All Artists"), actionCollection(), "color_all" );
-	a->setShortcut( Qt::CTRL+Qt::Key_1 );
-	a->setWhatsThis(i18n("Make the selected text or the text after the cursor for all the artists."));
-	connect( a, SIGNAL( triggered() ), this, SLOT( insertColor() ) );
-
-	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
+	action = new QAction( QIcon("color_all"), tr("All Artists"), 0 );
+	action->setShortcut( Qt::CTRL+Qt::Key_1 );
+	action->setWhatsThis(tr("Make the selected text or the text after the cursor for all the artists."));
+	connect( action, SIGNAL( triggered() ), this, SLOT( insertColor() ) );
 };
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-	KMainWindow::resizeEvent(event);
+	QMainWindow::resizeEvent(event);
 
 	adjustScrollArea();
 };
@@ -211,5 +194,3 @@ QSize MainWindow::sizeHint() const
 {
 	return QSize(990, 740);
 };
-
-#include "mainwindow.moc"

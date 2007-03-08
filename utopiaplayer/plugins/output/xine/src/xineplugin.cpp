@@ -1,21 +1,21 @@
-/*************************************************************************\
-*  UtopiaPlayer - A song manager and icecast streaming agent              *
-*  Copyright (C) 2006 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
-*                                                                         *
-*  This program is free software; you can redistribute it and/or modify   *
-*  it under the terms of the GNU General Public License version 2 as      *
-*  published by the Free Software Foundation.                             *
-*                                                                         *
-*  This program is distributed in the hope that it will be useful,        *
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
-*  GNU General Public License for more details.                           *
-*                                                                         *
-*  You should have received a copy of the GNU General Public License      *
-*  along with this program; if not, write to the                          *
-*  Free Software Foundation, Inc.,                                        *
-*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
-\*************************************************************************/
+/******************************************************************************\
+*  Utopia Player - A cross-platform, multilingual, tagging media manager       *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
+*                                                                              *
+*  This program is free software; you can redistribute it and/or modify        *
+*  it under the terms of the GNU General Public License version 2 as           *
+*  published by the Free Software Foundation.                                  *
+*                                                                              *
+*  This program is distributed in the hope that it will be useful,             *
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of              *
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+*  GNU General Public License for more details.                                *
+*                                                                              *
+*  You should have received a copy of the GNU General Public License           *
+*  along with this program; if not, write to the                               *
+*  Free Software Foundation, Inc.,                                             *
+*  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
+\******************************************************************************/
 
 /**
  * @file XinePlugin.cpp The XinePlugin class implemintation
@@ -31,14 +31,14 @@ Q_EXPORT_PLUGIN2(xineplugin, XinePlugin)
 
 static void XinePluginEventListener(void *xineplugin, const xine_event_t *event);
 
-QString XinePlugin::pluginName() const
+QString XinePlugin::name() const
 {
 	return tr("Xine");
 };
 
 void XinePlugin::load()
 {
-	OutputInterface::load();
+	PluginInterface::load();
 
 	std::cout << "Loading the Xine plugin" << std::endl;
 	xine = xine_new();
@@ -70,7 +70,7 @@ void XinePlugin::unload()
 	xine_close_video_driver(xine, vo_port);  
 	xine_exit(xine);
 
-	OutputInterface::unload();
+	PluginInterface::unload();
 };
 
 static void XinePluginEventListener(void *xineplugin, const xine_event_t *event)
@@ -79,7 +79,7 @@ static void XinePluginEventListener(void *xineplugin, const xine_event_t *event)
 	switch(event->type)
 	{ 
 		case XINE_EVENT_UI_PLAYBACK_FINISHED:
-			plugin->emitSongFinished();
+			//plugin->emitSongFinished();
 			break;
 	}
 };

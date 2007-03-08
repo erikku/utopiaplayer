@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -20,14 +20,16 @@
 #ifndef __nulloutput_h__
 #define __nulloutput_h__
 
+#include "PluginInterface.h"
 #include "OutputInterface.h"
 
-class NullOutput : public OutputInterface
+class NullOutput : public QObject, public PluginInterface, public OutputInterface
 {
 	Q_OBJECT
+	Q_INTERFACES(PluginInterface OutputInterface)
 
 public:
-	NullOutput(QObject *parent = 0, const QStringList& args = QStringList()) : OutputInterface(parent, args), mVolume(1.0f) { };
+	NullOutput(QObject *parent = 0) : QObject(parent), OutputInterface(), mVolume(1.0f) { };
 
 	virtual float volume() const { return mVolume; };
 
@@ -37,9 +39,8 @@ public:
     virtual qint64 totalTime() const { return 0; };
     virtual qint64 currentTime() const { return 0; };
 
-	QString pluginName() const { return tr("Null"); }; 
+	QString name() const { return tr("Null"); }; 
 
-public slots:
 	virtual void play(const QUrl& url = QUrl()) { Q_UNUSED(url) };
 	virtual void pause() { };
 	virtual void unpause() { };

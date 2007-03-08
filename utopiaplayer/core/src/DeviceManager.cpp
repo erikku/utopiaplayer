@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -44,19 +44,19 @@ DeviceManager::~DeviceManager()
 
 void DeviceManager::registerPlugin(DeviceInterface* plugin)
 {
-	if(mDevicePlugins.contains(plugin->pluginName()))
+	if(mDevicePlugins.contains(plugin->deviceName()))
 		return;
 
-	mDevicePlugins[plugin->pluginName()] = plugin;
+	mDevicePlugins[plugin->deviceName()] = plugin;
 
-	connect(plugin, SIGNAL(deviceAdded(Device*)), this, SIGNAL(deviceAdded(Device*)));
-	connect(plugin, SIGNAL(deviceRemoved(Device*)), this, SIGNAL(deviceRemoved(Device*)));
+	//connect(plugin, SIGNAL(deviceAdded(Device*)), this, SIGNAL(deviceAdded(Device*)));
+	//connect(plugin, SIGNAL(deviceRemoved(Device*)), this, SIGNAL(deviceRemoved(Device*)));
 
-	QList<Device*> devices = plugin->devices();
-	foreach(Device *device, devices)
-	{
-		emit deviceAdded(device);
-	}
+	//QList<Device*> devices = plugin->devices();
+	//foreach(Device *device, devices)
+	//{
+		//emit deviceAdded(device);
+	//}
 
 	//uApp->mainWindow()->refreshSourceList();
 };

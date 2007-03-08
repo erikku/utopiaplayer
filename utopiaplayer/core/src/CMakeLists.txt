@@ -65,13 +65,16 @@ ENDIF(Subversion_FOUND)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/UtopiaPlayer.h.in ${CMAKE_CURRENT_BINARY_DIR}/UtopiaPlayer.h @ONLY IMMEDIATE)
 
 SET(UtopiaPlayer_SRCS
+	AddRemoveTestDialog.cpp
     AlbumList.cpp
     Application.cpp
 	ArtLabel.cpp
 	AudioFile.cpp
 	AudioThread.cpp
+	ComponentList.cpp
     DatabaseList.cpp
 	DeviceManager.cpp
+	GUIManager.cpp
 	ID3v1.cpp
     InsertAlbum.cpp
     InsertArtist.cpp
@@ -88,6 +91,9 @@ SET(UtopiaPlayer_SRCS
     PluginManager.cpp
 	ProgressSlider.cpp
     SaveTagsThread.cpp
+    SearchEdit.cpp
+    SearchTree.cpp
+    SettingsManager.cpp
 	sha1.c
 	Slider.cpp
     #SongEdit.cpp
@@ -106,14 +112,17 @@ SET(UtopiaPlayer_SRCS
 )
 
 SET(UtopiaPlayer_HDRS
+	AddRemoveTestDialog.h
     AlbumList.h
     Application.h
 	ArtLabel.h
 	AudioThread.h
+	ComponentList.h
     DatabaseList.h
 	Device.h
 	DeviceManager.h
     #DatabasePlugin.h
+    GUIManager.h
     InsertAlbum.h
     InsertArtist.h
     InsertGenre.h
@@ -130,6 +139,8 @@ SET(UtopiaPlayer_HDRS
     #Ruby.h
     SaveTagsThread.h
     #Scrobbler.h
+    SearchEdit.h
+    SearchTree.h
 	Slider.h
     #SongEdit.h
     SongList.h
@@ -145,10 +156,6 @@ SET(UtopiaPlayer_HDRS
 	VolumePlugin.h
 	VolumeSlider.h
 	../adapters/CurrentSongAdapter.h
-	../interfaces/DeviceInterface.h
-    ../interfaces/OutputInterface.h
-	../interfaces/PluginInterface.h
-	../interfaces/ImportExportInterface.h
 )
 
 SET(UtopiaPlayer_RCC

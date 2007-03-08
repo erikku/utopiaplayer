@@ -29,16 +29,13 @@
 
 // Qt includes
 #include <QtCore/QRegExp>
+#include <QtGui/QIcon>
 #include <QtGui/QLabel>
 #include <QtGui/QTextEdit>
 #include <QtGui/QGroupBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QPushButton>
-
-// KDE includes
-#include <klocalizedstring.h>
-#include <kicon.h>
 
 VerseEdit::VerseEdit(QWidget *parent, Qt::WFlags f) : QWidget(parent, f)
 {
@@ -54,7 +51,7 @@ VerseEdit::VerseEdit(QWidget *parent, Qt::WFlags f) : QWidget(parent, f)
 
 	previewWidget = new QGroupBox;
 	previewWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	previewWidget->setToolTip(i18n("Preview"));
+	previewWidget->setToolTip(tr("Preview"));
 	mainLayout->addWidget(previewWidget);
 
 	previewLayout = new QVBoxLayout;
@@ -170,27 +167,27 @@ void VerseEdit::setupButtons()
 
 	verseNumberLabel = new QLabel("0");
 	verseNumberLabel->setAlignment(Qt::AlignHCenter);
-	verseNumberLabel->setToolTip(i18n("Verse Number"));
+	verseNumberLabel->setToolTip(tr("Verse Number"));
 	buttonStrip->addWidget(verseNumberLabel, 1, 0, 1, 2);
 
-	button = new QPushButton(KIcon("up"), "");
-	button->setToolTip(i18n("Move Verse Up"));
+	button = new QPushButton(QIcon("up"), "");
+	button->setToolTip(tr("Move Verse Up"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_moveUp()));
 	buttonStrip->addWidget(button, 2, 0);
-	button = new QPushButton(KIcon("filenew"), "");
-	button->setToolTip(i18n("Insert Verse Up"));
+	button = new QPushButton(QIcon("filenew"), "");
+	button->setToolTip(tr("Insert Verse Up"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_insertUp()));
 	buttonStrip->addWidget(button, 2, 1);
-	button = new QPushButton(KIcon("remove"), "");
-	button->setToolTip(i18n("Delete Verse"));
+	button = new QPushButton(QIcon("remove"), "");
+	button->setToolTip(tr("Delete Verse"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_deleteVerse()));
 	buttonStrip->addWidget(button, 3, 0, 1, 2);
-	button = new QPushButton(KIcon("filenew"), "");
-	button->setToolTip(i18n("Insert Verse Down"));
+	button = new QPushButton(QIcon("filenew"), "");
+	button->setToolTip(tr("Insert Verse Down"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_insertDown()));
 	buttonStrip->addWidget(button, 4, 0);
-	button = new QPushButton(KIcon("down"), "");
-	button->setToolTip(i18n("Move Verse Down"));
+	button = new QPushButton(QIcon("down"), "");
+	button->setToolTip(tr("Move Verse Down"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_moveDown()));
 	buttonStrip->addWidget(button, 4, 1);
 
@@ -209,5 +206,3 @@ void VerseEdit::s_insertUp() { emit insertUp(verseNumber()); };
 void VerseEdit::s_deleteVerse() { emit deleteVerse(verseNumber()); };
 void VerseEdit::s_insertDown() { emit insertDown(verseNumber()); };
 void VerseEdit::s_moveDown() { emit moveDown(verseNumber()); };
-
-#include "verseedit.moc"

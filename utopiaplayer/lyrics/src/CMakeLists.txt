@@ -1,4 +1,8 @@
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/core/src)
+SET(QT_USE_QTXML TRUE)
+
+INCLUDE(${QT_USE_FILE})
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core/src ${CMAKE_BINARY_DIR}/core/src)
 
 SET(UtopiaLyrics_SRCS
 	mainwindow.cpp
@@ -8,22 +12,23 @@ SET(UtopiaLyrics_SRCS
 	xmlrubyhandler.cpp
 )
 
+SET(UtopiaLyrics_HDRS
+	mainwindow.h
+	qrubylabel.h
+	verseedit.h
+)
+
 SET(UtopiaLyrics_UIS
 )
 
-KDE4_ADD_UI_FILES(UtopiaLyrics_SRCS ${UtopiaLyrics_UIS})
+QT4_WRAP_UI(UtopiaLyrics_SRCS ${UtopiaLyrics_UIS})
 
-KDE4_AUTOMOC(${UtopiaLyrics_SRCS})
+QT4_WRAP_CPP(UtopiaLyrics_SRCS ${UtopiaLyrics_HDRS})
 
-KDE4_ADD_KCFG_FILES(UtopiaLyrics_SRCS utopialyricssettings.kcfgc)
+ADD_EXECUTABLE(utopialyrics ${UtopiaLyrics_SRCS})
 
-KDE4_ADD_EXECUTABLE(utopialyrics ${UtopiaLyrics_SRCS})
+ADD_DEPENDENCIES(utopialyrics utopiaplayer)
 
-TARGET_LINK_LIBRARIES(utopialyrics ${KDE4_KDEUI_LIBS} kutils)
+TARGET_LINK_LIBRARIES(utopialyrics ${QT_LIBRARIES})
 
-INSTALL(TARGETS utopialyrics DESTINATION ${BIN_INSTALL_DIR})
-INSTALL(FILES utopialyrics.desktop DESTINATION ${XDG_APPS_DIR})
-INSTALL(FILES utopialyrics.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-INSTALL(FILES utopialyricsui.rc DESTINATION ${DATA_INSTALL_DIR}/utopialyrics)
-
-KDE4_INSTALL_ICONS(${ICON_INSTALL_DIR})
+INSTALL(TARGETS utopialyrics DESTINATION bin)

@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -20,7 +20,10 @@
 #include "PluginManager.h"
 #include "NullOutput.h"
 
+#include "PluginInterface.h"
+#include "DeviceInterface.h"
 #include "OutputInterface.h"
+#include "DeviceManager.h"
 #include "Application.h"
 
 #include <QtCore/QFile>
@@ -31,11 +34,11 @@ using namespace std;
 PluginManager::PluginManager(QObject* parent) : QObject(parent)
 {
 	OutputInterface* plugin = new NullOutput;
-	std::cout << "Added plugin Null (builtin)" << std::endl;
+	std::cout << "Found Plugin \"Null\" (Built-In)" << std::endl;
 	addOutputPlugin(plugin);
 	mCurrentOutputPlugin = plugin;
-	connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
-	setCurrentOutputPlugin(tr("Null Output"));
+	//connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
+	//setCurrentOutputPlugin(tr("Null"));
 };
 
 PluginManager::~PluginManager()
@@ -45,19 +48,49 @@ PluginManager::~PluginManager()
 	{
 		i.next();
 
-		if(i.value()->isLoaded())
-			i.value()->unload();
+		PluginInterface *plugin = (PluginInterface*)i.value();
+		
+		if(plugin->isLoaded())
+			plugin->unload();
 
 		delete i.value();
 	}
 };
 
+bool PluginManager::registerPlugin(QObject *object)
+{
+	PluginInterface *plugin = qobject_cast<PluginInterface*>(object);
+	if(!plugin)
+		return false;
+
+	OutputInterface *output = qobject_cast<OutputInterface*>(object);
+	if(output)
+	{
+		std::cout << "-- Found Audio Device Driver" << std::endl;
+		addOutputPlugin(output);
+	}
+	
+	DeviceInterface *device = qobject_cast<DeviceInterface*>(object);
+	if(device)
+	{
+		std::cout << "-- Found Hardware Device Driver" << std::endl;
+		
+		// Load the device
+		((PluginInterface*)device)->load();
+		
+		// Add the device to the Device Manager
+		uApp->deviceManager()->registerPlugin(device);
+	}
+
+	return true;
+};
+
 void PluginManager::addOutputPlugin(OutputInterface* interface)
 {
-	if(!outputPlugins.contains(interface->pluginName()))
-		outputPlugins[interface->pluginName()] = interface;
+	if(!outputPlugins.contains(((PluginInterface*)interface)->name()))
+		outputPlugins[((PluginInterface*)interface)->name()] = interface;
 
-	interface->setAudioThread(uApp->audioThread());
+	//interface->setAudioThread(uApp->audioThread());
 };
 
 void PluginManager::setCurrentOutputPlugin(const QString& name)
@@ -66,16 +99,16 @@ void PluginManager::setCurrentOutputPlugin(const QString& name)
 		return;
 
 	// Unload the previous plugin
-	if(mCurrentOutputPlugin->isLoaded())
-		mCurrentOutputPlugin->unload();
-	disconnect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
+	if(((PluginInterface*)mCurrentOutputPlugin)->isLoaded())
+		((PluginInterface*)mCurrentOutputPlugin)->unload();
+	//disconnect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
 
 	mCurrentOutputPlugin = outputPlugins[name];
 
 	// Load the new plugin
-	if(!mCurrentOutputPlugin->isLoaded())
-		mCurrentOutputPlugin->load();
-	connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
+	if(!((PluginInterface*)mCurrentOutputPlugin)->isLoaded())
+		((PluginInterface*)mCurrentOutputPlugin)->load();
+	//connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
 
 	/////////////////////////////////////////////////////////////////////////////////
 	if(name == "Null Output")
@@ -106,7 +139,7 @@ QString PluginManager::currentOutputPlugin()
 {
 	Q_ASSERT(mCurrentOutputPlugin);
 
-	return mCurrentOutputPlugin->pluginName();
+	return ((PluginInterface*)mCurrentOutputPlugin)->name();
 };
 
 void PluginManager::setVolume(int volume)

@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -21,16 +21,19 @@
 #include "Application.h"
 #include "DeviceManager.h"
 #include "PluginManager.h"
+#include "SettingsManager.h"
 #include "DeviceInterface.h"
 #include "ArtLabel.h"
 #include "Device.h"
 #include "iTunesLibraryImportExport.h"
 
+#include "ComponentList.h"
+#include "AddRemoveTestDialog.h"
+
 #include <utopiadb/metabase.h>
 
 // Qt includes
 #include <QtCore/QTimer>
-#include <QtCore/QSettings>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QLabel>
@@ -87,6 +90,13 @@ MainWindow::MainWindow() : QMainWindow()
 	setWindowTitle( uApp->applicationName() );
 
 	loadSettings();
+	
+	ComponentList *list = new ComponentList(0);
+	AddRemoveTestDialog *dialog = new AddRemoveTestDialog(0);
+	connect(dialog, SIGNAL(add(const QString&)), list, SLOT(addItem(const QString&)));
+	connect(dialog, SIGNAL(remove(const QString&)), list, SLOT(removeItem(const QString&)));
+	list->show();
+	dialog->show();
 };
 
 MainWindow::~MainWindow()
@@ -368,14 +378,14 @@ void MainWindow::createMenus()
 
 void MainWindow::loadSettings()
 {
-	if( uApp->settings()->contains("MainWindow/Layout") )
-		restoreState( uApp->settings()->value("MainWindow/Layout").toByteArray() );
-	if( uApp->settings()->contains("MainWindow/Size") )
-		resize( uApp->settings()->value("MainWindow/Size").toSize() );
-	if( uApp->settings()->contains("MainWindow/Position") )
-		move( uApp->settings()->value("MainWindow/Position").toPoint() );
-	if( uApp->settings()->contains("MainWindow/State") )
-		setWindowState( (Qt::WindowStates)uApp->settings()->value("MainWindow/State").toInt() );
+	if( uApp->settingsManager()->contains("MainWindow/Layout") )
+		restoreState( uApp->settingsManager()->value("MainWindow/Layout").toByteArray() );
+	if( uApp->settingsManager()->contains("MainWindow/Size") )
+		resize( uApp->settingsManager()->value("MainWindow/Size").toSize() );
+	if( uApp->settingsManager()->contains("MainWindow/Position") )
+		move( uApp->settingsManager()->value("MainWindow/Position").toPoint() );
+	if( uApp->settingsManager()->contains("MainWindow/State") )
+		setWindowState( (Qt::WindowStates) uApp->settingsManager()->value("MainWindow/State").toInt() );
 };
 
 void MainWindow::utopiaDBImport()
@@ -385,10 +395,10 @@ void MainWindow::utopiaDBImport()
 
 void MainWindow::saveSettings()
 {
-	uApp->settings()->setValue("MainWindow/Layout", saveState());
-	uApp->settings()->setValue("MainWindow/State", (int)windowState());
-	uApp->settings()->setValue("MainWindow/Size", size());
-	uApp->settings()->setValue("MainWindow/Position", pos());
+	 uApp->settingsManager()->setValue("MainWindow/Layout", saveState());
+	 uApp->settingsManager()->setValue("MainWindow/State", (int)windowState());
+	 uApp->settingsManager()->setValue("MainWindow/Size", size());
+	 uApp->settingsManager()->setValue("MainWindow/Position", pos());
 };
 
 QSize MainWindow::sizeHint() const

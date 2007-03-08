@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -24,26 +24,30 @@
 #ifndef __VolumePlugin_h__
 #define __VolumePlugin_h__
 
+#include "PluginInterface.h"
 #include "DeviceInterface.h"
+
+#include <QtCore/QObject>
 
 class VolumeDevice;
 class QTreeWidgetItem;
 
-class VolumePlugin : public DeviceInterface
+class VolumePlugin : public QObject, public PluginInterface, public DeviceInterface
 {
 	Q_OBJECT
+	Q_INTERFACES(PluginInterface DeviceInterface)
 
 public:
-	VolumePlugin(QObject *parent = 0, const QStringList& args = QStringList());
+	VolumePlugin(QObject *parent = 0);
 	virtual ~VolumePlugin();
 
 	virtual QList<Device*> devices() const;
 	virtual QList<QTreeWidgetItem*> deviceItems() const;
 	virtual QList<QAction*> contextMenu(QTreeWidgetItem *device, QTreeWidgetItem *item) const;
 
-	virtual QString pluginName() const;
+	virtual QString name() const;
+	virtual QString deviceName() const;
 
-public slots:
 	void manageVolumes();
 	void refreshDeviceList();
 

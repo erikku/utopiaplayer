@@ -1,6 +1,6 @@
 /******************************************************************************\
 *  Utopia Player - A cross-platform, multilingual, tagging media manager       *
-*  Copyright (C) 2006-2007 John Eric Martin <cpuwhiz105@users.sourceforge.net> *
+*  Copyright (C) 2006-2007 John Eric Martin <john.eric.martin@gmail.com>       *
 *                                                                              *
 *  This program is free software; you can redistribute it and/or modify        *
 *  it under the terms of the GNU General Public License version 2 as           *
@@ -18,65 +18,43 @@
 \******************************************************************************/
 
 /**
- * @file outputinterface.h The base class defining output engines/plugins
+ * @file OutputInterface.h The base class defining output engines/plugins
  */
 
-#ifndef __outputinterface_h__
-#define __outputinterface_h__
+#ifndef __OutputInterface_h__
+#define __OutputInterface_h__
 
 #include <QtCore/QUrl>
 
-#include "PluginInterface.h"
-
-class AudioThread;
-
-class OutputInterface : public PluginInterface
+class OutputInterface
 {
-	Q_OBJECT
-
 public:
-	OutputInterface(QObject *parent = 0, const QStringList& args = QStringList()) : PluginInterface(parent, args), mThread(0) { };
-	virtual ~OutputInterface() {};
+	virtual ~OutputInterface() { };
 
 	virtual float volume() const = 0;
+	virtual void mute() { setVolume(0.0); };
+	virtual void setVolume(float volume = 1.0) = 0;
 	virtual bool isMuted() { if(volume() == 0.0) return true; return false; };
-
-    virtual bool isPlaying() const = 0;
-    virtual bool isPaused() const = 0;
 
     virtual qint64 totalTime() const = 0;
     virtual qint64 currentTime() const = 0;
 
-	virtual AudioThread* audioThread() { return mThread; };
-	virtual void setAudioThread(AudioThread *thread) { mThread = thread; };
-
 	virtual QUrl currentUrl() const { return mCurrentFile; };
 
-	virtual PluginType pluginType() { return OutputPlugin; };
-
-public slots:
 	virtual void play(const QUrl& url = QUrl()) = 0;
+	virtual bool isPlaying() const = 0;
+
 	virtual void pause() = 0;
 	virtual void unpause() = 0;
+	virtual bool isPaused() const = 0;
+	
 	virtual void stop() = 0;
-
-	virtual void mute() { setVolume(0.0); };
-	virtual void setVolume(float volume = 1.0) = 0;
-
     virtual void seek(qint64 ms) = 0;
-
-	virtual qint64 maxSamples() const { return -1; };
-
-	virtual void emitSongFinished() { emit finishedSong(mCurrentFile); };
-
-signals:
-	void finishedSong(const QUrl& file);
 
 protected:
 	QUrl mCurrentFile;
-	AudioThread *mThread;
 };
 
 Q_DECLARE_INTERFACE(OutputInterface, "com.emotionalcoder.UtopiaPlayer.OutputInterface/0.1")
 
-#endif // __outputinterface_h__
+#endif // __OutputInterface_h__
