@@ -36,7 +36,7 @@ QString GStreamerPlugin::pluginName() const
 
 void GStreamerPlugin::load()
 {
-	OutputInterface::load();
+	PluginInterface::load();
 
 	std::cout << "Loading the GStreamer plugin" << std::endl;
 	setupPipeline();
@@ -54,7 +54,7 @@ void GStreamerPlugin::unload()
 	stop();
 	gst_object_unref(GST_OBJECT(mPlayBin));
 
-	OutputInterface::unload();
+	PluginInterface::unload();
 };
 
 static GstBusSyncReply messageHandler(GstBus*, GstMessage* message, gpointer data)
@@ -62,7 +62,7 @@ static GstBusSyncReply messageHandler(GstBus*, GstMessage* message, gpointer dat
 	if(GST_MESSAGE_TYPE(message) == GST_MESSAGE_EOS)
 	{
 		GStreamerPlugin* player = static_cast<GStreamerPlugin*>(data);
-		player->emitSongFinished();
+		//player->emitSongFinished();
     }
 
     gst_message_unref(message);

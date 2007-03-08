@@ -33,7 +33,7 @@
 class SearchTreeWidget : public QTreeWidget
 {
 public:
-	static QString SearchTreeWidget::pathFromItem(QTreeWidgetItem *item, const QString& path = QString())
+	static QString pathFromItem(QTreeWidgetItem *item, const QString& path = QString())
 	{
 		if(!item)
 			return path;
@@ -52,7 +52,7 @@ public:
 	};
 
 protected:
-	virtual QStringList SearchTreeWidget::mimeTypes() const
+	virtual QStringList mimeTypes() const
 	{
 		QStringList types = QTreeWidget::mimeTypes();
 		types << "text/plain";
@@ -60,7 +60,7 @@ protected:
 		return types;
 	};
 	
-	virtual QMimeData* SearchTreeWidget::mimeData(const QList<QTreeWidgetItem*> items) const
+	virtual QMimeData* mimeData(const QList<QTreeWidgetItem*> items) const
 	{
 		QMimeData *mimeData = QTreeWidget::mimeData(items);
 		QStringList itemPaths;

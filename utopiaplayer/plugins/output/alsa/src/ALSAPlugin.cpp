@@ -80,8 +80,8 @@ void ALSAPlugin::fill()
 
 void ALSAPlugin::load()
 {
-	if(!mThread)
-		return;
+	//if(!mThread)
+		//return;
 
 	fprintf(stderr, "Loading the ALSA plugin\n");
 
@@ -227,7 +227,7 @@ void ALSAPlugin::load()
 	// Start the device
 	snd_pcm_start(mPlaybackHandle);
 
-	OutputInterface::load();
+	PluginInterface::load();
 };
 
 void ALSAPlugin::unload()
@@ -248,7 +248,7 @@ void ALSAPlugin::unload()
 
 	mSampleBuffer = 0;
 
-	OutputInterface::unload();
+	PluginInterface::unload();
 };
 
 void ALSAPlugin::play(const QUrl& url)

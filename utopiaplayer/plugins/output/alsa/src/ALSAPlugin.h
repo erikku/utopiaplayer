@@ -21,18 +21,19 @@
 #define __ALSAPlugin_h__
 
 #include "OutputInterface.h"
+#include "PluginInterface.h"
 
 #include <alsa/asoundlib.h>
 
 class AudioFile;
 
-class ALSAPlugin : public OutputInterface
+class ALSAPlugin : public QObject, public PluginInterface, public OutputInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(OutputInterface)
+	Q_INTERFACES(PluginInterface OutputInterface)
 
 public:
-	ALSAPlugin(QObject *parent = 0, const QStringList &args = QStringList()) : OutputInterface(parent, args), mVolume(1.0f) { };
+	ALSAPlugin() : OutputInterface(), mVolume(1.0f) { };
 	virtual ~ALSAPlugin() { };
 
 	virtual float volume() const { return mVolume; };
@@ -46,12 +47,13 @@ public:
 	virtual void load();
 	virtual void unload();
 
+	QString name() const { return tr("ALSA"); };
 	QString pluginName() const { return tr("ALSA"); };
 
 	void buffer(); // Send data to the sound card
 	void fill(); // Fill the buffer to 100%
 
-public slots:
+//public slots:
 	virtual void play(const QUrl& url = QUrl());
 	virtual void pause() { };
 	virtual void unpause() { };

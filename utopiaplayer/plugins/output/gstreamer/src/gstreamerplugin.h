@@ -27,14 +27,15 @@
 #include <gst/gst.h>
 
 #include "OutputInterface.h"
+#include "PluginInterface.h"
 
-class GStreamerPlugin : public OutputInterface
+class GStreamerPlugin : public QObject, public PluginInterface, public OutputInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(OutputInterface)
+	Q_INTERFACES(PluginInterface OutputInterface)
 
 public:
-	GStreamerPlugin(QObject *parent = 0, const QStringList& args = QStringList()) : OutputInterface(parent, args), mPlayBin(0) { };
+	GStreamerPlugin() : OutputInterface(), mPlayBin(0) { };
 	virtual ~GStreamerPlugin();
 
 	virtual float volume() const;
@@ -45,9 +46,10 @@ public:
     virtual qint64 totalTime() const;
     virtual qint64 currentTime() const;
 
+	virtual QString name() const { return pluginName(); };
 	virtual QString pluginName() const;
 
-public slots:
+//public slots:
 	virtual void play(const QUrl& url = QUrl());
 	virtual void pause();
 	virtual void unpause();

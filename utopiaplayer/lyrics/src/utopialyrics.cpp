@@ -25,7 +25,7 @@
 #include <QtGui/QApplication>
 
 // Utopia Player includes
-#include "utopiaplayer.h"
+#include "UtopiaPlayer.h"
 
 // Utopia Lyrics includes
 #include "mainwindow.h"

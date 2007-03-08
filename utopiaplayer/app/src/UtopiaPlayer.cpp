@@ -34,8 +34,12 @@
 #include "UtopiaPlayer.h"
 #include "Application.h"
 
+/**
+ * @todo We need to move this to a StatucPlugins.cpp.in or something,
+ * because moc will still try to include it even if you use the #if macro.
+ */
 #if (IPOD_PLUGIN_STATIC == ON)
-Q_IMPORT_PLUGIN(ipodplugin)
+//Q_IMPORT_PLUGIN(ipodplugin)
 #endif
 
 void DisplayError(int argc, char* argv[], QString error)
