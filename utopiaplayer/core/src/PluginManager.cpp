@@ -35,7 +35,7 @@ PluginManager::PluginManager(QObject* parent) : QObject(parent)
 {
 	OutputInterface* plugin = new NullOutput;
 	std::cout << "Found Plugin \"Null\" (Built-In)" << std::endl;
-	addOutputPlugin(plugin);
+	//addOutputPlugin(plugin);
 	mCurrentOutputPlugin = plugin;
 	//connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
 	//setCurrentOutputPlugin(tr("Null"));
