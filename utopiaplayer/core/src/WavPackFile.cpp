@@ -18,7 +18,9 @@
 \******************************************************************************/
 
 #include "WavPackFile.h"
+#include "APEv2.h"
 
+#include <QtCore/QFile>
 #include <QtCore/QObject>
 
 #include <stdio.h>
@@ -108,9 +110,38 @@ int WavPackFile::readSamples(float **samples, int count)
 };
 
 bool WavPackFile::isOpen() const { };
-bool WavPackFile::isValid() const { };
+
+bool WavPackFile::isValid() const
+{
+	QFile file(d->path);
+	if( !file.open(QIODevice::ReadOnly) || file.isSequential() )
+		return false;
+
+	if( MetaData::APEv2::fileContainsAPEv2(d->path, MetaData::APEv2::Header) )
+		file.seek(32);
+
+	char magic[4];
+
+	if( file.read(magic, 4) == 4 )
+	{
+		if( memcmp(magic, "wvpk", 4) == 0 )
+			return true;
+	}
+
+	return false;
+};
 
 QString WavPackFile::type() const
 {
-	return "wv";
+	return "WavPack";
+};
+
+QString WavPackFile::mimeType() const
+{
+	return "audio/x-wavpack";
+};
+
+QStringList WavPackFile::extensions() const
+{
+	return QStringList() << ".wv";
 };

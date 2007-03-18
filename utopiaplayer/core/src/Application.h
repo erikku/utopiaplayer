@@ -40,6 +40,13 @@ class PluginInterface;
 
 class AudioThread;
 
+typedef enum StartupMode
+{
+	Auto,
+	Minimal,
+	Full
+};
+
 /**
  * @brief This class starts and stops the application.
  */
@@ -51,7 +58,7 @@ public:
 	Application(int argc, char *argv[]);
 	~Application();
 
-    void Init();
+    void Init(StartupMode mode = Auto);
 
 	Utopia::MetaBase* metaBase() const;
 
@@ -82,6 +89,9 @@ protected:
 	void loadPlugins();
 	void loadGUI();
 	void displayGUI();
+
+	// Startup Mode
+	StartupMode mStartupMode;
 
 	Utopia::MetaBase *mMetaBase;
 

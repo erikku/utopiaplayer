@@ -21,12 +21,19 @@
 #define __Tag_h__
 
 #include <QtCore/QString>
+
 namespace MetaData
 {
 
 class Tag
 {
 public:
+	 /*Q_PROPERTY(QString title
+				READ title
+				WRITE setTitle
+				RESET clearTitle)*/
+
+
 	virtual QString title() const = 0;
 	virtual QString artist() const = 0;
 	virtual QString album() const = 0;

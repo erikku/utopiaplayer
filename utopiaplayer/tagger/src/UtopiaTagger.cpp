@@ -18,32 +18,26 @@
 \******************************************************************************/
 
 /**
- * @file UtopiaPlayer.cpp The core UtopiaPlayer file
+ * @file UtopiaTagger.cpp The core Utopia Tagger file
  */
 
 // Qt includes
-#include <QtCore>
 #include <QtGui/QMessageBox>
 
-// UtopiaPlayer includes
+// Utopia Player includes
 #include "UtopiaPlayer.h"
 #include "Application.h"
 
-/**
- * @todo We need to move this to a StatucPlugins.cpp.in or something,
- * because moc will still try to include it even if you use the #if macro.
- */
-#if (IPOD_PLUGIN_STATIC == ON)
-//Q_IMPORT_PLUGIN(ipodplugin)
-#endif
+// Utopia Tagger includes
+#include "FileList.h"
 
 void DisplayError(int argc, char* argv[], QString error)
 {
 	if(argv)
 		QApplication a(argc, argv);
 
-	QMessageBox::critical(0, QObject::tr("Utopia Player"),
-		QObject::tr("UtopiaPlayer has encountered the following exception:") + QString("\n\n") + error +
+	QMessageBox::critical(0, QObject::tr("Utopia Tagger"),
+		QObject::tr("Utopia Tagger has encountered the following exception:") + QString("\n\n") + error +
 		QString("\n") + QObject::tr("Please report the above error, log files, and a description of how to") +
 		QString("\n") + QObject::tr("reproduce the error to the bug tracker.") +
 		QString("\n\n") + QObject::tr("For more information on reporting errors, consult the documentation."));
@@ -56,10 +50,15 @@ int main(int argc, char* argv[])
 	try
 	{	
 		Application App(argc, argv);
+		App.setApplicationName("Utopia Tagger");
 
 		Started = true;
 
-        App.Init();
+        App.Init(Minimal);
+
+		FileList *list = new FileList;
+		list->setWindowTitle("Utopia Tagger");
+		list->show();
 
 		return App.exec();
 	}

@@ -48,13 +48,19 @@
 
 #include "OutputInterface.h"
 
-Application::Application(int argc, char *argv[]) : QApplication(argc, argv), mPluginManager(0)
+Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
 {
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
 	
 	setApplicationName("Utopia Player");
 	setOrganizationName("Utopia Player Team");
-	setOrganizationDomain("code.google.com");	
+	setOrganizationDomain("code.google.com");
+
+	mMetaBase = 0;
+	mSongManager = 0;
+	mDeviceManager = 0;
+	mPluginManager = 0;
+ 	mSettingsManager = 0;
 };
 
 QIcon Application::icon(const QString& name)
@@ -96,14 +102,20 @@ Application::~Application()
 	Utopia::BlockParser::cleanupParsers();
 };
 
-void Application::Init()
+void Application::Init(StartupMode mode)
 {
+	mStartupMode = mode;
+
 	loadSettings();
 	checkArgs();
 	loadCore();
-	//loadPlugins();
-	loadGUI();
-	displayGUI();
+
+	if(mStartupMode != Minimal)
+	{
+		//loadPlugins();
+		loadGUI();
+		displayGUI();
+	}
 };
 
 Utopia::MetaBase* Application::metaBase() const
@@ -192,22 +204,26 @@ void Application::loadCore()
 		if( mSettingsManager->contains("Palettes/Dark") )
 			setPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() );
 	}
-	
+
 	mMetaBase = Utopia::XmlMetaBase::fromFile( mSettingsDir.absoluteFilePath("utopiadb") );
-	mSongManager = new SongManager;
-	mDeviceManager = new DeviceManager;
-	mPluginManager = new PluginManager;
 
-	/*
-	new CarAdaptor(car);
-    QDBusConnection connection = QDBusConnection::sessionBus();
-    connection.registerObject("/Car", car);
-    connection.registerService("com.trolltech.CarExample");
-	*/
+	if(mStartupMode != Minimal)
+	{
+		mSongManager = new SongManager;
+		mDeviceManager = new DeviceManager;
+		mPluginManager = new PluginManager;
 
-	//new CurrentSongAdaptor(this);
-	//QDBusConnection::sessionBus().registerObject("/CurrentSong", this);
-	//QDBusConnection::sessionBus().registerService("net.emotional-coder.UtopiaPlayer");
+		/*
+		new CarAdaptor(car);
+    	QDBusConnection connection = QDBusConnection::sessionBus();
+    	connection.registerObject("/Car", car);
+    	connection.registerService("com.trolltech.CarExample");
+		*/
+
+		//new CurrentSongAdaptor(this);
+		//QDBusConnection::sessionBus().registerObject("/CurrentSong", this);
+		//QDBusConnection::sessionBus().registerService("net.emotional-coder.UtopiaPlayer");
+	}
 };
 
 void Application::loadPlugins()

@@ -17,39 +17,30 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __OGGFile_h__
-#define __OGGFile_h__
+#ifndef __FileList_h__
+#define __FileList_h__
 
-#include "AudioFile.h"
+#include <QtGui/QTreeWidget>
 
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
+class FileTypeFactory;
 
-class OGGFile : public AudioFile
+class FileList : public QTreeWidget
 {
+	Q_OBJECT
+
 public:
-	OGGFile(const QString& path);
-	virtual ~OGGFile();
+	FileList(QWidget *parent = 0);
+	~FileList();
 
-	virtual void close();
-	virtual bool load();
-	virtual bool save();
-
-	virtual bool rewind();
-	virtual bool seek(quint32 sample);
-	virtual int readSamples(float **samples, int count);
-
-	virtual bool isOpen() const;
-	virtual bool isValid() const;
-
-	virtual QString type() const;
-	virtual QString mimeType() const;
-	virtual QStringList extensions() const;
+	void addFile(const QString& file);
 
 protected:
-	FILE *mFile;
-	OggVorbis_File mVorbisFile;
-    vorbis_info *mVorbisInfo;
+	void dropEvent(QDropEvent *event);
+	void dragEnterEvent(QDragEnterEvent *event);
+	void dragMoveEvent(QDragMoveEvent *event);
+	void dragLeaveEvent(QDragLeaveEvent *event);
+
+	FileTypeFactory *mFileTypeFactory;
 };
 
-#endif // __OGGFile_h__
+#endif // __FileList_h__

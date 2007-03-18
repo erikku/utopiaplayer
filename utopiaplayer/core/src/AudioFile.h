@@ -23,6 +23,7 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QDateTime>
+#include <QtCore/QStringList>
 #include <QtCore/QSharedData>
 #include <QtCore/QSharedDataPointer>
 
@@ -88,6 +89,8 @@ public:
 	virtual bool isWritable() const;
 
 	virtual QString type() const = 0;
+	virtual QString mimeType() const = 0;
+	virtual QStringList extensions() const = 0;
 
 protected:
 	QSharedDataPointer<AudioFileData> d;

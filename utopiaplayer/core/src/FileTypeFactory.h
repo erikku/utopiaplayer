@@ -17,39 +17,30 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __OGGFile_h__
-#define __OGGFile_h__
+#ifndef __FileTypeFactory_h__
+#define __FileTypeFactory_h__
 
-#include "AudioFile.h"
+#include <QtCore/QMap>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
+class AudioFile;
 
-class OGGFile : public AudioFile
+class FileTypeFactory
 {
 public:
-	OGGFile(const QString& path);
-	virtual ~OGGFile();
+	FileTypeFactory();
 
-	virtual void close();
-	virtual bool load();
-	virtual bool save();
+	void addType(AudioFile* (*function)(const QString&));
+	void removeType(const QString& name);
 
-	virtual bool rewind();
-	virtual bool seek(quint32 sample);
-	virtual int readSamples(float **samples, int count);
+	AudioFile* getHandle(const QString& path);
 
-	virtual bool isOpen() const;
-	virtual bool isValid() const;
-
-	virtual QString type() const;
-	virtual QString mimeType() const;
-	virtual QStringList extensions() const;
+	QStringList typeNames() const;
+	QList<AudioFile* (*)(const QString&)> creatorFunctions() const;
 
 protected:
-	FILE *mFile;
-	OggVorbis_File mVorbisFile;
-    vorbis_info *mVorbisInfo;
+	QMap<QString, AudioFile* (*)(const QString&)> mFileTypes;
 };
 
-#endif // __OGGFile_h__
+#endif // __FileTypeFactory_h__

@@ -68,9 +68,6 @@ protected:
 	
 		foreach(QTreeWidgetItem *item, items)
 		{
-			if(item->childCount()) // We only want to give them end items.
-				continue;
-
 			currentPath = pathFromItem(item);
 			if(!currentPath.isEmpty())
 				itemPaths << currentPath;

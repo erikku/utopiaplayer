@@ -17,39 +17,29 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __OGGFile_h__
-#define __OGGFile_h__
+#ifndef __APEv2_h__
+#define __APEv2_h__
 
-#include "AudioFile.h"
+#include "Tag.h"
 
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
+namespace MetaData
+{
 
-class OGGFile : public AudioFile
+class APEv2 : public Tag
 {
 public:
-	OGGFile(const QString& path);
-	virtual ~OGGFile();
+	virtual QString tagType() const;
 
-	virtual void close();
-	virtual bool load();
-	virtual bool save();
+	typedef enum
+	{
+		Header,
+		Footer,
+		Both
+	}APEv2Position;
 
-	virtual bool rewind();
-	virtual bool seek(quint32 sample);
-	virtual int readSamples(float **samples, int count);
-
-	virtual bool isOpen() const;
-	virtual bool isValid() const;
-
-	virtual QString type() const;
-	virtual QString mimeType() const;
-	virtual QStringList extensions() const;
-
-protected:
-	FILE *mFile;
-	OggVorbis_File mVorbisFile;
-    vorbis_info *mVorbisInfo;
+	static bool fileContainsAPEv2(const QString& file, APEv2Position pos = Both);
 };
 
-#endif // __OGGFile_h__
+}; // namespace MetaData
+
+#endif // __APEv2_h__

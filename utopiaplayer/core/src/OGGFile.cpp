@@ -19,6 +19,7 @@
 
 #include "OGGFile.h"
 
+#include <QtCore/QFile>
 #include <QtCore/QObject>
 
 #include <stdio.h>
@@ -114,9 +115,35 @@ int OGGFile::readSamples(float **samples, int count)
 };
 
 bool OGGFile::isOpen() const { return mFile; };
-bool OGGFile::isValid() const { return mFile; };
+
+bool OGGFile::isValid() const
+{
+	QFile file(d->path);
+	if( !file.open(QIODevice::ReadOnly) || file.isSequential() )
+		return false;
+
+	char magic[4];
+
+	if( file.read(magic, 4) == 4 )
+	{
+		if( memcmp(magic, "OggS", 4) == 0 )
+			return true;
+	}
+
+	return false;
+};
 
 QString OGGFile::type() const
 {
-	return "ogg";
+	return "OGG Vorbis";
+};
+
+QString OGGFile::mimeType() const
+{
+	return "application/ogg";
+};
+
+QStringList OGGFile::extensions() const
+{
+	return QStringList() << ".ogg";
 };

@@ -67,6 +67,7 @@ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/UtopiaPlayer.h.in ${CMAKE_CURRENT_BIN
 SET(UtopiaPlayer_SRCS
 	AddRemoveTestDialog.cpp
     AlbumList.cpp
+	APEv2.cpp
     Application.cpp
 	ArtLabel.cpp
 	AudioFile.cpp
@@ -74,6 +75,7 @@ SET(UtopiaPlayer_SRCS
 	ComponentList.cpp
     DatabaseList.cpp
 	DeviceManager.cpp
+	FileTypeFactory.cpp
 	GUIManager.cpp
 	ID3v1.cpp
     InsertAlbum.cpp

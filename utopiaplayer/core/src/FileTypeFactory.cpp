@@ -17,39 +17,65 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __OGGFile_h__
-#define __OGGFile_h__
+#include "FileTypeFactory.h"
 
-#include "AudioFile.h"
+#include "OGGFile.h"
+#include "WavPackFile.h"
 
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
-
-class OGGFile : public AudioFile
+AudioFile* createOGGFile(const QString& file)
 {
-public:
-	OGGFile(const QString& path);
-	virtual ~OGGFile();
-
-	virtual void close();
-	virtual bool load();
-	virtual bool save();
-
-	virtual bool rewind();
-	virtual bool seek(quint32 sample);
-	virtual int readSamples(float **samples, int count);
-
-	virtual bool isOpen() const;
-	virtual bool isValid() const;
-
-	virtual QString type() const;
-	virtual QString mimeType() const;
-	virtual QStringList extensions() const;
-
-protected:
-	FILE *mFile;
-	OggVorbis_File mVorbisFile;
-    vorbis_info *mVorbisInfo;
+	return new OGGFile(file);
 };
 
-#endif // __OGGFile_h__
+AudioFile* createWavPackFile(const QString& file)
+{
+	return new WavPackFile(file);
+};
+
+FileTypeFactory::FileTypeFactory()
+{
+	addType(createOGGFile);
+	addType(createWavPackFile);
+};
+
+void FileTypeFactory::addType(AudioFile* (*function)(const QString&))
+{
+	AudioFile *type = function( QString() );
+
+	mFileTypes[type->type()] = function;
+
+	delete type;
+};
+
+void FileTypeFactory::removeType(const QString& name)
+{
+	mFileTypes.remove(name);
+};
+
+QStringList FileTypeFactory::typeNames() const
+{
+	return QStringList(mFileTypes.keys());
+};
+
+QList<AudioFile* (*)(const QString&)> FileTypeFactory::creatorFunctions() const
+{
+	return mFileTypes.values();
+};
+
+AudioFile* FileTypeFactory::getHandle(const QString& path)
+{
+	AudioFile *file = 0;
+
+	foreach(AudioFile* (*function)(const QString&), mFileTypes.values())
+	{
+		file = function(path);
+
+		if(file->isValid())
+			break;
+
+		delete file;
+		file = 0;
+	}
+
+	return file;
+};

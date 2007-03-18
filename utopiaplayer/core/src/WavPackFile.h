@@ -42,6 +42,8 @@ public:
 	virtual bool isValid() const;
 
 	virtual QString type() const;
+	virtual QString mimeType() const;
+	virtual QStringList extensions() const;
 
 protected:
 	int32_t *wvBuffer;
