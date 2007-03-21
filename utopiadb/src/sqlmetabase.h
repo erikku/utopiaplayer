@@ -37,9 +37,10 @@ class SqlMetaBase : public MetaBase
 	Q_OBJECT
 
 public:
-	SqlMetaBase(const QSqlDatabase& db, const QString& prefix = QString(), QObject *parent = 0);
+	SqlMetaBase(const QSqlDatabase& db, const QString& prefix = QString(), bool revControl = true, QObject *parent = 0);
 
 	virtual QList<UtopiaBlock> blocks() const;
+	QList<UtopiaBlock> blocks(const QString& blockType) const;
 
 	virtual QList<Album> albums() const;
 	virtual bool containsAlbumTitle(const QString& title) const;
@@ -66,12 +67,27 @@ public:
 
 	virtual QString getSetting(const QString& key) const;
 
+	QString patchedBlockData(uid id, int rev) const;
+	QString fetchRevisionData(uid id, int rev) const;
+
 public slots:
 	virtual void setSetting(const QString& key, const QString& value);
 	virtual void addBlock(const UtopiaBlock& block);
 	virtual void updateBlock(const UtopiaBlock& block);
 
 protected:
+	void createDatabase();
+	bool updateIndexTable(const QString& blockType, const QStringList& fields);
+	QString indexTableName(const QString& blockType, const QString& field) const;
+	QString indexTableIndexName(const QString& blockType, const QString& field) const;
+
+	int nextTableID(const QString& table);
+	QString patchText(const QString& text, const QString& patch) const;
+	QString createDiff(const QString& oldText, const QString& newText) const;
+
+	bool mValid;
+	bool mRevisionControl;
+
 	uid mNextAvailableID;
 
 	QString mPrefix;

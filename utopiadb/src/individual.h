@@ -72,6 +72,8 @@ public:
 	void setColor(int r, int g, int b);
 	void clearColor();
 
+	virtual QMap<QString, QStringList> indexes() const;
+
 	virtual void clear();
 
 	virtual QString xml(bool encased = true) const;

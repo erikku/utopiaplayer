@@ -99,6 +99,10 @@ public:
 	void setLangOverride(const QString& lang = CURRENT_LANG);
 	void setNativeLang(const QString& lang = CURRENT_LANG);
 
+	virtual QMap<QString, QStringList> indexes() const;
+	virtual QStringList indexKeys() const;
+	virtual QStringList indexValues(const QString& key) const;
+
 	virtual void clear();
 
 	virtual QString xml(bool encased = true) const;

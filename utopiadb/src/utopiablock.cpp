@@ -246,6 +246,21 @@ void UtopiaBlock::setNativeLang(const QString& lang)
 	d->mNativeLang = lang;
 };
 
+QMap<QString, QStringList> UtopiaBlock::indexes() const
+{
+	return QMap<QString, QStringList>();
+};
+
+QStringList UtopiaBlock::indexKeys() const
+{
+	return indexes().keys();
+};
+
+QStringList UtopiaBlock::indexValues(const QString& key) const
+{
+	return indexes().value(key);
+};
+
 /**
  * @brief Clears all data
  *

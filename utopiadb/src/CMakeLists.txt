@@ -30,12 +30,12 @@ SET(utopiadb_SRCS
 	mood.cpp
 	publisher.cpp
 	qgzipfile.cpp
+	sha1.c
 	song.cpp
 	songedition.cpp
 	songfile.cpp
 	songset.cpp
 	sqlmetabase.cpp
-	sqlparsers.cpp
 	staff.cpp
 	tagid.cpp
 	utopiablock.cpp

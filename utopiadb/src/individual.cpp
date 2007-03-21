@@ -197,6 +197,14 @@ void Individual::clearColor()
 	d->mColor = QColor();
 };
 
+QMap<QString, QStringList> Individual::indexes() const
+{
+	QMap<QString, QStringList> result = UtopiaBlock::indexes();
+	result["name"] = individualNames();
+
+	return result;
+};
+
 /**
  * @brief Clears all data
  * This function clears all data in the object back to empty and/or defaults.

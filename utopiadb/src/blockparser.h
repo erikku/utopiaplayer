@@ -48,11 +48,16 @@ public:
 	static void addParser(const QString& name, TypeParser *parser);
 	static void cleanupParsers();
 
+	static QList<UtopiaBlock> blocksFromXML(const QString& xml);
+
+	QList<UtopiaBlock> blocks() const;
+
 protected:
 	MetaBase *mMetaBase;
 	QString mCurrentBlock;
 	QString mCurrentElement;
 	QString mCurrentSettingsKey;
+	QList<UtopiaBlock> mBlockCache;
 };
 
 }; // namespace Utopia

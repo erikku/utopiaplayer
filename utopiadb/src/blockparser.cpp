@@ -74,7 +74,9 @@ bool BlockParser::characters(const QString& ch)
 
 	if( mCurrentElement == "setting" )
 	{
-		mMetaBase->setSetting(mCurrentSettingsKey, ch.trimmed());
+		if(mMetaBase)
+			mMetaBase->setSetting(mCurrentSettingsKey, ch.trimmed());
+
 		return true;
 	}
 
@@ -90,7 +92,11 @@ bool BlockParser::endElement(const QString& namespaceURI, const QString& localNa
 	{
 		if(mCurrentBlock == localName)
 		{
-			mMetaBase->addBlock(*gTypeParsers[mCurrentBlock]->block());
+			if(mMetaBase)
+				mMetaBase->addBlock(*gTypeParsers[mCurrentBlock]->block());
+
+			mBlockCache << ( *gTypeParsers[mCurrentBlock]->block() );
+
 			bool ret = gTypeParsers[mCurrentBlock]->endDocument();
 			mCurrentBlock.clear();
 			return ret;
@@ -107,6 +113,21 @@ bool BlockParser::endElement(const QString& namespaceURI, const QString& localNa
 	throw QObject::tr("We have some random element <i>%1</i>").arg(localName);
 
 	return true;
+};
+
+QList<UtopiaBlock> BlockParser::blocksFromXML(const QString& xml)
+{
+	QXmlInputSource source;
+	source.setData(xml);
+
+	BlockParser handler;
+
+	QXmlSimpleReader xmlReader;
+	xmlReader.setContentHandler(&handler);
+	xmlReader.setErrorHandler(&handler);
+	xmlReader.parse(&source);
+
+	return handler.blocks();
 };
 
 bool BlockParser::endDocument()
@@ -134,6 +155,11 @@ void BlockParser::initParsers()
 	addParser("song", new SongParser);
 	addParser("songedition", new SongEditionParser);
 	addParser("songfile", new SongFileParser);
+};
+
+QList<UtopiaBlock> BlockParser::blocks() const
+{
+	return mBlockCache;
 };
 
 void BlockParser::addParser(const QString& name, TypeParser *parser)
