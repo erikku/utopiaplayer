@@ -18,34 +18,26 @@
 \******************************************************************************/
 
 /**
- * @file UtopiaPlayer.cpp The core UtopiaPlayer file
+ * @file UtopiaBrowser.cpp The core Utopia Browser file
  */
 
 // Qt includes
-#include <QtCore>
 #include <QtGui/QMessageBox>
 
-// UtopiaPlayer includes
+// Utopia Player includes
 #include "UtopiaPlayer.h"
 #include "Application.h"
 
-#include <utopiadb/sqlmetabase.h>
-
-/**
- * @todo We need to move this to a StatucPlugins.cpp.in or something,
- * because moc will still try to include it even if you use the #if macro.
- */
-#if (IPOD_PLUGIN_STATIC == ON)
-//Q_IMPORT_PLUGIN(ipodplugin)
-#endif
+// Utopia Browser includes
+#include "Browser.h"
 
 void DisplayError(int argc, char* argv[], QString error)
 {
 	if(argv)
 		QApplication a(argc, argv);
 
-	QMessageBox::critical(0, QObject::tr("Utopia Player"),
-		QObject::tr("UtopiaPlayer has encountered the following exception:") + QString("\n\n") + error +
+	QMessageBox::critical(0, QObject::tr("Utopia Browser"),
+		QObject::tr("Utopia Browser has encountered the following exception:") + QString("\n\n") + error +
 		QString("\n") + QObject::tr("Please report the above error, log files, and a description of how to") +
 		QString("\n") + QObject::tr("reproduce the error to the bug tracker.") +
 		QString("\n\n") + QObject::tr("For more information on reporting errors, consult the documentation."));
@@ -58,38 +50,15 @@ int main(int argc, char* argv[])
 	try
 	{	
 		Application App(argc, argv);
+		App.setApplicationName("Utopia Browser");
 
 		Started = true;
 
-        App.Init();
+        App.Init(Minimal);
 
-		QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-		db.setDatabaseName("test.db");
-		if( !db.open() )
-		{
-			QMessageBox::critical(0, qApp->tr("Cannot open database"),
-				App.tr("Unable to establish a database connection.\n"
-				"This example needs SQLite support. Please read "
-				"the Qt SQL driver documentation for information how "
-				"to build it.\n\n"
-				"Click Cancel to exit."), QMessageBox::Cancel);
-		}
-		else
-		{
-			Utopia::SqlMetaBase base(db, "utopia_");
-
-			Utopia::UtopiaBlock block;
-			block.setID(10);
-			block.setNativeLang("en");
-			base.addBlock(block);
-
-			block.setID(35);
-			block.setNativeLang("ja");
-			base.addBlock(block);
-
-			block.setNativeLang("en");
-			base.updateBlock(block);
-		}
+		Browser *browser = new Browser;
+		browser->setWindowTitle("Utopia Browser");
+		browser->show();
 
 		return App.exec();
 	}

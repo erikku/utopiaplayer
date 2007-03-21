@@ -17,39 +17,48 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#ifndef __Browser_h__
+#define __Browser_h__
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include <QtSql/QSqlDatabase>
+#include <QtGui/QMainWindow>
 
-#include <QtCore/QString>
-#include <QtCore/QtPlugin>
+#include <utopiadb/utopiablock.h>
 
-class PluginInterface
+namespace Utopia { class SqlMetaBase; };
+
+class QSpinBox;
+class QTextEdit;
+class QSplitter;
+class QTreeWidget;
+
+class Browser : public QMainWindow
 {
+	Q_OBJECT
+
 public:
-	PluginInterface() : mLoaded(false) { };
-	virtual ~PluginInterface() { };
+	Browser(QWidget *parent = 0);
+	~Browser();
 
-	//virtual QIcon icon() const = { return QIcon() };
-	virtual QString name() const = 0;
-	/*virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
+	QSize sizeHint() const;
 
-	virtual QWidget* aboutDialog() { return 0; };
-	virtual bool hasAboutDialog() { return false; };*/
-	
-	virtual void load() { mLoaded = true; };
-	virtual void unload() { mLoaded = false; };
-	virtual bool isLoaded() { return mLoaded; };
+public slots:
+	void openSQLite();
+	void updateSelection();
+	void updateRev(int rev);
 
 protected:
-	bool mLoaded;
+	QString mPrefix;
+	Utopia::uid mCurrentID;
+	Utopia::SqlMetaBase *mCurrentMetabase;
+	QSqlDatabase mCurrentDatabase;
+
+	QTextEdit *mBlockXmlEdit;
+	QTextEdit *mBlockRawEdit;
+
+	QSpinBox *mRevSpinner;
+	QTreeWidget *mBlockList;
+	QSplitter *mMainSplitter;
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.emotionalcoder.UtopiaPlayer.PluginInterface/0.1")
-
-#endif // __Plugin_h__
+#endif // __Browser_h__
