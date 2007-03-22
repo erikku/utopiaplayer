@@ -40,8 +40,6 @@ SET(utopiadb_SRCS
 	tagid.cpp
 	utopiablock.cpp
 	xmlmetabase.cpp
-	#utopiafactory.cpp
-	#mangaseries.cpp
 )
 
 SET(utopiadb_HDRS
@@ -62,11 +60,8 @@ SET(utopiadb_HDRS_NOMOC
 	credit.h
 	genre.h
 	individual.h
-	#mangapublisher.h
-	#mangaseries.h
 	mood.h
 	publisher.h
-	#series.h
 	song.h
 	songedition.h
 	songfile.h
@@ -75,7 +70,6 @@ SET(utopiadb_HDRS_NOMOC
 	tagid.h
 	utopiablock.h
 	utopiadb.h
-	#utopiafactory.h
 )
 
 QT4_WRAP_CPP(utopiadb_SRCS ${utopiadb_HDRS})
@@ -87,29 +81,26 @@ SET_TARGET_PROPERTIES(utopiadb PROPERTIES VERSION ${UTOPIADB_SANE_VERSION} SOVER
 TARGET_LINK_LIBRARIES(utopiadb ${QT_LIBRARIES})
 
 # Doxygen Docs
-#IF(BUILD_DOCS)
+IF(BUILD_DOCS)
 	INCLUDE(FindDoxygen)
 	MAKE_DIRECTORY(${CMAKE_BINARY_DIR}/doc)
 	MAKE_DIRECTORY(${CMAKE_BINARY_DIR}/doc/api)
+	MAKE_DIRECTORY(${CMAKE_BINARY_DIR}/doc/api/html)
 
 	SET(Doxyfile_in ${CMAKE_SOURCE_DIR}/scripts/Doxyfile.in)
 	SET(Doxyfile ${CMAKE_BINARY_DIR}/Doxyfile)
+	SET(Doxydepends ${Doxyfile_in} ${utopiadb_SRCS} ${utopiadb_HDRS} ${utopiadb_HDRS_NOMOC} ${CMAKE_SOURCE_DIR}/doc/common/Mainpage.dox)
 
 	CONFIGURE_FILE(${Doxyfile_in} ${Doxyfile} @ONLY)
 
-	# I may want to add some other stuff like Mainpage.dox to the DEPENDS for this command
-	#ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/doc/api/html/index.html COMMAND echo "Building API Documentation..." COMMAND ${DOXYGEN} ${CMAKE_BINARY_DIR}/Doxyfile &> ${CMAKE_BINARY_DIR}/doxygen.log DEPENDS ${Doxyfile} ${utopiadb_SRCS} ${utopiadb_HDRS})
-	#ADD_CUSTOM_TARGET(api-docs DEPENDS ${CMAKE_BINARY_DIR}/doc/api/html/index.html)
-	# I need to fix the install for the docs, it scans the folder BEFORE building instead of after
+	ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_BINARY_DIR}/doc/api/utopiadb.tag COMMAND ${DOXYGEN} ${CMAKE_BINARY_DIR}/Doxyfile > ${CMAKE_BINARY_DIR}/doxygen.log DEPENDS ${Doxydepends} COMMENT "Generating API Documentation" VERBATIM)
+	ADD_CUSTOM_TARGET(docs ALL DEPENDS ${Doxydepends} ${CMAKE_BINARY_DIR}/doc/api/utopiadb.tag)
 
-	#FILE(GLOB utopidb_DOCS ${CMAKE_CURRENT_BINARY_DIR}/doc/api/html *)
-	#INSTALL(FILES ${utopiadb_DOCS} DESTINATION share/doc/utopiadb-${UTOPIADB_SANE_VERSION}/api)
-	#INSTALL(CODE "FILE(GLOB utopidb_DOCS ${CMAKE_BINARY_DIR}/doc/api/html *)")
-	#INSTALL(CODE "INSTALL(FILES ${utopiadb_DOCS} DESTINATION share/doc/utopiadb-${UTOPIADB_SANE_VERSION}/api)")
-	#INSTALL(FILES ${CMAKE_BINARY_DIR}/doc/api/utopiadb.tag DESTINATION share/doc/utopiadb-${UTOPIADB_SANE_VERSION})
+	INSTALL(FILES ${CMAKE_BINARY_DIR}/doc/api/utopiadb.tag DESTINATION share/utopiadb/doc/api)
+	INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/doc/api/html DESTINATION share/utopiadb/doc/api)
 
-	#ADD_DEPENDENCIES(utopiadb api-docs)
-#ENDIF(BUILD_DOCS)
+	ADD_DEPENDENCIES(utopiadb docs)
+ENDIF(BUILD_DOCS)
 
 INSTALL(TARGETS utopiadb DESTINATION lib)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/utopiadb.pc DESTINATION lib/pkgconfig)

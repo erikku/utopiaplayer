@@ -20,54 +20,18 @@
 \*************************************************************************/
 
 /**
- * @file mangapublisher.h The manga publisher class definition
+ * @mainpage
+ *
+ * UtopiaDB is built on top of the Qt library. For your convenience, this
+ * documentation has been linked to the Qt documentation. If the Qt links do
+ * not work, cd to the documentation directory and run the following command:
+ * @code
+ * # ./installdox -l qt-4.1.2.tag@some_location
+ * @endcode
+ * Replacing @c some_location with either a local path, or a URL. For example,
+ * you can link to the documentation on the official site with:
+ * @code
+ * # ./installdox -l qt-4.1.2.tag@http://doc.trolltech.com/4.1
+ * @endcode
+ *
  */
-
-#ifndef __MangaPublisher_h__
-#define __MangaPublisher_h__
-
-// UtopiaDB Headers
-#include "mangacommon.h"
-#include "utopiablock.h"
-
-// Qt Headers
-#include <QtCore/QStringList>
-#include <QtCore/QString>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-
-namespace Utopia
-{
-
-/**
- * @brief A class to store a managa publisher
- */
-class MangaPublisher : public UtopiaBlock
-{
-	Q_OBJECT
-
-public:
-	MangaPublisher(QObject* parent = 0);
-	MangaPublisher(const MangaPublisher& publisher, QObject* parent = 0);
-
-	MangaPublisher& operator=(const MangaPublisher& publisher);
-	bool operator==(const MangaPublisher& publisher);
-	bool operator!=(const MangaPublisher& publisher);
-	
-	QMap<QString, QString> publisherNames();
-	QString publisherName(const QString& lang = QLocale::system().language());
-
-public slots:
-	void addPublisherName(const QString& name, const QString& lang = CURRENT_LANG);
-	void removePublisherName(const QString& name = "", const QString& lang = CURRENT_LANG);
-	void clearPublisherNames();
-	
-	void clear();
-
-protected:
-	QMap<QString, QString> mPublisherName;
-};
-
-}; // namespace Utopia
-
-#endif // __MangaPublisher_h__

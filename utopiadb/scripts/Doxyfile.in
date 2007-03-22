@@ -4,7 +4,7 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 PROJECT_NAME           = UtopiaDB
-PROJECT_NUMBER         = 0.1.0
+PROJECT_NUMBER         = @UTOPIADB_SANE_VERSION@
 OUTPUT_DIRECTORY       = @CMAKE_BINARY_DIR@/doc/api
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = @DOXYGEN_LANG@
@@ -83,7 +83,7 @@ WARN_LOGFILE           =
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = @CMAKE_SOURCE_DIR@/src \
-                         @CMAKE_SOURCE_DIR@/doc/common/Mainpage.dox
+			 @CMAKE_SOURCE_DIR@/doc/common/Mainpage.dox
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cxx \
