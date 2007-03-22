@@ -61,11 +61,25 @@ class TagID;
 
 typedef quint32 uid;
 
-typedef struct _Track
+class Track
 {
-	int disc;
-	int track;
-}Track;
+public:
+	Track() { mDisc = 0; mTrack = 0; };
+	Track(const Track& other) { mDisc = other.mDisc; mTrack = other.mTrack; };
+	bool operator=(const Track& other) { mDisc = other.mDisc; mTrack = other.mTrack; };
+	bool operator==(const Track& other) { if(other.mDisc == mDisc && other.mTrack == mTrack) return true; return false; };
+	bool operator!=(const Track& other) { if(other.mDisc == mDisc && other.mTrack == mTrack) return false; return true; };
+
+	int disc() const { return mDisc; };
+	void setDisc(int disc) { mDisc = disc; };
+
+	int track() const { return mTrack; };
+	void setTrack(int track) { mTrack = track; };
+
+private:
+	int mDisc;
+	int mTrack;
+};
 
 class TypeParser
 {

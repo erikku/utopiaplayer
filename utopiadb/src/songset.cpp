@@ -39,8 +39,7 @@ SongSet::SongSet(const SongSet& block)
 
 SongSet& SongSet::operator=(const SongSet& block)
 {
-	mTrack.track = block.mTrack.track;
-	mTrack.disc = block.mTrack.disc;
+	mTrack = block.mTrack;
 	mSong = block.mSong;
 	mSongEdition = block.mSongEdition;
 
@@ -49,8 +48,7 @@ SongSet& SongSet::operator=(const SongSet& block)
 
 bool SongSet::operator==(const SongSet& block)
 {
-	if(mTrack.track == block.mTrack.track && mTrack.disc == block.mTrack.disc &&
-		mSong == block.mSong && mSongEdition == block.mSongEdition)
+	if(mTrack == block.mTrack && mSong == block.mSong && mSongEdition == block.mSongEdition)
 		return true;
 
 	return false;
@@ -63,12 +61,12 @@ bool SongSet::operator!=(const SongSet& block)
 
 int SongSet::track()
 {
-	return mTrack.track;
+	return mTrack.track();
 };
 
 int SongSet::disc()
 {
-	return mTrack.disc;
+	return mTrack.disc();
 };
 
 uid SongSet::song()
@@ -83,12 +81,12 @@ uid SongSet::songEdition()
 
 void SongSet::setTrack(int value)
 {
-	mTrack.track = value;
+	mTrack.setTrack(value);
 };
 
 void SongSet::setDisc(int value)
 {
-	mTrack.disc = value;
+	mTrack.setDisc(value);
 };
 
 void SongSet::setSong(uid value)
@@ -103,8 +101,6 @@ void SongSet::setSongEdition(uid value)
 
 void SongSet::clear()
 {
-	mTrack.track = 0;
-	mTrack.disc = 0;
 	mSong = 0;
 	mSongEdition = 0;
 };
@@ -113,7 +109,7 @@ QString SongSet::xml(bool encased) const
 {
 	QString string;
 
-	string += "<song id=\"" + QString::number(mSong) + "\" disc=\"" + QString::number(mTrack.disc) + "\" track=\"" + QString::number(mTrack.track) + "\" />\n";
+	string += "<song id=\"" + QString::number(mSong) + "\" disc=\"" + QString::number(mTrack.disc()) + "\" track=\"" + QString::number(mTrack.track()) + "\" />\n";
 
 	return string;
 };

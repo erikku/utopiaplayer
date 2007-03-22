@@ -4,7 +4,7 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 PROJECT_NAME           = UtopiaDB
-PROJECT_NUMBER         = @UTOPIADB_SANE_VERSION@
+PROJECT_NUMBER         = @UTOPIADB_VERSION@
 OUTPUT_DIRECTORY       = @CMAKE_BINARY_DIR@/doc/api
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = @DOXYGEN_LANG@

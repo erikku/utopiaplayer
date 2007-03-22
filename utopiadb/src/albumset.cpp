@@ -39,8 +39,7 @@ AlbumSet::AlbumSet(const AlbumSet& block)
 
 AlbumSet& AlbumSet::operator=(const AlbumSet& block)
 {
-	mTrack.track = block.mTrack.track;
-	mTrack.disc = block.mTrack.disc;
+	mTrack = block.mTrack;
 	mAlbum = block.mAlbum;
 
 	return *this;
@@ -48,7 +47,7 @@ AlbumSet& AlbumSet::operator=(const AlbumSet& block)
 
 bool AlbumSet::operator==(const AlbumSet& block)
 {
-	if(mTrack.track == block.mTrack.track && mTrack.disc == block.mTrack.disc && mAlbum == block.mAlbum)
+	if(mTrack == block.mTrack && mAlbum == block.mAlbum)
 		return true;
 
 	return false;
@@ -61,12 +60,12 @@ bool AlbumSet::operator!=(const AlbumSet& block)
 
 int AlbumSet::track()
 {
-	return mTrack.track;
+	return mTrack.track();
 };
 
 int AlbumSet::disc()
 {
-	return mTrack.disc;
+	return mTrack.disc();
 };
 
 uid AlbumSet::album()
@@ -76,12 +75,12 @@ uid AlbumSet::album()
 
 void AlbumSet::setTrack(int value)
 {
-	mTrack.track = value;
+	mTrack.setTrack(value);
 };
 
 void AlbumSet::setDisc(int value)
 {
-	mTrack.disc = value;
+	mTrack.setDisc(value);
 };
 
 void AlbumSet::setAlbum(uid value)
@@ -91,8 +90,6 @@ void AlbumSet::setAlbum(uid value)
 
 void AlbumSet::clear()
 {
-	mTrack.track = 0;
-	mTrack.disc = 0;
 	mAlbum = 0;
 };
 
@@ -100,7 +97,7 @@ QString AlbumSet::xml(bool encased) const
 {
 	QString string;
 
-	string += "<album id=\"" + QString::number(mAlbum) + "\" disc=\"" + QString::number(mTrack.disc) + "\" track=\"" + QString::number(mTrack.track) + "\" />\n";
+	string += "<album id=\"" + QString::number(mAlbum) + "\" disc=\"" + QString::number(mTrack.disc()) + "\" track=\"" + QString::number(mTrack.track()) + "\" />\n";
 
 	return string;
 };
