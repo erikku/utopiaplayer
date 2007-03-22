@@ -23,4 +23,4 @@ ENDIF(IPOD_PLUGIN_STATIC)
 
 TARGET_LINK_LIBRARIES(utopiaplayer_app ${utopiaplayer_app_LIBS})
 
-INSTALL(TARGETS utopiaplayer_app DESTINATION bin)
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/utopiaplayer_app DESTINATION bin RENAME utopiaplayer)

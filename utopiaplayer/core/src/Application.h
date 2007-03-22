@@ -23,6 +23,7 @@
 // Qt4 includes
 #include <QtCore/QDir>
 #include <QtCore/QMap>
+#include <QtCore/QStringList>
 #include <QtGui/QApplication>
 
 namespace Utopia
@@ -76,7 +77,7 @@ public:
 	static QStringList listRecursiveDirectoryContents(const QDir& dir, const QStringList& nameFilters = QStringList() << "*", QDir::Filters filters = QDir::Files, QDir::SortFlags sort = QDir::Name);
 	static QString makePathCaseSensitive(const QString& path);
 
-	QIcon icon(const QString& name);
+	QIcon icon(const QString& name, bool useCache = true);
 
 public slots:
 	void setupWizard();
@@ -106,6 +107,7 @@ protected:
 
 	AudioThread *mAudioThread;
 
+	QStringList mIconSearchPath;
 	QMap<QString, QIcon> mIconCache;
 };
 

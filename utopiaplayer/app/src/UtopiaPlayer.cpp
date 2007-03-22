@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 
         App.Init();
 
+		/*
 		QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 		db.setDatabaseName("test.db");
 		if( !db.open() )
@@ -90,6 +91,7 @@ int main(int argc, char* argv[])
 			block.setNativeLang("en");
 			base.updateBlock(block);
 		}
+		*/
 
 		return App.exec();
 	}

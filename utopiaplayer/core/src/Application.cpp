@@ -17,6 +17,7 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
+#include <QtCore/QProcess>
 #include <QtCore/QPluginLoader>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTextCodec>
@@ -51,7 +52,7 @@
 Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
 {
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-	
+
 	setApplicationName("Utopia Player");
 	setOrganizationName("Utopia Player Team");
 	setOrganizationDomain("code.google.com");
@@ -63,28 +64,67 @@ Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
  	mSettingsManager = 0;
 };
 
-QIcon Application::icon(const QString& name)
+QIcon Application::icon(const QString& name, bool useCache)
 {
-	if(mIconCache.contains(name))
-		return mIconCache.value(name);
+	if(useCache)
+		if(mIconCache.contains(name))
+			return mIconCache.value(name);
 
 	QIcon nIcon;
 	QList<int> sizes;
 	sizes << 16 << 22 << 32 << 48 << 64 << 128;
 
-	foreach(int size, sizes)
-	{
-#if defined(Q_WS_WIN)
-		QString fileName = QString("%1/%2/%3x%4/%5.png").arg(applicationDirPath()).arg("icons").arg(size).arg(size).arg(name);
-#else
-		QString fileName = QString("%1/%2/%3x%4/%5.png").arg(UTOPIAPLAYER_PREFIX).arg("share/utopiaplayer/icons").arg(size).arg(size).arg(name);
-#endif
+	QString fileName;
+	QString searchPath = QDir::cleanPath(mIconSearchPath.first());
 
-		if(QFile(fileName).exists())
-			nIcon.addFile(fileName, QSize(size, size), QIcon::Normal, QIcon::On);
+	bool foundIcon = false;
+
+	if( QDir(searchPath).exists() )
+	{
+		foreach(int size, sizes)
+		{
+			fileName = QDir::cleanPath(searchPath + "/" + QString::number(size) + "x" + QString::number(size) + "/" + name + ".png" );
+
+			if(QFile(fileName).exists())
+			{
+				nIcon.addFile(fileName, QSize(size, size), QIcon::Normal, QIcon::On);
+				foundIcon = true;
+			}
+		}
 	}
 
-	mIconCache[name] = nIcon;
+	if(!foundIcon)
+	{
+		for(int i = 1; i < mIconSearchPath.count(); i++)
+		{
+			searchPath = QDir::cleanPath(mIconSearchPath.at(i) + "/" + "crystalsvg");
+			if( !QDir(searchPath).exists() )
+				continue;
+
+			foreach(int size, sizes)
+			{
+				fileName = QDir::cleanPath(searchPath + "/" + QString::number(size) + "x" + QString::number(size) + "/" + name + ".png" );
+
+				if(QFile(fileName).exists())
+				{
+					nIcon.addFile(fileName, QSize(size, size), QIcon::Normal, QIcon::On);
+					i = mIconSearchPath.count();
+					foundIcon = true;
+				}
+			}
+		}
+	}
+
+	if(!foundIcon)
+	{
+		if(name == "mimetypes/unknown")
+			return QIcon();
+
+		nIcon = icon("mimetypes/unknown");
+	}
+
+	if(useCache)
+		mIconCache[name] = nIcon;
 
 	return nIcon;
 };
@@ -202,10 +242,66 @@ void Application::loadCore()
 			setStyle(style);
 			
 		if( mSettingsManager->contains("Palettes/Dark") )
+		{
 			setPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() );
+			/*QPalette palette = mSettingsManager->value("Palettes/Dark").value<QPalette>();
+			QByteArray base64Palette;
+			{
+				QDataStream stream(&base64Palette, QIODevice::WriteOnly);
+				stream << palette;
+			}
+			std::cout << "Size: " << base64Palette.size() << std::endl;
+			base64Palette = base64Palette.toBase64();
+			std::cout << "Size: " << base64Palette.size() << std::endl;
+			QString dark2 = QString::fromAscii(base64Palette.data(), base64Palette.size());
+			std::cout << "Palette: " << dark2.toAscii().data() << std::endl;*/
+		}
+		else
+		{
+			QPalette palette;
+			{
+				QString dark2(
+				"AQH//wAAwMAAAAAAAQH//zAwMDAwMAAAAQH//wAAAAAAAAAAAQH//zQ0NDQ0NAAAAQH//"
+				"2BgYGBgYAAAAQH//0BAQEBAQAAAAQH//wAAwMAAAAAAAQH//wAAwMAAAAAAAQH//wAAwM"
+				"AAAAAAAQH//ygoKCgoKAAAAQH//xAQEBAQEAAAAQH//0BAQEBAQAAAAQH//wAAwMAAAAA"
+				"AAQH//0BAQEBAQAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//yAgICAgIAAAAQH/"
+				"/wAAQEAAAAAAAQH//yAgICAgIAAAAQH//wAAAAAAAAAAAQH//yAgICAgIAAAAQH//yAgI"
+				"CAgIAAAAQH//yAgICAgIAAAAQH//wAAQEAAAAAAAQH//wAAYGAAAAAAAQH//wAAQEAAAA"
+				"AAAQH//xgYFxcYGAAAAQH//xAQEBAQEAAAAQH//yAgICAgIAAAAQH//wAAQEAAAAAAAQH"
+				"//wAAAAAAAAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//xAQEBAQEAAAAQH//wAA"
+				"gIAAAAAAAQH//zAwMDAwMAAAAQH//yAgICAgIAAAAQH//zAwMDAwMAAAAQH//0BAQEBAQ"
+				"AAAAQH//zAwMDAwMAAAAQH//wAAgIAAAAAAAQH//wAAgIAAAAAAAQH//wAAgIAAAAAAAQ"
+				"H//ygoKCgoKAAAAQH//xAQEBAQEAAAAQH//zAwMDAwMAAAAQH//wAAgIAAAAAAAQH//yA"
+				"gICAgIAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//yAgICAgIAAA");
+				QByteArray newPal = QByteArray::fromBase64(dark2.toAscii());
+				QDataStream stream(&newPal, QIODevice::ReadOnly);
+				stream >> palette;
+			}
+			setPalette(palette);
+		}
 	}
 
 	mMetaBase = Utopia::XmlMetaBase::fromFile( mSettingsDir.absoluteFilePath("utopiadb") );
+
+#if defined(Q_WS_WIN)
+	mIconSearchPath << QString(applicationDirPath() + "/icons");
+#else
+	mIconSearchPath << QString(QString(UTOPIAPLAYER_PREFIX) + "/share/utopiaplayer/icons");
+	QProcess kde_config;
+	kde_config.start("kde-config", QStringList() << "--path" << "icon");
+	if(kde_config.waitForStarted(3000))
+	{
+		if(kde_config.waitForFinished(5000))
+		{
+			QStringList newPaths = QString::fromLocal8Bit(kde_config.readAll()).split(":");
+			foreach(QString iconPath, newPaths)
+			{
+				if( QDir( QDir::cleanPath(iconPath.trimmed()) ).exists() )
+					mIconSearchPath << QDir::cleanPath( iconPath.trimmed() );
+			}
+		}
+	}
+#endif
 
 	if(mStartupMode != Minimal)
 	{
@@ -266,7 +362,7 @@ void Application::loadPlugins()
 
 void Application::loadGUI()
 {
-	setWindowIcon( icon("utopiaplayer") );
+	setWindowIcon( icon("apps/utopiaplayer") );
 
 	mMainWindow = new MainWindow;
 };

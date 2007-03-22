@@ -1,1 +1,6 @@
-#KDE4_INSTALL_ICONS(${ICON_INSTALL_DIR})
+INSTALL(FILES hi16-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/16x16/apps RENAME utopiaplayer.png)
+INSTALL(FILES hi24-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/24x24/apps RENAME utopiaplayer.png)
+INSTALL(FILES hi32-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/32x32/apps RENAME utopiaplayer.png)
+INSTALL(FILES hi48-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/48x48/apps RENAME utopiaplayer.png)
+INSTALL(FILES hi64-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/64x64/apps RENAME utopiaplayer.png)
+INSTALL(FILES hi128-app-utopiaplayer.png DESTINATION share/utopiaplayer/icons/128x128/apps RENAME utopiaplayer.png)
