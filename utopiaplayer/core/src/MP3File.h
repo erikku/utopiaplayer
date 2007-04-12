@@ -17,42 +17,33 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#ifndef __MP3File_h__
+#define __MP3File_h__
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include "AudioFile.h"
 
-#include <QtCore/QString>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
-
-class PluginInterface
+class MP3File : public AudioFile
 {
 public:
-	virtual ~PluginInterface() { };
+	MP3File(const QString& path);
+	virtual ~MP3File();
 
-	virtual QIcon icon() const { return QIcon(); };
-	virtual QString name() const = 0;
-	virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
+	virtual void close();
+	virtual bool load();
+	virtual bool save();
 
-	virtual QPointer<QWidget> aboutDialog() const { return 0; };
-	virtual bool hasAboutDialog() { return false; };
+	virtual bool rewind();
+	virtual bool seek(quint32 sample);
+	virtual int readSamples(float **samples, int count);
 
-	virtual QPointer<QWidget> configDialog() const { return 0; };
-	virtual bool hasConfigDialog() { return false; };
-	
-	virtual void load() = 0;
-	virtual void unload() = 0;
-	virtual bool isLoaded() = 0;
+	virtual bool isOpen() const;
+	virtual bool isValid() const;
+
+	virtual QString type() const;
+	virtual QString mimeType() const;
+	virtual QStringList extensions() const;
+
+protected:
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.googlecode.UtopiaPlayer.PluginInterface/0.1")
-
-#endif // __Plugin_h__
+#endif // __MP3File_h__

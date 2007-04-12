@@ -17,42 +17,69 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#include "MP3File.h"
+#include "ID3v1.h"
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include <QtCore/QFile>
+#include <QtCore/QObject>
 
-#include <QtCore/QString>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cmath>
 
-class PluginInterface
+MP3File::MP3File(const QString& path) : AudioFile(path)
 {
-public:
-	virtual ~PluginInterface() { };
-
-	virtual QIcon icon() const { return QIcon(); };
-	virtual QString name() const = 0;
-	virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
-
-	virtual QPointer<QWidget> aboutDialog() const { return 0; };
-	virtual bool hasAboutDialog() { return false; };
-
-	virtual QPointer<QWidget> configDialog() const { return 0; };
-	virtual bool hasConfigDialog() { return false; };
-	
-	virtual void load() = 0;
-	virtual void unload() = 0;
-	virtual bool isLoaded() = 0;
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.googlecode.UtopiaPlayer.PluginInterface/0.1")
+MP3File::~MP3File() { };
 
-#endif // __Plugin_h__
+void MP3File::close()
+{
+};
+
+bool MP3File::load()
+{
+	MetaData::Tag *tag = new MetaData::ID3v1(d->path);
+	tag->read(d->path, "SJIS");
+	addTag(tag);
+};
+
+bool MP3File::save()
+{
+};
+
+bool MP3File::rewind()
+{
+};
+
+bool MP3File::seek(quint32 sample)
+{
+};
+
+int MP3File::readSamples(float **samples, int count)
+{
+};
+
+bool MP3File::isOpen() const
+{
+};
+
+bool MP3File::isValid() const
+{
+	return true;
+};
+
+QString MP3File::type() const
+{
+	return "MPEG 1 Layer 3";
+};
+
+QString MP3File::mimeType() const
+{
+	return "audio/x-mp3";
+};
+
+QStringList MP3File::extensions() const
+{
+	return QStringList() << ".mp3";
+};

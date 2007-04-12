@@ -35,6 +35,4 @@ signals:
 	void dataChanged();
 };
 
-Q_DECLARE_INTERFACE(WizardPage, "com.emotionalcoder.UtopiaPlayer.WizardPage/0.1")
-
 #endif // __wizardpage_h__

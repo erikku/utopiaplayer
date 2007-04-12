@@ -117,8 +117,8 @@ bool WavPackFile::isValid() const
 	if( !file.open(QIODevice::ReadOnly) || file.isSequential() )
 		return false;
 
-	if( MetaData::APEv2::fileContainsAPEv2(d->path, MetaData::APEv2::Header) )
-		file.seek(32);
+	//if( MetaData::APEv2::fileContainsAPEv2(d->path, MetaData::APEv2::Header) )
+		//file.seek(32);
 
 	char magic[4];
 

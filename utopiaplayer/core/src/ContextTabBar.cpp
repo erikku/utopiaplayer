@@ -17,42 +17,18 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#include "ContextTabBar.h"
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include <QtCore/QtDebug>
 
-#include <QtCore/QString>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
-
-class PluginInterface
+ContextTabBar::ContextTabBar(QWidget *parent) : QTabBar(parent)
 {
-public:
-	virtual ~PluginInterface() { };
-
-	virtual QIcon icon() const { return QIcon(); };
-	virtual QString name() const = 0;
-	virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
-
-	virtual QPointer<QWidget> aboutDialog() const { return 0; };
-	virtual bool hasAboutDialog() { return false; };
-
-	virtual QPointer<QWidget> configDialog() const { return 0; };
-	virtual bool hasConfigDialog() { return false; };
-	
-	virtual void load() = 0;
-	virtual void unload() = 0;
-	virtual bool isLoaded() = 0;
+	setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(handleContextMenuRequest(const QPoint&)));
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.googlecode.UtopiaPlayer.PluginInterface/0.1")
-
-#endif // __Plugin_h__
+void ContextTabBar::handleContextMenuRequest(const QPoint& pos)
+{
+	qDebug() << "Tab selected: " << tabAt(pos);
+	emit contextMenuRequested( tabAt(pos) );
+};

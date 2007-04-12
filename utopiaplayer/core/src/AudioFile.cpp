@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "AudioFile.h"
+#include "Tag.h"
 
 #include <QtCore/QFileInfo>
 
@@ -31,17 +32,17 @@ AudioFile::~AudioFile()
 {
 };
 
-QList<Tag*> AudioFile::tags() const
+QList<MetaData::Tag*> AudioFile::tags() const
 {
 	return d->tags;
 };
 
-void AudioFile::addTag(Tag *tag)
+void AudioFile::addTag(MetaData::Tag *tag)
 {
 	d->tags << tag;
 };
 
-void AudioFile::removeTag(Tag *tag)
+void AudioFile::removeTag(MetaData::Tag *tag)
 {
 	delete d->tags.takeAt(d->tags.indexOf(tag));
 };

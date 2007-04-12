@@ -31,12 +31,12 @@
 
 #include <iostream>
 
-iTunesLibraryImportExport::iTunesLibraryImportExport() : QObject(0)
+iTunesLibraryImportExport::iTunesLibraryImportExport() : ImportExportInterface(0)
 {
 	mImportAction = new QAction(tr("iTunes Music Library..."), 0);
-	//connect(mImportAction, SIGNAL(triggered()), this, SLOT(doImport()));
+	connect(mImportAction, SIGNAL(triggered()), this, SLOT(doImport()));
 	mExportAction = new QAction(tr("iTunes Music Library..."), 0);
-	//connect(mExportAction, SIGNAL(triggered()), this, SLOT(doExport()));
+	connect(mExportAction, SIGNAL(triggered()), this, SLOT(doExport()));
 	//QStringList albumcovers = listRecursiveDirectoryContents(QDir("/media/windows/Documents and Settings/Eric/My Documents/My Music/iTunes/Album Artwork/Local/34A6B8C643F01262"), QStringList() << "*.itc");
 };
 

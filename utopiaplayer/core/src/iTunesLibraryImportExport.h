@@ -27,7 +27,7 @@
 #include <QtCore/QVariant>
 #include <QtXml/QXmlDefaultHandler>
 
-class iTunesLibraryImportExport : public QObject, public PluginInterface, public ImportExportInterface
+class iTunesLibraryImportExport : public ImportExportInterface
 {
 	Q_OBJECT
 

@@ -20,22 +20,23 @@
 #ifndef __ImportExportInterface_h__
 #define __ImportExportInterface_h__
 
-#include <QtCore/QtPlugin>
+
+#include <QtCore/QObject>
 
 class QAction;
 
-class ImportExportInterface
+class ImportExportInterface : public QObject
 {
 public:
+	ImportExportInterface(QObject *parent) : QObject(parent) { };
 	virtual ~ImportExportInterface() { };
 
 	virtual QAction* importAction() { return 0; };
 	virtual QAction* exportAction() { return 0; };
 
+public slots:
 	virtual void doImport() = 0;
 	virtual void doExport() = 0;
 };
-
-Q_DECLARE_INTERFACE(ImportExportInterface, "com.emotionalcoder.UtopiaPlayer.ImportExportInterface/0.1")
 
 #endif // __ImportExportInterface_h__

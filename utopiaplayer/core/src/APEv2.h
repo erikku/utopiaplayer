@@ -20,24 +20,62 @@
 #ifndef __APEv2_h__
 #define __APEv2_h__
 
-#include "Tag.h"
+#include "AdvancedTag.h"
+
+#include <QtCore/QMap>
+#include <QtCore/QPair>
 
 namespace MetaData
 {
 
-class APEv2 : public Tag
+class APEv2 : public AdvancedTag
 {
+	Q_OBJECT
+
 public:
-	virtual QString tagType() const;
+	APEv2(QObject *parent = 0);
 
-	typedef enum
-	{
-		Header,
-		Footer,
-		Both
-	}APEv2Position;
+	virtual QFlags<AdvancedTag::TagFeatures> features();
 
-	static bool fileContainsAPEv2(const QString& file, APEv2Position pos = Both);
+	// QStringList copies of the basic tags //
+	virtual QStringList titles() const;
+	virtual void setTitles(const QStringList& titles);
+
+	virtual QStringList artists() const;
+	virtual void setArtists(const QStringList& artists);
+
+	virtual QStringList albums() const;
+	virtual void setAlbums(const QStringList& albums);
+
+	virtual QStringList comments() const;
+	virtual void setComments(const QStringList& comments);
+
+	virtual QStringList genres() const;
+	virtual void setGenres(const QStringList& genres);
+
+	virtual int year() const;
+	virtual void setYear(int year);
+
+	virtual int track() const;
+	virtual void setTrack(int track);
+
+	virtual QList<QVariant> tag(const QString& key) const;
+	virtual QVariant tag(const QString& key, int index) const;
+
+	virtual void setTag(const QString& key, const QString& tag);
+	virtual void setTag(const QString& key, const QStringList& tag);
+
+	virtual void clear();
+	virtual bool isEmpty();
+
+protected:
+	QString stringFromVariant(const QVariant& data) const;
+	QStringList stringListFromVariantList(const QList<QVariant>& data) const;
+
+	typedef QList<QVariant> TagData;
+	typedef QPair< AdvancedTag::TagType, TagData> TagPair;
+
+	QMap<QString, TagPair> mTags;
 };
 
 }; // namespace MetaData

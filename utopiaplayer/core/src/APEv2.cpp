@@ -24,6 +24,177 @@
 namespace MetaData
 {
 
+APEv2::APEv2(QObject *parent) : AdvancedTag(parent)
+{
+	// Code here
+};
+
+QFlags<AdvancedTag::TagFeatures> APEv2::features()
+{
+	QFlags<AdvancedTag::TagFeatures> theFeatures;
+	theFeatures |= AdvancedTag::Disc | AdvancedTag::TotalDiscs | AdvancedTag::TotalTracks
+			| AdvancedTag::Composer | AdvancedTag::Performer | AdvancedTag::AlbumArtist
+			| AdvancedTag::Date | AdvancedTag::ReplayGain | AdvancedTag::EmbeddedCoverArt
+			| AdvancedTag::CustomTags | AdvancedTag::MultipleEntries;
+
+	return theFeatures;
+};
+
+QStringList APEv2::titles() const
+{
+	return stringListFromVariantList( tag(QLatin1String("TITLE")) );
+};
+
+void APEv2::setTitles(const QStringList& titles)
+{
+	setTag(QLatin1String("TITLE"), titles);
+};
+
+QStringList APEv2::artists() const
+{
+	return stringListFromVariantList( tag(QLatin1String("ARTIST")) );
+};
+
+void APEv2::setArtists(const QStringList& artists)
+{
+	setTag(QLatin1String("ARTIST"), artists);
+};
+
+QStringList APEv2::albums() const
+{
+	return stringListFromVariantList( tag(QLatin1String("ALBUM")) );
+};
+
+void APEv2::setAlbums(const QStringList& albums)
+{
+	setTag(QLatin1String("ALBUM"), albums);
+};
+
+QStringList APEv2::comments() const
+{
+	return stringListFromVariantList( tag(QLatin1String("COMMENT")) );
+};
+
+void APEv2::setComments(const QStringList& comments)
+{
+	setTag(QLatin1String("COMMENT"), comments);
+};
+
+QStringList APEv2::genres() const
+{
+	return stringListFromVariantList( tag(QLatin1String("GENRE")) );
+};
+
+void APEv2::setGenres(const QStringList& genres)
+{
+	setTag(QLatin1String("GENRE"), genres);
+};
+
+int APEv2::year() const
+{
+	QString theYear = stringFromVariant( tag(QLatin1String("YEAR"), 0) );
+	if( theYear.contains(QLatin1Char('-')) )
+		return theYear.split(QLatin1Char('-')).first().toInt();
+
+	return theYear.toInt();
+};
+
+void APEv2::setYear(int year)
+{
+	//
+};
+
+int APEv2::track() const
+{
+	QString theTrack = stringFromVariant( tag(QLatin1String("TRACK"), 0) );
+	if( theTrack.contains(QLatin1Char('/')) )
+		return theTrack.split(QLatin1Char('/')).first().toInt();
+
+	return theTrack.toInt();
+};
+
+void APEv2::setTrack(int track)
+{
+	QString theTrack = stringFromVariant( tag(QLatin1String("TRACK"), 0) );
+	if( theTrack.contains(QLatin1Char('/')) )
+		theTrack = QString::number(track) + QLatin1Char('/') + theTrack.split(QLatin1Char('/')).at(1);
+	else
+		theTrack = QString::number(track);
+
+	setTag(QLatin1String("TRACK"), theTrack);
+};
+
+QList<QVariant> APEv2::tag(const QString& key) const
+{
+	if(mTags.contains(key))
+		return mTags.value(key).second; // "ALBUMARTIST"
+
+	return QList<QVariant>();
+};
+
+QVariant APEv2::tag(const QString& key, int index) const
+{
+	if(mTags.contains(key))
+	{
+		QList<QVariant> items = mTags.value(key).second;
+		if(items.count() > index)
+			return items.at(index);
+	}
+
+	return QVariant();
+};
+
+void APEv2::setTag(const QString& key, const QString& tag)
+{
+	TagData data;
+	data << tag.toUtf8();
+
+	TagPair pair;
+	pair.first = AdvancedTag::String;
+	pair.second = data;
+
+	mTags[key] = pair;
+};
+
+void APEv2::setTag(const QString& key, const QStringList& tag)
+{
+	TagData data;
+	foreach(QString entry, tag)
+		data << entry.toUtf8();
+
+	TagPair pair;
+	pair.first = AdvancedTag::String;
+	pair.second = data;
+
+	mTags[key] = pair;
+};
+
+QString APEv2::stringFromVariant(const QVariant& data) const
+{
+	return QString::fromUtf8(data.toByteArray().data());
+};
+
+QStringList APEv2::stringListFromVariantList(const QList<QVariant>& data) const
+{
+	QStringList final;
+
+	foreach(QVariant entry, data)
+		final << QString::fromUtf8( entry.toByteArray().data() );
+
+	return final;
+};
+
+void APEv2::clear()
+{
+	mTags.clear();
+};
+
+bool APEv2::isEmpty()
+{
+	return mTags.count();
+};
+
+/*
 typedef struct
 {
 	char magic[8]; // 'APETAGEX'
@@ -33,9 +204,9 @@ typedef struct
 	quint32 flags;
 	char reserved[8]; // Must be zero
 }APEv2Header;
-
+*/
 }; // namespace MetaData
-
+/*
 using namespace MetaData;
 
 QString APEv2::tagType() const
@@ -75,3 +246,4 @@ bool APEv2::fileContainsAPEv2(const QString& file, APEv2Position pos)
 
 	return false;
 };
+*/

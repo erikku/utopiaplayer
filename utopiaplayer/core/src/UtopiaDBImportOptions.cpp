@@ -31,7 +31,7 @@ UtopiaDBImportOptions::UtopiaDBImportOptions()
 	setWindowModality(Qt::WindowModal);
 	setAttribute(Qt::WA_DeleteOnClose);
 
-	ui.FileBrowseButton->setIcon(uApp->icon("folder_open"));
+	ui.FileBrowseButton->setIcon(uApp->icon("actions/fileopen"));
 
 	connect(ui.FilePathEdit, SIGNAL(textChanged(const QString&)), this, SLOT(update()));
 	connect(ui.FileBrowseButton, SIGNAL(clicked()), this, SLOT(browse()));

@@ -54,17 +54,20 @@ static char* GenreList[] = {
 
 ID3v1::ID3v1()
 {
+	mCurrentEncoding = defaultEncoding();
 	d = (ID3v1Data*)calloc(1, 128);
 	memcpy(d->Magic, "TAG", 3);
 };
 
 ID3v1::ID3v1(const ID3v1& other)
 {
+	mCurrentEncoding = defaultEncoding();
 	memcpy(d, other.d, 128);
 };
 
 ID3v1::ID3v1(const QString& path)
 {
+	mCurrentEncoding = defaultEncoding();
 	d = (ID3v1Data*)calloc(1, 128);
 	memcpy(d->Magic, "TAG", 3);
 	read(path);
@@ -77,22 +80,22 @@ ID3v1::~ID3v1()
 
 QString ID3v1::title() const
 {
-	return QString(d->Title);
+	return mTitle;
 };
 
 QString ID3v1::artist() const
 {
-	return QString(d->Artist);
+	return mArtist;
 };
 
 QString ID3v1::album() const
 {
-	return QString(d->Album);
+	return mAlbum;
 };
 
 QString ID3v1::comment() const
 {
-	return QString(d->Comment);
+	return mComment;
 };
 
 QString ID3v1::genre() const
@@ -112,22 +115,22 @@ int ID3v1::track() const
 
 void ID3v1::setTitle(const QString& title)
 {
-	writeString(d->Title, title, 30);
+	mTitle = title;
 };
 
 void ID3v1::setArtist(const QString& artist)
 {
-	writeString(d->Artist, artist, 30);
+	mArtist = artist;
 };
 
 void ID3v1::setAlbum(const QString& album)
 {
-	writeString(d->Album, album, 30);
+	mAlbum = album;
 };
 
 void ID3v1::setComment(const QString& comment)
 {
-	writeString(d->Comment, comment, 29);
+	mComment = comment;
 };
 
 void ID3v1::setGenre(const QString& genre)
@@ -135,8 +138,13 @@ void ID3v1::setGenre(const QString& genre)
 	for(int i = 0; i < 126; i++)
 	{
 		if(genre == GenreList[i])
+		{
 			d->Genre = i;
+			return;
+		}
 	}
+
+	d->Genre = 255;
 };
 
 void ID3v1::setYear(int year)
@@ -149,6 +157,15 @@ void ID3v1::setTrack(int track)
 	d->Track = track;
 };
 
+void ID3v1::clear()
+{
+	free(d);
+
+	mCurrentEncoding = defaultEncoding();
+	d = (ID3v1Data*)calloc(1, 128);
+	memcpy(d->Magic, "TAG", 3);
+};
+
 bool ID3v1::isEmpty()
 {
 	if(d->Title[0] == 0x0 && d->Artist[0] == 0x0 && d->Album[0] == 0 && d->Comment[0] == 0x0 && d->Year == 0 && d->Track == 0 && d->Genre == 0)
@@ -157,8 +174,112 @@ bool ID3v1::isEmpty()
 	return false;
 };
 
-bool ID3v1::read(const QString& path)
+QString ID3v1::encoding() const
 {
+	return mCurrentEncoding;
+};
+
+QString ID3v1::defaultEncoding() const
+{
+	return "ISO-8859-1";
+};
+
+Tag* ID3v1::duplicate()
+{
+	ID3v1 *tag = new ID3v1;
+	tag->mCurrentEncoding = mCurrentEncoding;
+	memcpy(tag->d, d, sizeof(ID3v1Data));
+};
+
+qint64 ID3v1::size()
+{
+	return sizeof(ID3v1Data);
+};
+
+QByteArray ID3v1::tagData() const
+{
+	return QByteArray( (const char*)d, sizeof(ID3v1Data) );
+};
+
+void ID3v1::removeTag(const QString& path)
+{
+	if( !containsTag(path) )
+		return;
+
+	QFile file(path);
+
+	// Open the file for writing
+	if(!file.open(QIODevice::WriteOnly))
+		return;
+
+	file.seek(0);
+	file.resize( file.size() - 128 );
+	file.close();
+};
+
+qint64 ID3v1::position(const QString& path)
+{
+	if( !containsTag(path) )
+		return -1;
+
+	QFile file(path);
+
+	return file.size() - 128;
+};
+
+bool ID3v1::containsTag(const QString& path)
+{
+	QFile file(path);
+
+	// Open the file for reading
+	if(!file.open(QIODevice::ReadOnly))
+		return false;
+
+	// Make sure the file is big enough to hold a ID3v1 tag
+	if(file.size() < 128)
+	{
+		file.close();
+		return false;
+	}
+
+	// Seek to the right place in the file
+	file.seek(file.size() - 128);
+
+	// Allocate the tag
+	ID3v1Data *tag = new ID3v1Data;
+
+	// Read the tag
+	file.read((char*)tag, 128);
+
+	// Check if the data is really a ID3v1 tag
+	if( strcmp(tag->Magic, "TAG") != 0)
+	{
+		file.close();
+		free(tag);
+		return false;
+	}
+
+	file.close();
+	free(tag);
+	return true;
+};
+
+bool ID3v1::conformsToSpec(const QString& path)
+{
+	if( containsTag(path) )
+		return true;
+
+	return false;
+};
+
+bool ID3v1::read(const QString& path, const QString& encoding)
+{
+	if( !encoding.isEmpty() )
+		mCurrentEncoding = encoding;
+/*"English (ISO-8859-1)"
+"Japanese (EUC-JP)"
+"Japanese (SJIS)"
+"Unicode (UTF-8)"*/
 	QFile file(path);
 
 	// Open the file for reading
@@ -179,7 +300,7 @@ bool ID3v1::read(const QString& path)
 	file.read((char*)d, 128);
 
 	// Check if the data is really a ID3v1 tag
-	if( strcmp(d->Magic, "TAG") != 0)
+	if(memcmp(d->Magic, "TAG", 3) != 0)
 	{
 		file.close();
 
@@ -194,11 +315,26 @@ bool ID3v1::read(const QString& path)
 
 	file.close();
 
+	// Read in the tags from the buffer
+	mTitle = fromEncoding(mCurrentEncoding, d->Title);
+	mArtist = fromEncoding(mCurrentEncoding, d->Artist);
+	mAlbum = fromEncoding(mCurrentEncoding, d->Album);
+	mComment = fromEncoding(mCurrentEncoding, d->Comment);
+
 	return true;
 };
 
-bool ID3v1::write(const QString& path)
+bool ID3v1::write(const QString& path, const QString& encoding)
 {
+	if( !encoding.isEmpty() )
+		mCurrentEncoding = encoding;
+
+	// Write the data to the buffer
+	writeString(d->Title, mTitle, 30);
+	writeString(d->Artist, mArtist, 30);
+	writeString(d->Album, mAlbum, 30);
+	writeString(d->Comment, mComment, 29);
+
 	QFile file(path);
 
 	// Open the file for reading and writing
@@ -234,7 +370,7 @@ bool ID3v1::write(const QString& path)
 	return true;
 };
 
-QString ID3v1::tagType() const
+QString ID3v1::type() const
 {
 	return "ID3v1";
 };
@@ -242,8 +378,113 @@ QString ID3v1::tagType() const
 void ID3v1::writeString(void *dest, const QString& src, int size)
 {
 	char *buffer = (char*)calloc(1, size);
-	QByteArray data = src.toLatin1();
+	QByteArray data = toEncoding(mCurrentEncoding, src);
 	memcpy(buffer, data.data(), (data.size() < size) ? data.size() : (size - 1));
 	memcpy(dest, buffer, size);
 	free(buffer);
+};
+
+QString ID3v1::fromEncoding(const QString& encoding, const char *str, int size) const
+{
+	// Open the conversion descriptor
+	iconv_t conversionDescriptor = iconv_open("UTF-8", encoding.toLatin1().data());
+
+	// See if the conversion descriptor opened properly
+	if(conversionDescriptor == (iconv_t) -1)
+		return QString();
+
+	// Calculate our buffer size
+	int bufferSize = ( (size < 0) ? strlen(str) : size ) * 4;
+
+    // Allocate and zero a buffer for the text.
+    char *buffer = (char*)calloc(1, bufferSize);
+
+	/*
+	 * We first copy the 'str' and 'buffer' pointers because we have to
+	 * pass a reference to the pointer instead of a copy of it anf iconv
+	 * modifies the pointers. Using a throw away copy prevents the pointer
+	 * from pointing to somewhere other than the beginning of the string.
+	 */
+	char *strCopy = (char*)str;
+	char *bufferCopy = buffer;
+
+	// The iconv conversion counters
+	size_t inSize = (size < 0) ? strlen(str) : size;
+	size_t outSize = bufferSize;
+
+	// Convert the string
+	#ifdef WIN32
+	int ret = iconv(conversionDescriptor, (const char **)&strCopy, &inSize, &bufferCopy, &outSize);
+	#else
+	int ret = iconv(conversionDescriptor, &strCopy, &inSize, &bufferCopy, &outSize);
+	#endif
+
+	QString final;
+
+	// Handle iconv errors
+    if(ret != (size_t) -1)
+		final = QString::fromUtf8(buffer);
+
+	// Free the buffer
+	free(buffer);
+
+	// Close the conversion descriptor
+    iconv_close(conversionDescriptor);
+
+    // Return the cnverted string
+    return final;
+};
+
+QByteArray ID3v1::toEncoding(const QString& encoding, const QString& str) const
+{
+	// Open the conversion descriptor
+	iconv_t conversionDescriptor = iconv_open(encoding.toLatin1().data(), "UTF-8");
+
+	// See if the conversion descriptor opened properly
+	if(conversionDescriptor == (iconv_t) -1)
+		return QByteArray();
+
+	// Create a byte array from the string
+	QByteArray str_buf(str.toUtf8().data(), str.toUtf8().size());
+
+	// Calculate our buffer size
+	int bufferSize = str_buf.size() * 4;
+
+    // Allocate and zero a buffer for the text.
+    char *buffer = (char*)calloc(1, bufferSize);
+
+	/*
+	 * We first copy the 'str' and 'buffer' pointers because we have to
+	 * pass a reference to the pointer instead of a copy of it anf iconv
+	 * modifies the pointers. Using a throw away copy prevents the pointer
+	 * from pointing to somewhere other than the beginning of the string.
+	 */
+	char *strCopy = str_buf.data();
+	char *bufferCopy = buffer;
+
+	// The iconv conversion counters
+	size_t inSize = str.toUtf8().size();
+	size_t outSize = bufferSize;
+
+	// Convert the string
+	#ifdef WIN32
+	int ret = iconv(conversionDescriptor, (const char **)&strCopy, &inSize, &bufferCopy, &outSize);
+	#else
+	int ret = iconv(conversionDescriptor, &strCopy, &inSize, &bufferCopy, &outSize);
+	#endif
+
+	QByteArray final;
+
+	// Handle iconv errors
+    if(ret != (size_t) -1)
+		final.append(buffer);
+
+	// Free the buffer
+	free(buffer);
+
+	// Close the conversion descriptor
+    iconv_close(conversionDescriptor);
+
+    // Return the cnverted string
+    return final;
 };

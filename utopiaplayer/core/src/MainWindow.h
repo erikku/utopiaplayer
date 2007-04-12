@@ -38,6 +38,7 @@ class iTunesLibraryImportExport;
 
 class Device;
 class ArtLabel;
+class MainTabWidget;
 class ProgressSlider;
 
 class MainWindow : public QMainWindow

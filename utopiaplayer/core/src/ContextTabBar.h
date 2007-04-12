@@ -17,42 +17,23 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#ifndef __ContextTabBar_h__
+#define __ContextTabBar_h__
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include <QtGui/QTabBar>
 
-#include <QtCore/QString>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
-
-class PluginInterface
+class ContextTabBar : public QTabBar
 {
+	Q_OBJECT
+
 public:
-	virtual ~PluginInterface() { };
+	ContextTabBar(QWidget *parent = 0);
 
-	virtual QIcon icon() const { return QIcon(); };
-	virtual QString name() const = 0;
-	virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
+protected slots:
+	void handleContextMenuRequest(const QPoint& pos);
 
-	virtual QPointer<QWidget> aboutDialog() const { return 0; };
-	virtual bool hasAboutDialog() { return false; };
-
-	virtual QPointer<QWidget> configDialog() const { return 0; };
-	virtual bool hasConfigDialog() { return false; };
-	
-	virtual void load() = 0;
-	virtual void unload() = 0;
-	virtual bool isLoaded() = 0;
+signals:
+	void contextMenuRequested(int index);
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.googlecode.UtopiaPlayer.PluginInterface/0.1")
-
-#endif // __Plugin_h__
+#endif // __ContextTabBar_h__

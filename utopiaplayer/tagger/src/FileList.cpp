@@ -21,6 +21,7 @@
 #include "Application.h"
 #include "AudioFile.h"
 #include "FileTypeFactory.h"
+#include "Tag.h"
 
 #include <QtCore/QUrl>
 #include <QtCore/QDir>
@@ -100,20 +101,24 @@ void FileList::dropEvent(QDropEvent *event)
 
 void FileList::addFile(const QString& file)
 {
-	QString mimeType, fileType = "Unknown";
+	QString mimeType, fileType = "Unknown", title = "File Not Loaded";
 
 	std::cout << file.toLocal8Bit().data() << std::endl;
 
 	AudioFile *audioFile = mFileTypeFactory->getHandle(file);
 	if(audioFile)
 	{
+		audioFile->load();
+		if( audioFile->tags().count() )
+			title = audioFile->tags().first()->title();
 		fileType = audioFile->type();
 		mimeType = audioFile->mimeType();
 	}
 	delete audioFile;
 
 	QFileInfo info(file);
-	QTreeWidgetItem *item = new QTreeWidgetItem( QStringList() << info.completeBaseName() << fileType );
+	//QTreeWidgetItem *item = new QTreeWidgetItem( QStringList() << info.completeBaseName() << fileType );
+	QTreeWidgetItem *item = new QTreeWidgetItem( QStringList() << title << fileType );
 
 	//map[item] = url.toLocalFile();
 	if( mimeType.isEmpty() )

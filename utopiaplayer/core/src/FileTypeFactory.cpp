@@ -19,8 +19,14 @@
 
 #include "FileTypeFactory.h"
 
+#include "MP3File.h"
 #include "OGGFile.h"
 #include "WavPackFile.h"
+
+AudioFile* createMP3File(const QString& file)
+{
+	return new MP3File(file);
+};
 
 AudioFile* createOGGFile(const QString& file)
 {
@@ -34,6 +40,7 @@ AudioFile* createWavPackFile(const QString& file)
 
 FileTypeFactory::FileTypeFactory()
 {
+	addType(createMP3File);
 	addType(createOGGFile);
 	addType(createWavPackFile);
 };

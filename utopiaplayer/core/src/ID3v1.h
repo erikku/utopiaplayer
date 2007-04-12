@@ -37,8 +37,10 @@ typedef struct _ID3v1Data
 	quint8  Genre;
 }ID3v1Data;
 
-class ID3v1 : Tag
+class ID3v1 : public Tag
 {
+	Q_OBJECT
+
 public:
 	ID3v1();
 	ID3v1(const ID3v1& other);
@@ -63,17 +65,39 @@ public:
 	virtual void setYear(int year);
 	virtual void setTrack(int track);
 
+	virtual void clear();
 	virtual bool isEmpty();
 
-	virtual bool read(const QString& path);
-	virtual bool write(const QString& path);
+	virtual QString encoding() const;
+	virtual QString defaultEncoding() const;
 
-	virtual QString tagType() const;
+	virtual Tag* duplicate();
+
+	virtual qint64 size();
+	virtual QByteArray tagData() const;
+
+	virtual void removeTag(const QString& path);
+	virtual qint64 position(const QString& path);
+	virtual bool containsTag(const QString& path);
+	virtual bool conformsToSpec(const QString& path);
+
+	virtual bool read(const QString& path, const QString& encoding = QString());
+	virtual bool write(const QString& path, const QString& encoding = QString());
+
+	virtual QString type() const;
 
 private:
 	void writeString(void *dest, const QString& src, int size);
+	QString fromEncoding(const QString& encoding, const char *str, int size = -1) const;
+	QByteArray toEncoding(const QString& encoding, const QString& str) const;
 
 	ID3v1Data *d;
+	QString mCurrentEncoding;
+
+	QString mTitle;
+	QString mArtist;
+	QString mAlbum;
+	QString mComment;
 };
 
 }; // namespace MetaData

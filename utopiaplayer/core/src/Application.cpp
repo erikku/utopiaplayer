@@ -48,6 +48,7 @@
 #include <QtDBus/QDBusConnection>
 
 #include "OutputInterface.h"
+#include "PaletteEditor.h"
 
 Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
 {
@@ -244,40 +245,9 @@ void Application::loadCore()
 		if( mSettingsManager->contains("Palettes/Dark") )
 		{
 			setPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() );
-			/*QPalette palette = mSettingsManager->value("Palettes/Dark").value<QPalette>();
-			QByteArray base64Palette;
-			{
-				QDataStream stream(&base64Palette, QIODevice::WriteOnly);
-				stream << palette;
-			}
-			std::cout << "Size: " << base64Palette.size() << std::endl;
-			base64Palette = base64Palette.toBase64();
-			std::cout << "Size: " << base64Palette.size() << std::endl;
-			QString dark2 = QString::fromAscii(base64Palette.data(), base64Palette.size());
-			std::cout << "Palette: " << dark2.toAscii().data() << std::endl;*/
-		}
-		else
-		{
-			QPalette palette;
-			{
-				QString dark2(
-				"AQH//wAAwMAAAAAAAQH//zAwMDAwMAAAAQH//wAAAAAAAAAAAQH//zQ0NDQ0NAAAAQH//"
-				"2BgYGBgYAAAAQH//0BAQEBAQAAAAQH//wAAwMAAAAAAAQH//wAAwMAAAAAAAQH//wAAwM"
-				"AAAAAAAQH//ygoKCgoKAAAAQH//xAQEBAQEAAAAQH//0BAQEBAQAAAAQH//wAAwMAAAAA"
-				"AAQH//0BAQEBAQAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//yAgICAgIAAAAQH/"
-				"/wAAQEAAAAAAAQH//yAgICAgIAAAAQH//wAAAAAAAAAAAQH//yAgICAgIAAAAQH//yAgI"
-				"CAgIAAAAQH//yAgICAgIAAAAQH//wAAQEAAAAAAAQH//wAAYGAAAAAAAQH//wAAQEAAAA"
-				"AAAQH//xgYFxcYGAAAAQH//xAQEBAQEAAAAQH//yAgICAgIAAAAQH//wAAQEAAAAAAAQH"
-				"//wAAAAAAAAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//xAQEBAQEAAAAQH//wAA"
-				"gIAAAAAAAQH//zAwMDAwMAAAAQH//yAgICAgIAAAAQH//zAwMDAwMAAAAQH//0BAQEBAQ"
-				"AAAAQH//zAwMDAwMAAAAQH//wAAgIAAAAAAAQH//wAAgIAAAAAAAQH//wAAgIAAAAAAAQ"
-				"H//ygoKCgoKAAAAQH//xAQEBAQEAAAAQH//zAwMDAwMAAAAQH//wAAgIAAAAAAAQH//yA"
-				"gICAgIAAAAQH//wAAAADu7gAAAQH//1JSGBiLiwAAAQH//yAgICAgIAAA");
-				QByteArray newPal = QByteArray::fromBase64(dark2.toAscii());
-				QDataStream stream(&newPal, QIODevice::ReadOnly);
-				stream >> palette;
-			}
-			setPalette(palette);
+			PaletteEditor *editor = new PaletteEditor;
+			// std::cout << editor->exportPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() ).toLocal8Bit().data() << std::endl;
+			delete editor;
 		}
 	}
 
@@ -324,8 +294,8 @@ void Application::loadCore()
 
 void Application::loadPlugins()
 {
-	mDeviceManager->registerPlugin(new VolumePlugin);
-	std::cout << "Found Plugin \"Volume\" (Built-In)" << std::endl;
+	//mDeviceManager->registerPlugin(new VolumePlugin);
+	//std::cout << "Found Plugin \"Volume\" (Built-In)" << std::endl;
 
 	// Do our static plugins
 	foreach(QObject *object, QPluginLoader::staticInstances())

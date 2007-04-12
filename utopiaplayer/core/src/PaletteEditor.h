@@ -17,42 +17,37 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file plugin.h The base class defining plugins
- */
+#ifndef __PaletteEditor_h__
+#define __PaletteEditor_h__
 
-#ifndef __Plugin_h__
-#define __Plugin_h__
+#include "ui_PaletteEditor.h"
 
-#include <QtCore/QString>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
-#include <QtGui/QWidget>
-#include <QtGui/QIcon>
+#include <QtGui/QPalette>
 
-class PluginInterface
+class PaletteEditor : public QWidget
 {
+	Q_OBJECT
+
 public:
-	virtual ~PluginInterface() { };
+	PaletteEditor();
 
-	virtual QIcon icon() const { return QIcon(); };
-	virtual QString name() const = 0;
-	virtual QString version() const = 0;
-	virtual QStringList authors() const = 0;
-	virtual QString copyrightNotice() const = 0;
+	QString exportPalette(const QPalette& pal) const;
 
-	virtual QPointer<QWidget> aboutDialog() const { return 0; };
-	virtual bool hasAboutDialog() { return false; };
+protected slots:
+	void save();
+	void updateColor();
+	void updatePalette();
 
-	virtual QPointer<QWidget> configDialog() const { return 0; };
-	virtual bool hasConfigDialog() { return false; };
-	
-	virtual void load() = 0;
-	virtual void unload() = 0;
-	virtual bool isLoaded() = 0;
+protected:
+	QPalette mPalette;
+	Ui::PaletteEditor ui;
+
+	QMap<QString, QGradient::Type> mGradType;
+	QMap<QString, QGradient::Spread> mGradSpread;
+	QMap<QString, Qt::BrushStyle> mBrushStyles;
+	QMap<QString, QPalette::ColorRole>  mColorRoles;
+	QMap<QString, QPalette::ColorGroup> mColorGroups;
+	QMap<QPalette::ColorRole, QString>  mDescriptions;
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "com.googlecode.UtopiaPlayer.PluginInterface/0.1")
-
-#endif // __Plugin_h__
+#endif // __PaletteEditor_h__

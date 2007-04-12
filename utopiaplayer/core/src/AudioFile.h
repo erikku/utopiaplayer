@@ -27,7 +27,7 @@
 #include <QtCore/QSharedData>
 #include <QtCore/QSharedDataPointer>
 
-class Tag { };
+namespace MetaData { class Tag; };
 
 class AudioFileData : public QSharedData
 {
@@ -43,7 +43,7 @@ public:
 
 	QString path;
 
-	QList<Tag*> tags;
+	QList<MetaData::Tag*> tags;
 };
 
 class AudioFile
@@ -52,10 +52,10 @@ public:
 	AudioFile(const QString& path);
 	virtual ~AudioFile();
 
-	QList<Tag*> tags() const;
+	QList<MetaData::Tag*> tags() const;
 
-	void addTag(Tag *tag);
-	void removeTag(Tag *tag);
+	void addTag(MetaData::Tag *tag);
+	void removeTag(MetaData::Tag *tag);
 
 	virtual void close() = 0;
 	virtual bool load() = 0;

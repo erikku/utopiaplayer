@@ -23,6 +23,7 @@
 #include "PluginManager.h"
 #include "SettingsManager.h"
 #include "DeviceInterface.h"
+#include "MainTabWidget.h"
 #include "ArtLabel.h"
 #include "Device.h"
 #include "iTunesLibraryImportExport.h"
@@ -37,7 +38,6 @@
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QLabel>
-#include <QtGui/QTabWidget>
 #include <QtGui/QListWidget>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QDockWidget>
@@ -267,7 +267,7 @@ void MainWindow::createMainSongList()
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
 	timer->start(250);
 
-	mSongTabs = new QTabWidget(mMasterWidget);
+	mSongTabs = new MainTabWidget(mMasterWidget);
 
 	QToolButton *removeButton = new QToolButton( mSongTabs );
     removeButton->setIcon( uApp->icon("actions/tab_remove") );

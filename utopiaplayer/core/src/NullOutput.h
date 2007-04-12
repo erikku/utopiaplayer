@@ -23,13 +23,12 @@
 #include "PluginInterface.h"
 #include "OutputInterface.h"
 
-class NullOutput : public QObject, public PluginInterface, public OutputInterface
+class NullOutput : public OutputInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(PluginInterface OutputInterface)
 
 public:
-	NullOutput(QObject *parent = 0) : QObject(parent), OutputInterface(), mVolume(1.0f) { };
+	NullOutput(QObject *parent = 0) : OutputInterface(parent), mVolume(1.0f) { };
 
 	virtual float volume() const { return mVolume; };
 
@@ -50,6 +49,12 @@ public:
 
     virtual void seek(qint64 ms) { Q_UNUSED(ms) };
     virtual void seekPosition(qint64 position) { Q_UNUSED(position) };
+
+	virtual bool hasAudio() const { return true; };
+	virtual QStringList audioFormats() const { return QStringList() << "*.mp3" << "*.ogg" << "*.wv"; };
+
+	virtual bool hasVideo() const { return true; };
+	virtual QStringList videoFormats() const { return QStringList() << "*.avi"; };
 
 protected:
 	float mVolume;
