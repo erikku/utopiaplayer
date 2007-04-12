@@ -23,19 +23,54 @@
 
 // Qt includes
 #include <QtGui/QApplication>
+#include <QtGui/QMessageBox>
 
 // Utopia Player includes
 #include "UtopiaPlayer.h"
+#include "Application.h"
 
 // Utopia Lyrics includes
 #include "mainwindow.h"
 
+void DisplayError(int argc, char* argv[], QString error)
+{
+	if(argv)
+		QApplication a(argc, argv);
+
+	QMessageBox::critical(0, QObject::tr("Utopia Lyrics"),
+		QObject::tr("Utopia Lyrics has encountered the following exception:") + QString("\n\n") + error +
+		QString("\n") + QObject::tr("Please report the above error, log files, and a description of how to") +
+		QString("\n") + QObject::tr("reproduce the error to the bug tracker.") +
+		QString("\n\n") + QObject::tr("For more information on reporting errors, consult the documentation."));
+};
+
 int main(int argc, char* argv[])
 {
-	QApplication app(argc, argv);
+	bool Started = false;
 
-	MainWindow *mainWindow = new MainWindow;
-	mainWindow->show();
+	try
+	{	
+		Application App(argc, argv);
+		App.setApplicationName("Utopia Lyrics");
 
-	return app.exec();
+		Started = true;
+
+        App.Init(Minimal);
+
+		MainWindow *mainWindow = new MainWindow;
+		mainWindow->show();
+
+		return App.exec();
+	}
+	catch (const std::exception& e)
+	{
+		if(!Started)
+			DisplayError(argc, argv, e.what());
+		else
+			DisplayError(argc, NULL, e.what());
+
+		return -1;
+	}
+
+	return -1;
 };

@@ -24,6 +24,7 @@
 // Utopia Lyrics includes
 #include "verseedit.h"
 #include "qrubylabel.h"
+#include "Application.h"
 
 #include <iostream>
 
@@ -170,23 +171,23 @@ void VerseEdit::setupButtons()
 	verseNumberLabel->setToolTip(tr("Verse Number"));
 	buttonStrip->addWidget(verseNumberLabel, 1, 0, 1, 2);
 
-	button = new QPushButton(QIcon("up"), "");
+	button = new QPushButton(uApp->icon("actions/up"), "");
 	button->setToolTip(tr("Move Verse Up"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_moveUp()));
 	buttonStrip->addWidget(button, 2, 0);
-	button = new QPushButton(QIcon("filenew"), "");
+	button = new QPushButton(uApp->icon("actions/filenew"), "");
 	button->setToolTip(tr("Insert Verse Up"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_insertUp()));
 	buttonStrip->addWidget(button, 2, 1);
-	button = new QPushButton(QIcon("remove"), "");
+	button = new QPushButton(uApp->icon("actions/remove"), "");
 	button->setToolTip(tr("Delete Verse"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_deleteVerse()));
 	buttonStrip->addWidget(button, 3, 0, 1, 2);
-	button = new QPushButton(QIcon("filenew"), "");
+	button = new QPushButton(uApp->icon("actions/filenew"), "");
 	button->setToolTip(tr("Insert Verse Down"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_insertDown()));
 	buttonStrip->addWidget(button, 4, 0);
-	button = new QPushButton(QIcon("down"), "");
+	button = new QPushButton(uApp->icon("actions/down"), "");
 	button->setToolTip(tr("Move Verse Down"));
 	connect(button, SIGNAL(clicked()), this, SLOT(s_moveDown()));
 	buttonStrip->addWidget(button, 4, 1);

@@ -1,8 +1,8 @@
 SET(QT_USE_QTXML TRUE)
-
 INCLUDE(${QT_USE_FILE})
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core/src ${CMAKE_BINARY_DIR}/core/src)
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/core/src)
 
 SET(UtopiaLyrics_SRCS
 	mainwindow.cpp
@@ -29,6 +29,6 @@ ADD_EXECUTABLE(utopialyrics ${UtopiaLyrics_SRCS})
 
 ADD_DEPENDENCIES(utopialyrics utopiaplayer)
 
-TARGET_LINK_LIBRARIES(utopialyrics ${QT_LIBRARIES})
+TARGET_LINK_LIBRARIES(utopialyrics ${QT_LIBRARIES} utopiaplayer)
 
 INSTALL(TARGETS utopialyrics DESTINATION bin)

@@ -38,6 +38,7 @@
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
 {
 	setObjectName(QLatin1String("MainWindow"));
+	setWindowTitle( tr("Utopia Lyrics") );
 
 	setupActions();
 	setupScrollArea();
@@ -162,7 +163,11 @@ void MainWindow::setupActions()
 	action = new QAction( QIcon("color_all"), tr("All Artists"), 0 );
 	action->setShortcut( Qt::CTRL+Qt::Key_1 );
 	action->setWhatsThis(tr("Make the selected text or the text after the cursor for all the artists."));
-	connect( action, SIGNAL( triggered() ), this, SLOT( insertColor() ) );
+	connect(action, SIGNAL(triggered()), this, SLOT(insertColor()));
+};
+
+void MainWindow::insertColor()
+{
 };
 
 void MainWindow::resizeEvent(QResizeEvent *event)

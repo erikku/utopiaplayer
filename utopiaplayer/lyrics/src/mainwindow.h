@@ -46,6 +46,7 @@ public:
 	virtual QSize sizeHint() const;
 
 public slots:
+	void insertColor();
 	void adjustScrollArea();
 	void moveUp(int verseNumber);
 	void insertUp(int verseNumber);
