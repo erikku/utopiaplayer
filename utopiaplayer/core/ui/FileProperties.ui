@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>Form</class>
- <widget class="QWidget" name="Form" >
+ <class>FileProperties</class>
+ <widget class="QWidget" name="FileProperties" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string>File Properties</string>
   </property>
   <widget class="QWidget" name="horizontalLayout" >
    <property name="geometry" >
@@ -18,36 +18,45 @@
      <x>10</x>
      <y>520</y>
      <width>401</width>
-     <height>29</height>
+     <height>30</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" >
-    <property name="margin" >
-     <number>0</number>
-    </property>
     <property name="spacing" >
      <number>6</number>
     </property>
+    <property name="leftMargin" >
+     <number>0</number>
+    </property>
+    <property name="topMargin" >
+     <number>0</number>
+    </property>
+    <property name="rightMargin" >
+     <number>0</number>
+    </property>
+    <property name="bottomMargin" >
+     <number>0</number>
+    </property>
     <item>
-     <widget class="QPushButton" name="pushButton" >
+     <widget class="QPushButton" name="ReloadButton" >
       <property name="text" >
        <string>&amp;Reload</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QDialogButtonBox" name="buttonBox" >
+     <widget class="QDialogButtonBox" name="ButtonBox" >
       <property name="orientation" >
        <enum>Qt::Horizontal</enum>
       </property>
       <property name="standardButtons" >
-       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QTabWidget" name="tabWidget" >
+  <widget class="QTabWidget" name="PropertiesTabWidget" >
    <property name="geometry" >
     <rect>
      <x>10</x>
@@ -59,7 +68,7 @@
    <property name="currentIndex" >
     <number>0</number>
    </property>
-   <widget class="QWidget" name="tab" >
+   <widget class="QWidget" name="FilePropertiesTab" >
     <attribute name="title" >
      <string>File Properties</string>
     </attribute>
@@ -73,14 +82,23 @@
       </rect>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
       </property>
+      <property name="leftMargin" >
+       <number>0</number>
+      </property>
+      <property name="topMargin" >
+       <number>0</number>
+      </property>
+      <property name="rightMargin" >
+       <number>0</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>0</number>
+      </property>
       <item>
-       <widget class="QLabel" name="label_9" >
+       <widget class="QLabel" name="FileInformationLabel" >
         <property name="text" >
          <string>&lt;u>&lt;b>File Information&lt;/b>&lt;/u></string>
         </property>
@@ -88,25 +106,35 @@
       </item>
       <item>
        <layout class="QGridLayout" >
-        <property name="margin" >
+        <property name="leftMargin" >
          <number>0</number>
         </property>
-        <property name="spacing" >
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <property name="horizontalSpacing" >
+         <number>6</number>
+        </property>
+        <property name="verticalSpacing" >
          <number>6</number>
         </property>
         <item row="1" column="0" >
-         <widget class="QLabel" name="label_3" >
+         <widget class="QLabel" name="PathLabel" >
           <property name="text" >
            <string>Path:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1" >
-         <widget class="QLabel" name="label_2" >
+         <widget class="QLabel" name="Name" >
           <property name="sizePolicy" >
-           <sizepolicy>
-            <hsizetype>7</hsizetype>
-            <vsizetype>5</vsizetype>
+           <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -117,56 +145,56 @@
          </widget>
         </item>
         <item row="2" column="0" >
-         <widget class="QLabel" name="label_11" >
+         <widget class="QLabel" name="SizeLabel" >
           <property name="text" >
            <string>Size:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0" >
-         <widget class="QLabel" name="label_12" >
+         <widget class="QLabel" name="CreatedLabel" >
           <property name="text" >
            <string>Created:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1" >
-         <widget class="QLabel" name="label_4" >
+         <widget class="QLabel" name="Path" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0" >
-         <widget class="QLabel" name="label" >
+         <widget class="QLabel" name="NameLabel" >
           <property name="text" >
            <string>Name:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0" >
-         <widget class="QLabel" name="label_13" >
+         <widget class="QLabel" name="ModifiedLabel" >
           <property name="text" >
            <string>Modified:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="QLabel" name="label_20" >
+         <widget class="QLabel" name="Size" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1" >
-         <widget class="QLabel" name="label_21" >
+         <widget class="QLabel" name="Created" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1" >
-         <widget class="QLabel" name="label_22" >
+         <widget class="QLabel" name="Modified" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
@@ -182,7 +210,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_10" >
+       <widget class="QLabel" name="SoundInformationLabel" >
         <property name="text" >
          <string>&lt;u>&lt;b>Sound Information&lt;/b>&lt;/u></string>
         </property>
@@ -190,18 +218,28 @@
       </item>
       <item>
        <layout class="QGridLayout" >
-        <property name="margin" >
+        <property name="leftMargin" >
          <number>0</number>
         </property>
-        <property name="spacing" >
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <property name="horizontalSpacing" >
+         <number>6</number>
+        </property>
+        <property name="verticalSpacing" >
          <number>6</number>
         </property>
         <item row="0" column="1" >
-         <widget class="QLabel" name="label_5" >
+         <widget class="QLabel" name="Duration" >
           <property name="sizePolicy" >
-           <sizepolicy>
-            <hsizetype>7</hsizetype>
-            <vsizetype>5</vsizetype>
+           <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -212,105 +250,105 @@
          </widget>
         </item>
         <item row="0" column="0" >
-         <widget class="QLabel" name="label_6" >
+         <widget class="QLabel" name="DurationLabel" >
           <property name="text" >
            <string>Duration:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" >
-         <widget class="QLabel" name="label_7" >
+         <widget class="QLabel" name="SampleRateLabel" >
           <property name="text" >
            <string>Sample Rate:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1" >
-         <widget class="QLabel" name="label_8" >
+         <widget class="QLabel" name="SampleRate" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0" >
-         <widget class="QLabel" name="label_15" >
+         <widget class="QLabel" name="BitPerSampleLabel" >
           <property name="text" >
            <string>Bits Per Sample:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0" >
-         <widget class="QLabel" name="label_16" >
+         <widget class="QLabel" name="BitrateLabel" >
           <property name="text" >
            <string>Bitrate:</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0" >
-         <widget class="QLabel" name="label_17" >
+         <widget class="QLabel" name="CodecLabel" >
           <property name="text" >
            <string>Codec:</string>
           </property>
          </widget>
         </item>
         <item row="6" column="0" >
-         <widget class="QLabel" name="label_18" >
+         <widget class="QLabel" name="ToolLabel" >
           <property name="text" >
            <string>Tool:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0" >
-         <widget class="QLabel" name="label_14" >
+         <widget class="QLabel" name="ChannelsLabel" >
           <property name="text" >
            <string>Channels:</string>
           </property>
          </widget>
         </item>
         <item row="7" column="0" >
-         <widget class="QLabel" name="label_19" >
+         <widget class="QLabel" name="EncodingLabel" >
           <property name="text" >
            <string>Encoding:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="QLabel" name="label_23" >
+         <widget class="QLabel" name="Channels" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1" >
-         <widget class="QLabel" name="label_24" >
+         <widget class="QLabel" name="BitsPerSample" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1" >
-         <widget class="QLabel" name="label_25" >
+         <widget class="QLabel" name="Bitrate" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="5" column="1" >
-         <widget class="QLabel" name="label_26" >
+         <widget class="QLabel" name="Codec" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="6" column="1" >
-         <widget class="QLabel" name="label_27" >
+         <widget class="QLabel" name="Tool" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="7" column="1" >
-         <widget class="QLabel" name="label_28" >
+         <widget class="QLabel" name="Encoding" >
           <property name="text" >
            <string>TextLabel</string>
           </property>
@@ -337,9 +375,9 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>buttonBox</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>PropertiesTabWidget</tabstop>
+  <tabstop>ButtonBox</tabstop>
+  <tabstop>ReloadButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

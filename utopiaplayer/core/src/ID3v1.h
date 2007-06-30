@@ -31,10 +31,10 @@ typedef struct _ID3v1Data
 	char    Title[30];
 	char    Artist[30];
 	char    Album[30];
-	quint32 Year;
+	char    Year[4];
 	char    Comment[29];
-	quint8  Track;
-	quint8  Genre;
+	char    Track;
+	char    Genre;
 }ID3v1Data;
 
 class ID3v1 : public Tag

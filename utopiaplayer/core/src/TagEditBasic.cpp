@@ -8,7 +8,7 @@
 *                                                                              *
 *  This program is distributed in the hope that it will be useful,             *
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of              *
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+*  MERCHANTagILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
 *  GNU General Public License for more details.                                *
 *                                                                              *
 *  You should have received a copy of the GNU General Public License           *
@@ -17,50 +17,30 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __PaletteEditor_h__
-#define __PaletteEditor_h__
+#include "TagEditBasic.h"
+#include "Tag.h"
 
-#include "ui_PaletteEditor.h"
-
-#include <QtGui/QPalette>
-
-class PaletteData
+TagEditBasic::TagEditBasic(QWidget *parent) : QWidget(parent)
 {
-public:
-	PaletteData();
-
-	QMap<QString, QGradient::Type> gradType;
-	QMap<QString, Qt::BrushStyle> brushStyles;
-	QMap<QString, QGradient::Spread> gradSpread;
-	QMap<QString, QPalette::ColorRole> colorRoles;
-	QMap<QString, QPalette::ColorGroup> colorGroups;
-	QMap<QPalette::ColorRole, QString> descriptions;
+	ui.setupUi(this);
 };
 
-class PaletteEditor : public QWidget
+TagEditBasic::TagEditBasic(MetaData::Tag *tag, QWidget *parent)
 {
-	Q_OBJECT
-
-public:
-	PaletteEditor(const QPalette& pal = QPalette(), QWidget *parent = 0);
-
-	QPalette currentPalette() const;
-
-	static QPalette importPalette(const QString& xml);
-	static QString exportPalette(const QPalette& pal);
-
-public slots:
-	void setCurrentPalette(const QPalette& pal);
-
-protected slots:
-	void promptColor();
-	void updateColor();
-	void updatePalette();
-
-protected:
-	PaletteData data;
-	QPalette mPalette;
-	Ui::PaletteEditor ui;
+	ui.setupUi(this);
+	loadTagData(tag);
 };
 
-#endif // __PaletteEditor_h__
+void TagEditBasic::loadTagData(MetaData::Tag *tag)
+{
+	if(!tag)
+		return;
+
+	ui.Title->setText( tag->title() );
+	ui.Artist->setText( tag->artist() );
+	ui.Album->setText( tag->album() );
+	ui.Comment->setText( tag->comment() );
+	ui.Genre->lineEdit()->setText( tag->genre() );
+	ui.Track->setValue( tag->track() );
+	ui.Year->setValue( tag->year() );
+};

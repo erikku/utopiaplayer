@@ -20,8 +20,10 @@
 #ifndef __FileList_h__
 #define __FileList_h__
 
+#include <QtCore/QMap>
 #include <QtGui/QTreeWidget>
 
+class AudioFile;
 class FileTypeFactory;
 
 class FileList : public QTreeWidget
@@ -34,6 +36,9 @@ public:
 
 	void addFile(const QString& file);
 
+public slots:
+	void handleItem(QTreeWidgetItem *item);
+
 protected:
 	void dropEvent(QDropEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
@@ -41,6 +46,8 @@ protected:
 	void dragLeaveEvent(QDragLeaveEvent *event);
 
 	FileTypeFactory *mFileTypeFactory;
+
+	QMap<QTreeWidgetItem*, AudioFile*> mFiles;
 };
 
 #endif // __FileList_h__

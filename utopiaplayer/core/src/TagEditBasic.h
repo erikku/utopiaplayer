@@ -8,7 +8,7 @@
 *                                                                              *
 *  This program is distributed in the hope that it will be useful,             *
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of              *
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+*  MERCHANTagILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
 *  GNU General Public License for more details.                                *
 *                                                                              *
 *  You should have received a copy of the GNU General Public License           *
@@ -17,50 +17,26 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __PaletteEditor_h__
-#define __PaletteEditor_h__
+#ifndef __TagEditBasic_h__
+#define __TagEditBasic_h__
 
-#include "ui_PaletteEditor.h"
+#include "ui_TagEditBasic.h"
 
-#include <QtGui/QPalette>
+namespace MetaData { class Tag; };
 
-class PaletteData
-{
-public:
-	PaletteData();
-
-	QMap<QString, QGradient::Type> gradType;
-	QMap<QString, Qt::BrushStyle> brushStyles;
-	QMap<QString, QGradient::Spread> gradSpread;
-	QMap<QString, QPalette::ColorRole> colorRoles;
-	QMap<QString, QPalette::ColorGroup> colorGroups;
-	QMap<QPalette::ColorRole, QString> descriptions;
-};
-
-class PaletteEditor : public QWidget
+class TagEditBasic : public QWidget
 {
 	Q_OBJECT
 
 public:
-	PaletteEditor(const QPalette& pal = QPalette(), QWidget *parent = 0);
-
-	QPalette currentPalette() const;
-
-	static QPalette importPalette(const QString& xml);
-	static QString exportPalette(const QPalette& pal);
+	TagEditBasic(QWidget *parent = 0);
+	TagEditBasic(MetaData::Tag *tag, QWidget *parent = 0);
 
 public slots:
-	void setCurrentPalette(const QPalette& pal);
-
-protected slots:
-	void promptColor();
-	void updateColor();
-	void updatePalette();
+	void loadTagData(MetaData::Tag *tag);
 
 protected:
-	PaletteData data;
-	QPalette mPalette;
-	Ui::PaletteEditor ui;
+	Ui::TagEditBasic ui;
 };
 
-#endif // __PaletteEditor_h__
+#endif // __TagEditBasic_h__

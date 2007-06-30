@@ -44,6 +44,7 @@ public:
 	virtual QStringList extensions() const;
 
 protected:
+	bool mOpen;
 };
 
 #endif // __MP3File_h__

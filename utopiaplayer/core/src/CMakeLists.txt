@@ -80,6 +80,7 @@ SET(UtopiaPlayer_SRCS
 	ContextTabBar.cpp
     DatabaseList.cpp
 	DeviceManager.cpp
+	FileProperties.cpp
 	FileTypeFactory.cpp
 	GUIManager.cpp
 	ID3v1.cpp
@@ -111,6 +112,7 @@ SET(UtopiaPlayer_SRCS
     SongListWindow.cpp
     SongManager.cpp
     SplashScreen.cpp
+	TagEditBasic.cpp
 	UtopiaDBImportOptions.cpp
     #UtopiaExport.cpp
 	VolumeDevice.cpp
@@ -135,6 +137,7 @@ SET(UtopiaPlayer_HDRS
 	Device.h
 	DeviceManager.h
     #DatabasePlugin.h
+	FileProperties.h
     GUIManager.h
 	ID3v1.h
 	ID3v2.h
@@ -163,6 +166,7 @@ SET(UtopiaPlayer_HDRS
     SongList.h
     SongListWindow.h
     SongManager.h
+	TagEditBasic.h
 	Tag.h
     #SplashScreen.h
 	UtopiaDBImportOptions.h
@@ -186,6 +190,7 @@ QT4_ADD_RESOURCES(UtopiaPlayer_RCC_SRCS ${UtopiaPlayer_RCC})
 SET(UtopiaPlayer_UIS
     ../ui/CurrentlyPlaying.ui
     ../ui/EditBox.ui
+	../ui/FileProperties.ui
     ../ui/InsertAlbum.ui
     ../ui/InsertArtist.ui
     ../ui/InsertGenre.ui
@@ -195,6 +200,7 @@ SET(UtopiaPlayer_UIS
 	../ui/PaletteEditor.ui
     ../ui/ProgressWindow.ui
     ../ui/SongEdit.ui
+	../ui/TagEditBasic.ui
 	../ui/UtopiaDBImportOptions.ui
 	../ui/iTunesImportOptions.ui
 	../ui/VolumeEdit.ui

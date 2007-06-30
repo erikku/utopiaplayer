@@ -25,6 +25,11 @@
 AudioFile::AudioFile(const QString& path)
 {
 	d = new AudioFileData;
+	d->sampleCount = 0;
+	d->sampleRate = 0;
+	d->channels = 2;
+	d->bitsPerSample = 16;
+	d->bitrate = 0;
 	d->path = path;
 };
 
@@ -74,6 +79,9 @@ QDateTime AudioFile::modified() const
 
 quint32 AudioFile::length() const
 {
+	if(d->sampleRate <= 0)
+		return 0;
+
 	return d->sampleCount / d->sampleRate;
 };
 

@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "FileList.h"
+#include "FileProperties.h"
 #include "Application.h"
 #include "AudioFile.h"
 #include "FileTypeFactory.h"
@@ -39,10 +40,15 @@ FileList::FileList(QWidget *parent) : QTreeWidget(parent)
 
 	setColumnCount(2);
 	setAcceptDrops(true);
+
+	connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(handleItem(QTreeWidgetItem*)));
 };
 
 FileList::~FileList()
 {
+	foreach(AudioFile *file, mFiles.values())
+		delete file;
+
 	delete mFileTypeFactory;
 };
 
@@ -99,6 +105,11 @@ void FileList::dropEvent(QDropEvent *event)
 	event->acceptProposedAction();
 };
 
+void FileList::handleItem(QTreeWidgetItem *item)
+{
+	( new FileProperties(mFiles[item]) )->show();
+};
+
 void FileList::addFile(const QString& file)
 {
 	QString mimeType, fileType = "Unknown", title = "File Not Loaded";
@@ -114,7 +125,6 @@ void FileList::addFile(const QString& file)
 		fileType = audioFile->type();
 		mimeType = audioFile->mimeType();
 	}
-	delete audioFile;
 
 	QFileInfo info(file);
 	//QTreeWidgetItem *item = new QTreeWidgetItem( QStringList() << info.completeBaseName() << fileType );
@@ -127,5 +137,6 @@ void FileList::addFile(const QString& file)
 		item->setIcon( 0, uApp->icon("mimetypes/sound") );
 		//item->setIcon( 0, uApp->icon("actions/reload") );
 
+	mFiles[item] = audioFile;
 	addTopLevelItem(item);
 };

@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <cmath>
 
-MP3File::MP3File(const QString& path) : AudioFile(path)
+MP3File::MP3File(const QString& path) : AudioFile(path), mOpen(false)
 {
 };
 
@@ -42,6 +42,7 @@ bool MP3File::load()
 	MetaData::Tag *tag = new MetaData::ID3v1(d->path);
 	tag->read(d->path, "SJIS");
 	addTag(tag);
+	mOpen = true;
 };
 
 bool MP3File::save()
@@ -62,6 +63,7 @@ int MP3File::readSamples(float **samples, int count)
 
 bool MP3File::isOpen() const
 {
+	return mOpen;
 };
 
 bool MP3File::isValid() const

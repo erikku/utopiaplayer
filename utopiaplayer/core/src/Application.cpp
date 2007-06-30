@@ -235,19 +235,29 @@ void Application::loadCore()
 	
 	if( !mSettingsManager->disableStyle() )
 	{
-		QStyle *style = 0;
-
-		style = QStyleFactory::create( mSettingsManager->style() );
-
+		QStyle *style = QStyleFactory::create( mSettingsManager->style() );
 		if(style)
 			setStyle(style);
-			
+
 		if( mSettingsManager->contains("Palettes/Dark") )
 		{
 			setPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() );
-			PaletteEditor *editor = new PaletteEditor;
-			// std::cout << editor->exportPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() ).toLocal8Bit().data() << std::endl;
-			delete editor;
+
+			QFile file( mSettingsDir.absoluteFilePath("palettes/Dark.xml") );
+			file.open(QIODevice::WriteOnly);
+			file.write( PaletteEditor::exportPalette( mSettingsManager->value("Palettes/Dark").value<QPalette>() ).toUtf8() );
+			file.close();
+		}
+
+		{
+			QFile file( mSettingsDir.absoluteFilePath("palettes/Dark.xml") );
+			file.open(QIODevice::ReadOnly);
+
+			QString xml = file.readAll();
+			PaletteEditor editor;
+			setPalette( editor.importPalette(xml) );
+
+			file.close();
 		}
 	}
 

@@ -1,519 +1,146 @@
 <ui version="4.0" >
- <class>Form</class>
- <widget class="QWidget" name="Form" >
+ <class>TagEditBasic</class>
+ <widget class="QWidget" name="TagEditBasic" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>475</height>
+    <width>371</width>
+    <height>261</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <widget class="QToolBox" name="toolBox" >
+  <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>10</y>
-     <width>401</width>
-     <height>461</height>
+     <y>0</y>
+     <width>371</width>
+     <height>261</height>
     </rect>
    </property>
-   <property name="currentIndex" >
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="page" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>401</width>
-      <height>399</height>
-     </rect>
-    </property>
-    <attribute name="label" >
-     <string>Basic</string>
-    </attribute>
-    <widget class="QWidget" name="layoutWidget_2" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>381</width>
-       <height>401</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>0</number>
+   <layout class="QVBoxLayout" >
+    <item>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="TitleLabel" >
+        <property name="text" >
+         <string>Title:</string>
         </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label" >
-          <property name="text" >
-           <string>Title:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1" >
-         <widget class="QLineEdit" name="lineEdit_6" />
-        </item>
-        <item row="6" column="0" >
-         <widget class="QLabel" name="label_7" >
-          <property name="text" >
-           <string>Comment:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="lineEdit_2" />
-        </item>
-        <item row="6" column="1" >
-         <widget class="QTextEdit" name="textEdit" />
-        </item>
-        <item row="3" column="1" >
-         <widget class="QLineEdit" name="lineEdit_4" />
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_2" >
-          <property name="text" >
-           <string>Subtitle:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0" >
-         <widget class="QLabel" name="label_6" >
-          <property name="text" >
-           <string>Composer:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" >
-         <widget class="QLabel" name="label_5" >
-          <property name="text" >
-           <string>Publisher:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" >
-         <widget class="QLineEdit" name="lineEdit_3" />
-        </item>
-        <item row="3" column="0" >
-         <widget class="QLabel" name="label_4" >
-          <property name="text" >
-           <string>Album:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" >
-         <widget class="QLineEdit" name="lineEdit_5" />
-        </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="label_3" >
-          <property name="text" >
-           <string>Artist:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QLineEdit" name="lineEdit" />
-        </item>
-       </layout>
+       </widget>
       </item>
-      <item>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>0</number>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="Title" />
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="ArtistLabel" >
+        <property name="text" >
+         <string>Artist:</string>
         </property>
-        <property name="spacing" >
-         <number>6</number>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="Artist" />
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="AlbumLabel" >
+        <property name="text" >
+         <string>Album:</string>
         </property>
-        <item row="1" column="2" >
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_10" >
-            <property name="text" >
-             <string>Disc:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QSpinBox" name="spinBox" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>7</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_11" >
-              <property name="text" >
-               <string>/</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox_2" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>7</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0" >
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_9" >
-            <property name="text" >
-             <string>Track:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QSpinBox" name="spinBox_3" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>7</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_12" >
-              <property name="text" >
-               <string>/</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox_4" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>7</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="1" >
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0" >
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_17" >
-            <property name="text" >
-             <string>Genre:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>0</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="editable" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="2" >
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_8" >
-            <property name="text" >
-             <string>Year:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QSpinBox" name="spinBox_5" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>7</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximum" >
-               <number>9999</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLineEdit" name="Album" />
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="CommentLabel" >
+        <property name="text" >
+         <string>Comment:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QTextEdit" name="Comment" />
+      </item>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="GenreLabel" >
+        <property name="text" >
+         <string>Genre:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QComboBox" name="Genre" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="editable" >
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="page_2" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>401</width>
-      <height>399</height>
-     </rect>
-    </property>
-    <attribute name="label" >
-     <string>Advanced</string>
-    </attribute>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>381</width>
-       <height>91</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Replay Gain</string>
-     </property>
-     <widget class="QWidget" name="layoutWidget" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>361</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item row="0" column="4" >
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_3" >
-         <property name="sizePolicy" >
-          <sizepolicy>
-           <hsizetype>7</hsizetype>
-           <vsizetype>0</vsizetype>
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_2" >
-         <property name="sizePolicy" >
-          <sizepolicy>
-           <hsizetype>7</hsizetype>
-           <vsizetype>0</vsizetype>
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4" >
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_4" >
-         <property name="sizePolicy" >
-          <sizepolicy>
-           <hsizetype>7</hsizetype>
-           <vsizetype>0</vsizetype>
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QDoubleSpinBox" name="doubleSpinBox" >
-         <property name="sizePolicy" >
-          <sizepolicy>
-           <hsizetype>7</hsizetype>
-           <vsizetype>0</vsizetype>
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label_14" >
-         <property name="text" >
-          <string>Album Peak:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_13" >
-         <property name="text" >
-          <string>Album Gain:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3" >
-        <widget class="QLabel" name="label_16" >
-         <property name="text" >
-          <string>Track Peak:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3" >
-        <widget class="QLabel" name="label_15" >
-         <property name="text" >
-          <string>Track Gain:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" >
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QGroupBox" name="groupBox_2" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>100</y>
-       <width>381</width>
-       <height>291</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Custom / Miscellaneous</string>
-     </property>
-     <widget class="QTableWidget" name="tableWidget" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>361</width>
-        <height>261</height>
-       </rect>
-      </property>
-      <column>
-       <property name="text" >
-        <string>Key</string>
-       </property>
-      </column>
-      <column>
-       <property name="text" >
-        <string>Value</string>
-       </property>
-      </column>
-     </widget>
-    </widget>
-   </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="TrackLabel" >
+        <property name="text" >
+         <string>Track:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="Track" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="YearLabel" >
+        <property name="text" >
+         <string>Year:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="Year" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximum" >
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

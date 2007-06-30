@@ -28,7 +28,7 @@ using namespace MetaData;
 #include <cstring>
 
 static char* GenreList[] = {
-	"Blues ", "Classic Rock", "Country", "Dance", "Disco", "Funk", "Grunge",
+	"Blues", "Classic Rock", "Country", "Dance", "Disco", "Funk", "Grunge",
 	"Hip-Hop", "Jazz", "Metal", "New Age", "Oldies", "Other", "Pop", "R&B",
 	"Rap", "Reggae", "Rock", "Techno", "Industrial", "Alternative", "Ska",
 	"Death Metal", "Pranks", "Soundtrack", "Euro-Techno", "Ambient",
@@ -100,12 +100,15 @@ QString ID3v1::comment() const
 
 QString ID3v1::genre() const
 {
+	if(d->Genre >= 126)
+		return QString();
+
 	return QString(GenreList[d->Genre]);
 };
 
 int ID3v1::year() const
 {
-	return d->Year;
+	return QString::fromAscii(d->Year, 4).toInt();
 };
 
 int ID3v1::track() const
@@ -149,7 +152,11 @@ void ID3v1::setGenre(const QString& genre)
 
 void ID3v1::setYear(int year)
 {
-	d->Year = year;
+	if(year > 9999 || year < 0)
+		return;
+
+	QString nYear = QString::number(year).rightJustified(4, '0');
+	memcpy(d->Year, nYear.toAscii().data(), 4);
 };
 
 void ID3v1::setTrack(int track)
@@ -188,17 +195,17 @@ Tag* ID3v1::duplicate()
 {
 	ID3v1 *tag = new ID3v1;
 	tag->mCurrentEncoding = mCurrentEncoding;
-	memcpy(tag->d, d, sizeof(ID3v1Data));
+	memcpy(tag->d, d, 128);
 };
 
 qint64 ID3v1::size()
 {
-	return sizeof(ID3v1Data);
+	return 128;
 };
 
 QByteArray ID3v1::tagData() const
 {
-	return QByteArray( (const char*)d, sizeof(ID3v1Data) );
+	return QByteArray( (const char*)d, 128 );
 };
 
 void ID3v1::removeTag(const QString& path)
@@ -303,8 +310,8 @@ bool ID3v1::read(const QString& path, const QString& encoding)
 	if(memcmp(d->Magic, "TAG", 3) != 0)
 	{
 		file.close();
-
 		free(d);
+
 		d = (ID3v1Data*)calloc(1, 128);
 		memcpy(d->Magic, "TAG", 3);
 
