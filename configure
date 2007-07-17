@@ -47,8 +47,6 @@ then
 	exit 0
 fi
 
-echo "-- Configuring Utopia Player"
-
 mkdir -p ./build
 cd ./build
 $CMAKE .. -DCMAKE_BUILD_TYPE=$build -DCMAKE_INSTALL_PREFIX=$prefix ${defines} -G "Unix Makefiles" || exit 1

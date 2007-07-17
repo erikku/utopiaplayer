@@ -1,4 +1,3 @@
-PROJECT(utopiadb)
 
 SET(UTOPIADB_OFFICIAL true)
 SET(UTOPIADB_REVISION 0)
@@ -25,8 +24,8 @@ INCLUDE(${QT_USE_FILE})
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
-CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/configure.h.in ${CMAKE_CURRENT_BINARY_DIR}/configure.h @ONLY IMMEDIATE)
-CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/scripts/utopiadb.pc.in ${CMAKE_CURRENT_BINARY_DIR}/utopiadb.pc @ONLY IMMEDIATE)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/configure.h.in ${CMAKE_CURRENT_BINARY_DIR}/configure.h @ONLY IMMEDIATE)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/../scripts/utopiadb.pc.in ${CMAKE_CURRENT_BINARY_DIR}/utopiadb.pc @ONLY IMMEDIATE)
 
 SET(utopiadb_SRCS
 	album.cpp
@@ -83,6 +82,13 @@ SET(utopiadb_HDRS_NOMOC
 	utopiablock.h
 	utopiadb.h
 )
+
+FILE(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include)
+FILE(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/utopiadb)
+
+FOREACH(current_header ${utopiadb_HDRS} ${utopiadb_HDRS_NOMOC})
+	CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${current_header} ${CMAKE_BINARY_DIR}/include/utopiadb/${current_header} COPYONLY)
+ENDFOREACH(current_header)
 
 QT4_WRAP_CPP(utopiadb_SRCS ${utopiadb_HDRS})
 
