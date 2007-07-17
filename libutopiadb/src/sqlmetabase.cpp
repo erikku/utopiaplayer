@@ -120,6 +120,16 @@ void SqlMetaBase::createDatabase()
 	}
 
 	mValid = true;
+
+	UtopiaBlock block1;
+	block1.setID(1);
+	block1.setName("lol");
+	block1.setNativeLang("ja");
+	addBlock(block1);
+	block1.setName("Test_Block");
+	updateBlock(block1);
+	block1.setComments("The is a test block for viewing in Utopia Block Browser.");
+	updateBlock(block1);
 };
 
 QList<UtopiaBlock> SqlMetaBase::blocks(const QString& blockType) const
@@ -300,7 +310,7 @@ void SqlMetaBase::updateBlock(const UtopiaBlock& block)
 	QString checksum = g_checksum(data);
 	QDateTime timestamp = QDateTime::currentDateTime();
 
-	if(id < 1) // Insert
+	if(id < 0) // Insert
 	{
 		query.prepare("INSERT INTO " + mPrefix + "blocks (`id`, `uid`, `type`, `data`, `checksum`, `date`, `rev`) VALUES"
 			"(:id, :uid, :type, :data, :checksum, :date, :rev)");
@@ -310,7 +320,7 @@ void SqlMetaBase::updateBlock(const UtopiaBlock& block)
 		query.bindValue(":data", data);
 		query.bindValue(":checksum", checksum);
 		query.bindValue(":date", timestamp);
-		query.bindValue(":rev", 1);
+		query.bindValue(":rev", 0);
 		if( !query.exec() )
 		{
 			std::cout << query.lastQuery().toLocal8Bit().data() << ": " << query.lastError().driverText().toLocal8Bit().data() << std::endl;
@@ -323,7 +333,7 @@ void SqlMetaBase::updateBlock(const UtopiaBlock& block)
 				"(:id, :uid, :rev, :date, :user, :log, :data, :checksum)");
 			query.bindValue(":id", nextTableID(mPrefix + "revisions"));
 			query.bindValue(":uid", block.id());
-			query.bindValue(":rev", 1);
+			query.bindValue(":rev", 0);
 			query.bindValue(":date", timestamp);
 			query.bindValue(":user", "UtopiaDB");
 			query.bindValue(":log", "Initial Import.");
@@ -443,11 +453,11 @@ QString SqlMetaBase::patchedBlockData(uid id, int rev) const
 		return QString();
 
 	QString next;
-	QString previous = fetchRevisionData(id, 1);
+	QString previous = fetchRevisionData(id, 0);
 	if( previous.isEmpty() )
 		return QString();
 
-	for(int i = 2; i <= rev; i++)
+	for(int i = 1; i <= rev; i++)
 	{
 		next = fetchRevisionData(id, i);
 		if( next.isEmpty() )
@@ -484,8 +494,8 @@ QString SqlMetaBase::fetchRevisionData(uid id, int rev) const
 QString SqlMetaBase::patchText(const QString& text, const QString& patch) const
 {
 	QString in1, in2;
-	in1 = QDir::toNativeSeparators( QDir::tempPath() + "utopiadb_old" );
-	in2 = QDir::toNativeSeparators( QDir::tempPath() + "utopiadb_patch" );
+	in1 = QDir::toNativeSeparators( QDir::temp().filePath("utopiadb_old") );
+	in2 = QDir::toNativeSeparators( QDir::temp().filePath("utopiadb_patch") );
 
 	QFile(in1).remove();
 	QFile(in2).remove();
@@ -502,7 +512,8 @@ QString SqlMetaBase::patchText(const QString& text, const QString& patch) const
 	file2.close();
 
 	QProcess proc;
-	proc.start("/usr/bin/patch", QStringList() << "-u" << "-i" << in2 << in1);
+	proc.setWorkingDirectory( QDir::tempPath() );
+	proc.start("/usr/bin/patch", QStringList() << "-u" << "-i" << "utopiadb_old" << "utopiadb_patch");
 	if(!proc.waitForStarted())
 	{
 		// "Failed to start proccess";
@@ -537,8 +548,8 @@ QString SqlMetaBase::createDiff(const QString& oldText, const QString& newText) 
 	}
 
 	QString in1, in2;
-	in1 = QDir::toNativeSeparators( QDir::tempPath() + "utopiadb_old" );
-	in2 = QDir::toNativeSeparators( QDir::tempPath() + "utopiadb_new" );
+	in1 = QDir::toNativeSeparators( QDir::temp().filePath("utopiadb_old") );
+	in2 = QDir::toNativeSeparators( QDir::temp().filePath("utopiadb_new") );
 
 	QFile(in1).remove();
 	QFile(in2).remove();
@@ -555,7 +566,8 @@ QString SqlMetaBase::createDiff(const QString& oldText, const QString& newText) 
 	file2.close();
 
 	QProcess proc;
-	proc.start("/usr/bin/diff", QStringList() << "-u" << in1 << in2);
+	proc.setWorkingDirectory( QDir::tempPath() );
+	proc.start("/usr/bin/diff", QStringList() << "-u" << "utopiadb_old" << "utopiadb_new");
 	if(!proc.waitForStarted())
 	{
 		// "Failed to start proccess";

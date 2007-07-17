@@ -21,6 +21,7 @@
 #include "Application.h"
 
 #include <utopiadb/sqlmetabase.h>
+#include <utopiadb/blockparser.h>
 
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
@@ -47,8 +48,8 @@ using namespace Utopia;
 Browser::Browser(QWidget *parent) : QMainWindow(parent), mCurrentMetabase(0), mCurrentID(0)
 {
 	mBlockList = new QTreeWidget;
-	mBlockList->setColumnCount(2);
-	mBlockList->setHeaderLabels ( QStringList() << tr("ID") << tr("Type") );
+	mBlockList->setColumnCount(3);
+	mBlockList->setHeaderLabels ( QStringList() << tr("ID") << tr("Name") << tr("Type") );
 
 	mBlockXmlEdit = new QTextEdit;
 	mBlockXmlEdit->setReadOnly(true);
@@ -139,8 +140,11 @@ void Browser::openSQLite()
 	mPrefix = QInputDialog::getText(this, tr("Table Prefix"), tr("Please enter in the table prefix for this database"), 
 		QLineEdit::Normal, "utopia_");
 
+	// Do this before making a query so we know we have created a valid database
+	mCurrentMetabase = new SqlMetaBase(mCurrentDatabase, mPrefix);
+
 	QSqlQuery query(mCurrentDatabase);
-	query.prepare("SELECT `uid`, `type` FROM " + mPrefix + "blocks");
+	query.prepare("SELECT `uid`, `rev`, `type` FROM " + mPrefix + "blocks");
 	if( !query.exec() )
 	{
 		std::cout << query.lastQuery().toLocal8Bit().data() << ": " << query.lastError().driverText().toLocal8Bit().data() << std::endl;
@@ -148,16 +152,17 @@ void Browser::openSQLite()
 	}
 
 	uid id;
-	QString type;
+	int rev;
+	QString name, type;
 
 	while( query.next() )
 	{
 		id = query.record().value("uid").toInt();
+		rev = query.record().value("rev").toInt();
 		type = query.record().value("type").toString();
-		mBlockList->addTopLevelItem( new QTreeWidgetItem( QStringList() << QString::number(id) << type ) );
+		name = Utopia::BlockParser::blocksFromXML( mCurrentMetabase->patchedBlockData(id, rev) ).first().name();
+		mBlockList->addTopLevelItem( new QTreeWidgetItem( QStringList() << QString::number(id) << name << type ) );
 	}
-
-	mCurrentMetabase = new SqlMetaBase(mCurrentDatabase, mPrefix);
 
 	mMainSplitter->show();
 };
@@ -190,7 +195,7 @@ void Browser::updateSelection()
 
 	rev = query.record().value("rev").toInt();
 
-	mRevSpinner->setMinimum(1);
+	mRevSpinner->setMinimum(0);
 	mRevSpinner->setMaximum(rev);
 	mRevSpinner->setValue(rev);
 };
