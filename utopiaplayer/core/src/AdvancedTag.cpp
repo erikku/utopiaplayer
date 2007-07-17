@@ -129,3 +129,18 @@ void AdvancedTag::setAlbumArtist(const QString& albumArtist)
 {
 	setAlbumArtists(QStringList() << albumArtist);
 };
+
+bool AdvancedTag::canSupportCustomTags()
+{
+	return hasFeature(CustomTags);
+};
+
+bool AdvancedTag::canSupportMultipleEntries()
+{
+	return hasFeature(MultipleEntries);
+};
+
+bool AdvancedTag::keysMatch(const QString& key1, const QString& key2)
+{
+	return ( key1.toLower() == key2.toLower() );
+};

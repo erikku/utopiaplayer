@@ -46,6 +46,13 @@ void WavPackFile::close()
 bool WavPackFile::load()
 {
 	close();
+
+	MetaData::Tag *tag = new MetaData::APEv2(d->path);
+	tag->read(d->path);
+	addTag(tag);
+
+	return true;
+
 	wvContext = WavpackOpenFileInput(d->path.toLocal8Bit().data(), wvError, OPEN_WVC | OPEN_NORMALIZE, 0);
 	if(!wvContext)
 	{

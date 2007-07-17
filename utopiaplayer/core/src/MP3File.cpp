@@ -68,7 +68,7 @@ bool MP3File::isOpen() const
 
 bool MP3File::isValid() const
 {
-	return true;
+	return (d->path.right(4) == ".mp3");
 };
 
 QString MP3File::type() const

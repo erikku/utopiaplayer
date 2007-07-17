@@ -121,7 +121,7 @@ void FileList::addFile(const QString& file)
 	{
 		audioFile->load();
 		if( audioFile->tags().count() )
-			title = audioFile->tags().first()->title();
+			title = audioFile->tags().first()->album();
 		fileType = audioFile->type();
 		mimeType = audioFile->mimeType();
 	}

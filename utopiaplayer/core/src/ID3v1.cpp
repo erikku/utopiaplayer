@@ -210,7 +210,7 @@ QByteArray ID3v1::tagData() const
 
 void ID3v1::removeTag(const QString& path)
 {
-	if( !containsTag(path) )
+	if( !fileContainsTag(path) )
 		return;
 
 	QFile file(path);
@@ -226,7 +226,7 @@ void ID3v1::removeTag(const QString& path)
 
 qint64 ID3v1::position(const QString& path)
 {
-	if( !containsTag(path) )
+	if( !fileContainsTag(path) )
 		return -1;
 
 	QFile file(path);
@@ -234,7 +234,7 @@ qint64 ID3v1::position(const QString& path)
 	return file.size() - 128;
 };
 
-bool ID3v1::containsTag(const QString& path)
+bool ID3v1::fileContainsTag(const QString& path)
 {
 	QFile file(path);
 
@@ -273,7 +273,7 @@ bool ID3v1::containsTag(const QString& path)
 
 bool ID3v1::conformsToSpec(const QString& path)
 {
-	if( containsTag(path) )
+	if( fileContainsTag(path) )
 		return true;
 
 	return false;

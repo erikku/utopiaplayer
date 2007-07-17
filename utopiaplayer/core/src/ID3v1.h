@@ -78,7 +78,7 @@ public:
 
 	virtual void removeTag(const QString& path);
 	virtual qint64 position(const QString& path);
-	virtual bool containsTag(const QString& path);
+	virtual bool fileContainsTag(const QString& path);
 	virtual bool conformsToSpec(const QString& path);
 
 	virtual bool read(const QString& path, const QString& encoding = QString());

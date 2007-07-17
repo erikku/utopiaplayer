@@ -33,6 +33,7 @@
 namespace MetaData
 {
 
+/// @TODO Make default functions for all those features you can leave out (which is just about everything)
 class AdvancedTag : public Tag
 {
 	Q_OBJECT
@@ -154,8 +155,8 @@ public:
 	 // Custom tag editing funtions bellow                 //
 	////////////////////////////////////////////////////////
 
-	virtual bool canSupportCustomTags() = 0;
-	virtual bool canSupportMultipleEntries() = 0;
+	virtual bool canSupportCustomTags();
+	virtual bool canSupportMultipleEntries();
 
 	virtual int tagCount() = 0;
 	virtual QStringList tagKeys() const = 0;
@@ -163,12 +164,12 @@ public:
 
 	virtual bool containsTag(const QString& key) = 0;
 	virtual int tagCount(const QString& key) const = 0;
-	virtual TagType tagType(const QString& key) const = 0;
+	virtual AdvancedTag::TagType tagType(const QString& key) const = 0;
 
 	virtual QList<QVariant> tag(const QString& key) const = 0;
 	virtual QVariant tag(const QString& key, int index) const = 0;
 
-	virtual bool keysMatch(const QString& key1, const QString& key2) = 0;
+	virtual bool keysMatch(const QString& key1, const QString& key2);
 
 	virtual void addTag(const QString& key, const QUrl& tag) = 0;
 	virtual void addTag(const QString& key, const QString& tag) = 0;
