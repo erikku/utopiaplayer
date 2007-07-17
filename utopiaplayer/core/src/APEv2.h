@@ -142,20 +142,7 @@ public:
 	virtual QList<QVariant> tag(const QString& key) const;
 	virtual QVariant tag(const QString& key, int index) const;
 
-	virtual void addTag(const QString& key, const QUrl& tag);
-	virtual void addTag(const QString& key, const QString& tag);
-	virtual void addTag(const QString& key, const QByteArray& tag);
-	virtual void addTag(const QString& key, const QList<QUrl>& tag);
-	virtual void addTag(const QString& key, const QStringList& tag);
-	virtual void addTag(const QString& key, const QList<QByteArray>& tag);
 	virtual void addTag(const QString& key, const QList<QVariant>& tag, TagType type);
-
-	virtual void setTag(const QString& key, const QUrl& tag);
-	virtual void setTag(const QString& key, const QString& tag);
-	virtual void setTag(const QString& key, const QByteArray& tag);
-	virtual void setTag(const QString& key, const QList<QUrl>& tag);
-	virtual void setTag(const QString& key, const QStringList& tag);
-	virtual void setTag(const QString& key, const QList<QByteArray>& tag);
 	virtual void setTag(const QString& key, const QList<QVariant>& tag, TagType type);
 
 	virtual void clearTag(const QString& key);

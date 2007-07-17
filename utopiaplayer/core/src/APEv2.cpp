@@ -22,10 +22,10 @@
 #include <QtCore/QFile>
 #include <iostream>
 
-static QStringList properAPEv2KeyNames;
-
 namespace MetaData
 {
+
+static QStringList properAPEv2KeyNames;
 
 typedef struct
 {
@@ -86,7 +86,7 @@ QStringList APEv2::titles() const
 
 void APEv2::setTitles(const QStringList& titles)
 {
-	setTag(QLatin1String("Title"), titles);
+	AdvancedTag::setTag(QLatin1String("Title"), titles);
 };
 
 QStringList APEv2::artists() const
@@ -96,7 +96,7 @@ QStringList APEv2::artists() const
 
 void APEv2::setArtists(const QStringList& artists)
 {
-	setTag(QLatin1String("Artist"), artists);
+	AdvancedTag::setTag(QLatin1String("Artist"), artists);
 };
 
 QStringList APEv2::albums() const
@@ -106,7 +106,7 @@ QStringList APEv2::albums() const
 
 void APEv2::setAlbums(const QStringList& albums)
 {
-	setTag(QLatin1String("Album"), albums);
+	AdvancedTag::setTag(QLatin1String("Album"), albums);
 };
 
 QStringList APEv2::comments() const
@@ -116,7 +116,7 @@ QStringList APEv2::comments() const
 
 void APEv2::setComments(const QStringList& comments)
 {
-	setTag(QLatin1String("Comment"), comments);
+	AdvancedTag::setTag(QLatin1String("Comment"), comments);
 };
 
 QStringList APEv2::genres() const
@@ -126,7 +126,7 @@ QStringList APEv2::genres() const
 
 void APEv2::setGenres(const QStringList& genres)
 {
-	setTag(QLatin1String("Genre"), genres);
+	AdvancedTag::setTag(QLatin1String("Genre"), genres);
 };
 
 int APEv2::year() const
@@ -153,7 +153,7 @@ void APEv2::setYear(int year)
 		theYear = QString::number(year);
 	}
 
-	setTag(QLatin1String("Year"), theYear);
+	AdvancedTag::setTag(QLatin1String("Year"), theYear);
 };
 
 int APEv2::track() const
@@ -173,7 +173,7 @@ void APEv2::setTrack(int track)
 	else
 		theTrack = QString::number(track);
 
-	setTag(QLatin1String("TRACK"), theTrack);
+	AdvancedTag::setTag(QLatin1String("TRACK"), theTrack);
 };
 
 void APEv2::clear()
@@ -426,7 +426,7 @@ void APEv2::setTotalTracks(int total)
 	if( first.contains('/') )
 		first = first.split('/').first();
 
-	setTag(QLatin1String("Track"), first + '/' + total);
+	AdvancedTag::setTag(QLatin1String("Track"), first + '/' + total);
 };
 
 int APEv2::disc() const
@@ -559,7 +559,7 @@ void APEv2::setCover(const QPixmap& cover)
 	QByteArray data;
 	cover.save(data);
 
-	setTag(QLatin1String("Cover"), data);
+	AdvancedTag::setTag(QLatin1String("Cover"), data);
 };
 
 int APEv2::tagCount()
@@ -616,56 +616,13 @@ QVariant APEv2::tag(const QString& key, int index) const
 	return QVariant();
 };
 
-void APEv2::addTag(const QString& key, const QUrl& tag)
-{
-};
-
-void APEv2::addTag(const QString& key, const QString& tag)
-{
-};
-
-void APEv2::addTag(const QString& key, const QByteArray& tag)
-{
-};
-
-void APEv2::addTag(const QString& key, const QList<QUrl>& tag)
-{
-};
-
-void APEv2::addTag(const QString& key, const QStringList& tag)
-{
-};
-
-void APEv2::addTag(const QString& key, const QList<QByteArray>& tag)
-{
-};
-
 void APEv2::addTag(const QString& key, const QList<QVariant>& tag, TagType type)
 {
-};
+	TagPair pair = mTags.value( key.toUpper() );
+	pair.first = type;
+	pair.second = QList<QVariant>() << pair.second << tag;
 
-void APEv2::setTag(const QString& key, const QUrl& tag)
-{
-};
-
-void APEv2::setTag(const QString& key, const QString& tag)
-{
-};
-
-void APEv2::setTag(const QString& key, const QByteArray& tag)
-{
-};
-
-void APEv2::setTag(const QString& key, const QList<QUrl>& tag)
-{
-};
-
-void APEv2::setTag(const QString& key, const QStringList& tag)
-{
-};
-
-void APEv2::setTag(const QString& key, const QList<QByteArray>& tag)
-{
+	mTags[ key.toUpper() ] = pair;
 };
 
 void APEv2::setTag(const QString& key, const QList<QVariant>& tag, TagType type)
@@ -674,7 +631,7 @@ void APEv2::setTag(const QString& key, const QList<QVariant>& tag, TagType type)
 	pair.first = type;
 	pair.second = tag;
 
-	mTags[key] = pair;
+	mTags[ key.toUpper() ] = pair;
 };
 
 void APEv2::clearTag(const QString& key)

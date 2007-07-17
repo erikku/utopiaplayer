@@ -33,7 +33,6 @@
 namespace MetaData
 {
 
-/// @TODO Make default functions for all those features you can leave out (which is just about everything)
 class AdvancedTag : public Tag
 {
 	Q_OBJECT
@@ -106,50 +105,50 @@ public:
 	virtual void setGenres(const QStringList& genres) = 0;
 
 	// Advanced tags //
-	virtual int totalTracks() const = 0;
-	virtual void setTotalTracks(int total) = 0;
+	virtual int totalTracks() const;
+	virtual void setTotalTracks(int total);
 
-	virtual int disc() const = 0;
-	virtual void setDisc(int disc) = 0;
+	virtual int disc() const;
+	virtual void setDisc(int disc);
 
-	virtual int totalDiscs() const = 0;
-	virtual void setTotalDiscs(int total) = 0;
+	virtual int totalDiscs() const;
+	virtual void setTotalDiscs(int total);
 
 	virtual QString composer() const;
 	virtual void setComposer(const QString& composer);
 
-	virtual QStringList composers() const = 0;
-	virtual void setComposers(const QStringList& composers) = 0;
+	virtual QStringList composers() const;
+	virtual void setComposers(const QStringList& composers);
 
 	virtual QString performer() const;
 	virtual void setPerformer(const QString& performer);
 
-	virtual QStringList performers() const = 0;
-	virtual void setPerformers(const QStringList& performers) = 0;
+	virtual QStringList performers() const;
+	virtual void setPerformers(const QStringList& performers);
 
 	virtual QString albumArtist() const;
 	virtual void setAlbumArtist(const QString& albumArtist);
 
-	virtual QStringList albumArtists() const = 0;
-	virtual void setAlbumArtists(const QStringList& albumArtists) = 0;
+	virtual QStringList albumArtists() const;
+	virtual void setAlbumArtists(const QStringList& albumArtists);
 
-	virtual QDate date() const = 0;
-	virtual void setDate(const QDate& date) = 0;
+	virtual QDate date() const;
+	virtual void setDate(const QDate& date);
 
-	virtual float trackGain() const = 0;
-	virtual void setTrackGain(float gain) = 0;
+	virtual float trackGain() const;
+	virtual void setTrackGain(float gain);
 
-	virtual float trackPeak() const = 0;
-	virtual void setTrackPeak(float peak) = 0;
+	virtual float trackPeak() const;
+	virtual void setTrackPeak(float peak);
 
-	virtual float albumGain() const = 0;
-	virtual void setAlbumGain(float gain) = 0;
+	virtual float albumGain() const;
+	virtual void setAlbumGain(float gain);
 
-	virtual float albumPeak() const = 0;
-	virtual void setAlbumPeak(float peak) = 0;
+	virtual float albumPeak() const;
+	virtual void setAlbumPeak(float peak);
 
-	virtual QPixmap cover() const = 0;
-	virtual void setCover(const QPixmap& cover) = 0;
+	virtual QPixmap cover() const;
+	virtual void setCover(const QPixmap& cover);
 
 	  ////////////////////////////////////////////////////////
 	 // Custom tag editing funtions bellow                 //
@@ -158,37 +157,37 @@ public:
 	virtual bool canSupportCustomTags();
 	virtual bool canSupportMultipleEntries();
 
-	virtual int tagCount() = 0;
-	virtual QStringList tagKeys() const = 0;
-	virtual QString tagKey(int index) const = 0;
+	virtual int tagCount();
+	virtual QStringList tagKeys() const;
+	virtual QString tagKey(int index) const;
 
-	virtual bool containsTag(const QString& key) = 0;
-	virtual int tagCount(const QString& key) const = 0;
-	virtual AdvancedTag::TagType tagType(const QString& key) const = 0;
+	virtual bool containsTag(const QString& key);
+	virtual int tagCount(const QString& key) const;
+	virtual AdvancedTag::TagType tagType(const QString& key) const;
 
-	virtual QList<QVariant> tag(const QString& key) const = 0;
-	virtual QVariant tag(const QString& key, int index) const = 0;
+	virtual QList<QVariant> tag(const QString& key) const;
+	virtual QVariant tag(const QString& key, int index) const;
 
 	virtual bool keysMatch(const QString& key1, const QString& key2);
 
-	virtual void addTag(const QString& key, const QUrl& tag) = 0;
-	virtual void addTag(const QString& key, const QString& tag) = 0;
-	virtual void addTag(const QString& key, const QByteArray& tag) = 0;
-	virtual void addTag(const QString& key, const QList<QUrl>& tag) = 0;
-	virtual void addTag(const QString& key, const QStringList& tag) = 0;
-	virtual void addTag(const QString& key, const QList<QByteArray>& tag) = 0;
-	virtual void addTag(const QString& key, const QList<QVariant>& tag, TagType type) = 0;
+	virtual void addTag(const QString& key, const QUrl& tag);
+	virtual void addTag(const QString& key, const QString& tag);
+	virtual void addTag(const QString& key, const QByteArray& tag);
+	virtual void addTag(const QString& key, const QList<QUrl>& tag);
+	virtual void addTag(const QString& key, const QStringList& tag);
+	virtual void addTag(const QString& key, const QList<QByteArray>& tag);
+	virtual void addTag(const QString& key, const QList<QVariant>& tag, TagType type);
 
-	virtual void setTag(const QString& key, const QUrl& tag) = 0;
-	virtual void setTag(const QString& key, const QString& tag) = 0;
-	virtual void setTag(const QString& key, const QByteArray& tag) = 0;
-	virtual void setTag(const QString& key, const QList<QUrl>& tag) = 0;
-	virtual void setTag(const QString& key, const QStringList& tag) = 0;
-	virtual void setTag(const QString& key, const QList<QByteArray>& tag) = 0;
-	virtual void setTag(const QString& key, const QList<QVariant>& tag, TagType type) = 0;
+	virtual void setTag(const QString& key, const QUrl& tag);
+	virtual void setTag(const QString& key, const QString& tag);
+	virtual void setTag(const QString& key, const QByteArray& tag);
+	virtual void setTag(const QString& key, const QList<QUrl>& tag);
+	virtual void setTag(const QString& key, const QStringList& tag);
+	virtual void setTag(const QString& key, const QList<QByteArray>& tag);
+	virtual void setTag(const QString& key, const QList<QVariant>& tag, TagType type);
 
-	virtual void clearTag(const QString& key) = 0;
-	virtual void clearTag(const QString& key, int index) = 0;
+	virtual void clearTag(const QString& key);
+	virtual void clearTag(const QString& key, int index);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AdvancedTag::TagFeatures)
