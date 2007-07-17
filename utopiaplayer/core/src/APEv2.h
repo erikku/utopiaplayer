@@ -148,14 +148,15 @@ public:
 	virtual void clearTag(const QString& key);
 	virtual void clearTag(const QString& key, int index);
 
+	virtual MetaData::Cuesheet* cuesheet();
+	virtual void setCuesheet(MetaData::Cuesheet *sheet);
+	virtual void setCuesheet(const QString& text, bool updateSheet = true);
+	virtual void removeCuesheet();
+
 	virtual QString type() const;
 
 protected:
 	void setupKeyNames();
-
-	QString stringFromVariant(const QVariant& data) const;
-	QStringList stringListFromVariantList(const QList<QVariant>& data) const;
-	QString fromEncoding(const QString& encoding, const char *str, int size = -1) const;
 
 	typedef QList<QVariant> TagData;
 	typedef QPair< AdvancedTag::TagType, TagData > TagPair;
@@ -163,6 +164,7 @@ protected:
 	QMap<QString, TagPair> mTags;
 
 	QString mCurrentEncoding;
+	MetaData::Cuesheet *mCuesheet;
 };
 
 }; // namespace MetaData

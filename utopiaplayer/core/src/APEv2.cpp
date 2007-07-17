@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "APEv2.h"
+#include "Cuesheet.h"
 
 #include <QtCore/QFile>
 #include <iostream>
@@ -43,13 +44,17 @@ typedef struct
 	quint32 flags;
 }APEv2Item;
 
-APEv2::APEv2(QObject *parent) : AdvancedTag(parent)
+}; // namespace MetaData
+
+using namespace MetaData;
+
+APEv2::APEv2(QObject *parent) : AdvancedTag(parent), mCuesheet(0)
 {
 	mCurrentEncoding = defaultEncoding();
 	setupKeyNames();
 };
 
-APEv2::APEv2(const QString& path) : AdvancedTag(0)
+APEv2::APEv2(const QString& path) : AdvancedTag(0), mCuesheet(0)
 {
 	mCurrentEncoding = defaultEncoding();
 	setupKeyNames();
@@ -74,7 +79,7 @@ QFlags<AdvancedTag::TagFeatures> APEv2::features()
 	theFeatures |= AdvancedTag::Disc | AdvancedTag::TotalDiscs | AdvancedTag::TotalTracks
 			| AdvancedTag::Composer | AdvancedTag::Performer | AdvancedTag::AlbumArtist
 			| AdvancedTag::Date | AdvancedTag::ReplayGain | AdvancedTag::EmbeddedCoverArt
-			| AdvancedTag::CustomTags | AdvancedTag::MultipleEntries;
+			| AdvancedTag::CustomTags | AdvancedTag::MultipleEntries | AdvancedTag::CuesheetTag;
 
 	return theFeatures;
 };
@@ -652,78 +657,46 @@ void APEv2::clearTag(const QString& key, int index)
 	}
 };
 
-QString APEv2::stringFromVariant(const QVariant& data) const
+MetaData::Cuesheet* APEv2::cuesheet()
 {
-	return QString::fromUtf8(data.toByteArray().data());
+	return mCuesheet;
 };
 
-QStringList APEv2::stringListFromVariantList(const QList<QVariant>& data) const
+void APEv2::setCuesheet(MetaData::Cuesheet *sheet)
 {
-	QStringList final;
+	if(!sheet)
+		return;
 
-	foreach(QVariant entry, data)
-		final << fromEncoding(mCurrentEncoding, entry.toByteArray().data(), entry.toByteArray().size());
+	delete mCuesheet;
+	mCuesheet = sheet;
+	mCuesheet->write( QString() );
+};
 
-	return final;
+void APEv2::setCuesheet(const QString& text, bool updateSheet)
+{
+	AdvancedTag::setTag(QLatin1String("Cuesheet"), text);
+
+	if(!updateSheet)
+		return;
+
+	if(!mCuesheet)
+		mCuesheet = new Cuesheet;
+
+	mCuesheet->read(text);
+};
+
+void APEv2::removeCuesheet()
+{
+	clearTag(QLatin1String("Cuesheet"));
+
+	if(mCuesheet)
+		delete mCuesheet;
 };
 
 QString APEv2::type() const
 {
 	return "APEv2";
 };
-
-QString APEv2::fromEncoding(const QString& encoding, const char *str, int size) const
-{
-	// Open the conversion descriptor
-	iconv_t conversionDescriptor = iconv_open("UTF-8", encoding.toLatin1().data());
-
-	// See if the conversion descriptor opened properly
-	if(conversionDescriptor == (iconv_t) -1)
-		return QString();
-
-	// Calculate our buffer size
-	int bufferSize = ( (size < 0) ? strlen(str) : size ) * 4;
-
-    // Allocate and zero a buffer for the text.
-    char *buffer = (char*)calloc(1, bufferSize);
-
-	/*
-	 * We first copy the 'str' and 'buffer' pointers because we have to
-	 * pass a reference to the pointer instead of a copy of it anf iconv
-	 * modifies the pointers. Using a throw away copy prevents the pointer
-	 * from pointing to somewhere other than the beginning of the string.
-	 */
-	char *strCopy = (char*)str;
-	char *bufferCopy = buffer;
-
-	// The iconv conversion counters
-	size_t inSize = (size < 0) ? strlen(str) : size;
-	size_t outSize = bufferSize;
-
-	// Convert the string
-	#ifdef WIN32
-	int ret = iconv(conversionDescriptor, (const char **)&strCopy, &inSize, &bufferCopy, &outSize);
-	#else
-	int ret = iconv(conversionDescriptor, &strCopy, &inSize, &bufferCopy, &outSize);
-	#endif
-
-	QString final;
-
-	// Handle iconv errors
-    if(ret != (size_t) -1)
-		final = QString::fromUtf8(buffer);
-
-	// Free the buffer
-	free(buffer);
-
-	// Close the conversion descriptor
-    iconv_close(conversionDescriptor);
-
-    // Return the cnverted string
-    return final;
-};
-
-}; // namespace MetaData
 
 /*
 using namespace MetaData;

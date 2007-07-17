@@ -17,52 +17,52 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#ifndef __ID3v1_h__
-#define __ID3v1_h__
+#ifndef __Cuesheet_h__
+#define __Cuesheet_h__
 
-#include "Tag.h"
+#include "AdvancedTag.h"
 
 namespace MetaData
 {
 
-typedef struct _ID3v1Data
-{
-	char    Magic[3];
-	char    Title[30];
-	char    Artist[30];
-	char    Album[30];
-	char    Year[4];
-	char    Comment[29];
-	char    Track;
-	char    Genre;
-}ID3v1Data;
+/*
+REM GENRE J-pop
+REM DATE 2006
+PERFORMER "モーニング娘。"
+TITLE "歩いてる"
+REM REPLAYGAIN_ALBUM_GAIN -9.26 dB
+REM REPLAYGAIN_ALBUM_PEAK 1.000000
+FILE "NEW CINEMA    - Messenger.wav" WAVE
+  TRACK 01 AUDIO
+    TITLE "歩いてる"
+    REM REPLAYGAIN_TRACK_GAIN -9.44 dB
+    REM REPLAYGAIN_TRACK_PEAK 1.000000
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "踊れ!モーニングカレー"
+    REM REPLAYGAIN_TRACK_GAIN -10.12 dB
+    REM REPLAYGAIN_TRACK_PEAK 1.000000
+    INDEX 00 04:55:00
+    INDEX 01 04:56:61
+  TRACK 03 AUDIO
+    TITLE "歩いてる(Instrumental)"
+    REM REPLAYGAIN_TRACK_GAIN -5.77 dB
+    REM REPLAYGAIN_TRACK_PEAK 1.000000
+    INDEX 00 08:44:55
+    INDEX 01 08:46:73
+*/
 
-class ID3v1 : public Tag
+class CuesheetTrack : public AdvancedTag
 {
 	Q_OBJECT
 
 public:
-	ID3v1();
-	ID3v1(const ID3v1& other);
-	ID3v1(const QString& path);
-	virtual ~ID3v1();
-
-	virtual QString title() const;
-	virtual QString artist() const;
-	virtual QString album() const;
-	virtual QString comment() const;
-	virtual QString genre() const;
+	virtual QFlags<AdvancedTag::TagFeatures> features();
 
 	virtual int year() const;
-	virtual int track() const;
-
-	virtual void setTitle(const QString& title);
-	virtual void setArtist(const QString& artist);
-	virtual void setAlbum(const QString& album);
-	virtual void setComment(const QString& comment);
-	virtual void setGenre(const QString& genre);
-
 	virtual void setYear(int year);
+
+	virtual int track() const;
 	virtual void setTrack(int track);
 
 	virtual void clear();
@@ -84,20 +84,48 @@ public:
 	virtual bool read(const QString& path, const QString& encoding = QString());
 	virtual bool write(const QString& path, const QString& encoding = QString());
 
+	// QStringList copies of the basic tags //
+	virtual QStringList titles() const;
+	virtual void setTitles(const QStringList& titles);
+
+	virtual QStringList artists() const;
+	virtual void setArtists(const QStringList& artists);
+
+	virtual QStringList albums() const;
+	virtual void setAlbums(const QStringList& albums);
+
+	virtual QStringList comments() const;
+	virtual void setComments(const QStringList& comments);
+
+	virtual QStringList genres() const;
+	virtual void setGenres(const QStringList& genres);
+
 	virtual QString type() const;
 
 private:
-	void writeString(void *dest, const QString& src, int size);
+	typedef QList<QVariant> TagData;
+	typedef QPair< AdvancedTag::TagType, TagData > TagPair;
 
-	ID3v1Data *d;
-	QString mCurrentEncoding;
-
-	QString mTitle;
-	QString mArtist;
-	QString mAlbum;
-	QString mComment;
+	QMap<QString, TagPair> mTags;
 };
+
+class Cuesheet : public CuesheetTrack
+{
+	Q_OBJECT
+
+public:
+	int trackCount();
+	CuesheetTrack* trackTag(int track);
+	void addTrack(CuesheetTrack *track);
+	void setTrack(int track, CuesheetTrack *track);
+	void removeTrack(CuesheetTrack *track);
+	void removeTrack(int track);
+
+private:
+	QList<CuesheetTrack*> mTracks;
+};
+
 
 }; // namespace MetaData
 
-#endif // __ID3v1_h__
+#endif // __Cuesheet_h__

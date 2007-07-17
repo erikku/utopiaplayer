@@ -33,6 +33,8 @@
 namespace MetaData
 {
 
+class Cuesheet;
+
 class AdvancedTag : public Tag
 {
 	Q_OBJECT
@@ -61,7 +63,8 @@ public:
 		ReplayGain = 0x080,
 		EmbeddedCoverArt = 0x100,
 		CustomTags = 0x200,
-		MultipleEntries = 0x400
+		MultipleEntries = 0x400,
+		CuesheetTag = 0x800
 	};
 
 	Q_DECLARE_FLAGS(TagFeatures, TagFeature)
@@ -188,6 +191,16 @@ public:
 
 	virtual void clearTag(const QString& key);
 	virtual void clearTag(const QString& key, int index);
+
+	// Cuesheet Functions
+	virtual Cuesheet* cuesheet();
+	virtual void setCuesheet(Cuesheet *sheet);
+	virtual void setCuesheet(const QString& text, bool updateSheet = true);
+	virtual void removeCuesheet();
+
+protected:
+	QString stringFromVariant(const QVariant& data) const;
+	QStringList stringListFromVariantList(const QList<QVariant>& data) const;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AdvancedTag::TagFeatures)

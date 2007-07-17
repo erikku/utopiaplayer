@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "AdvancedTag.h"
+#include "Cuesheet.h"
 
 using namespace MetaData;
 
@@ -419,4 +420,39 @@ void AdvancedTag::clearTag(const QString& key, int index)
 {
 	Q_UNUSED(key);
 	Q_UNUSED(index);
+};
+
+Cuesheet* AdvancedTag::cuesheet()
+{
+	return 0;
+};
+
+void AdvancedTag::setCuesheet(Cuesheet *sheet)
+{
+	delete sheet;
+};
+
+void AdvancedTag::setCuesheet(const QString& text, bool updateSheet)
+{
+	Q_UNUSED(text);
+	Q_UNUSED(updateSheet);
+};
+
+void AdvancedTag::removeCuesheet()
+{
+};
+
+QString AdvancedTag::stringFromVariant(const QVariant& data) const
+{
+	return fromEncoding(encoding(), data.toByteArray().data(), data.toByteArray().size());
+};
+
+QStringList AdvancedTag::stringListFromVariantList(const QList<QVariant>& data) const
+{
+	QStringList final;
+
+	foreach(QVariant entry, data)
+		final << fromEncoding(encoding(), entry.toByteArray().data(), entry.toByteArray().size());
+
+	return final;
 };

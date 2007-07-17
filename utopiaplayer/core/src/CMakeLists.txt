@@ -78,6 +78,7 @@ SET(UtopiaPlayer_SRCS
 	AudioThread.cpp
 	ComponentList.cpp
 	ContextTabBar.cpp
+	Cuesheet.cpp
     DatabaseList.cpp
 	DeviceManager.cpp
 	FileProperties.cpp
@@ -112,6 +113,7 @@ SET(UtopiaPlayer_SRCS
     SongListWindow.cpp
     SongManager.cpp
     SplashScreen.cpp
+	Tag.cpp
 	TagEditBasic.cpp
 	UtopiaDBImportOptions.cpp
     #UtopiaExport.cpp
@@ -133,6 +135,7 @@ SET(UtopiaPlayer_HDRS
 	AudioThread.h
 	ComponentList.h
 	ContextTabBar.h
+	Cuesheet.h
     DatabaseList.h
 	Device.h
 	DeviceManager.h

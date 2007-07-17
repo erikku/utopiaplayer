@@ -77,6 +77,10 @@ public:
 	virtual bool hasAdvancedFeatures() { return false; };
 
 	virtual QString type() const = 0;
+
+protected:
+	QString fromEncoding(const QString& encoding, const char *str, int size = -1) const;
+	QByteArray toEncoding(const QString& encoding, const QString& str) const;
 };
 
 }; // namespace MetaData
