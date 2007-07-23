@@ -35,7 +35,7 @@ PluginManager::PluginManager(QObject* parent) : QObject(parent)
 {
 	OutputInterface* plugin = new NullOutput;
 	std::cout << "Found Plugin \"Null\" (Built-In)" << std::endl;
-	//addOutputPlugin(plugin);
+	addOutputPlugin(plugin);
 	mCurrentOutputPlugin = plugin;
 	//connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
 	//setCurrentOutputPlugin(tr("Null"));
@@ -87,8 +87,8 @@ bool PluginManager::registerPlugin(QObject *object)
 
 void PluginManager::addOutputPlugin(OutputInterface* interface)
 {
-	if(!outputPlugins.contains(((PluginInterface*)interface)->name()))
-		outputPlugins[((PluginInterface*)interface)->name()] = interface;
+	if(!outputPlugins.contains( interface->name() ))
+		outputPlugins[interface->name()] = interface;
 
 	//interface->setAudioThread(uApp->audioThread());
 };
@@ -139,7 +139,7 @@ QString PluginManager::currentOutputPlugin()
 {
 	Q_ASSERT(mCurrentOutputPlugin);
 
-	return ((PluginInterface*)mCurrentOutputPlugin)->name();
+	return mCurrentOutputPlugin->name();
 };
 
 void PluginManager::setVolume(int volume)

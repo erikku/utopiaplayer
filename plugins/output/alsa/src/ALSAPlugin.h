@@ -41,6 +41,8 @@ public:
     virtual qint64 totalTime() const { return 10; };
     virtual qint64 currentTime() const { return 5; };
 
+	virtual QString name() const { return "ALSA"; };
+
 	//virtual QUrl currentUrl() const { return mCurrentFile; };
 
 	virtual bool isPlaying() const { return true; };

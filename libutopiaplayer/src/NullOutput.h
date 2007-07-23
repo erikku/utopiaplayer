@@ -28,35 +28,39 @@ class NullOutput : public OutputInterface
 	Q_OBJECT
 
 public:
-	NullOutput(QObject *parent = 0) : OutputInterface(parent), mVolume(1.0f) { };
+	NullOutput(QObject *parent = 0) : OutputInterface(parent), mVolume(1.0f), mPaused(false), mPlaying(false) { };
+	virtual ~NullOutput() { };
 
 	virtual float volume() const { return mVolume; };
 
-    virtual bool isPlaying() const { return false; };
-    virtual bool isPaused() const { return false; };
-
-    virtual qint64 totalTime() const { return 0; };
+    virtual qint64 totalTime() const { return 10; };
     virtual qint64 currentTime() const { return 0; };
 
-	QString name() const { return tr("Null"); }; 
+	virtual QString name() const { return "Null"; };
 
-	virtual void play(const QUrl& url = QUrl()) { Q_UNUSED(url) };
-	virtual void pause() { };
-	virtual void unpause() { };
-	virtual void stop() { };
+	virtual QUrl currentUrl() const { return QUrl(); };
 
+	virtual bool isPlaying() const { return mPlaying; };
+	virtual bool isPaused() const { return mPaused; };
+
+	virtual bool hasAudio() const { return false; };
+	virtual QStringList audioFormats() const { return QStringList(); };
+
+	virtual bool hasVideo() const { return false; };
+	virtual QStringList videoFormats() const { return QStringList(); };
+
+public slots:
 	virtual void setVolume(float volume = 1.0) { mVolume = volume; };
 
-    virtual void seek(qint64 ms) { Q_UNUSED(ms) };
-    virtual void seekPosition(qint64 position) { Q_UNUSED(position) };
-
-	virtual bool hasAudio() const { return true; };
-	virtual QStringList audioFormats() const { return QStringList() << "*.mp3" << "*.ogg" << "*.wv"; };
-
-	virtual bool hasVideo() const { return true; };
-	virtual QStringList videoFormats() const { return QStringList() << "*.avi"; };
+	virtual void play(const QUrl& url = QUrl()) { Q_UNUSED(url); mPlaying = true; mPaused = false; };
+	virtual void pause() { mPaused = true; };
+	virtual void unpause() { mPaused = false; };
+	virtual void stop() { mPlaying = false; mPaused = false; };
+    virtual void seek(qint64 ms) { Q_UNUSED(ms); };
 
 protected:
+	bool mPaused;
+	bool mPlaying;
 	float mVolume;
 };
 
