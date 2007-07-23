@@ -157,11 +157,11 @@ bool iTunesLibraryParser::endDocument()
 	return true;
 };
 
-#include <taglib.h>
-#include <fileref.h>
-#include <tstring.h>
-#include <tag.h>
-#include <id3v2framefactory.h>
+//#include <taglib.h>
+//#include <fileref.h>
+//#include <tstring.h>
+//#include <tag.h>
+//#include <id3v2framefactory.h>
 
 /*
  * Possible Keys

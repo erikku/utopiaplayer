@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "Tag.h"
+#include <iconv.h>
 
 using namespace MetaData;
 
