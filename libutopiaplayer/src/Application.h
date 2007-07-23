@@ -38,6 +38,7 @@ class SongManager;
 class DeviceManager;
 class PluginManager;
 class PluginInterface;
+class FileTypeFactory;
 
 class AudioThread;
 
@@ -69,6 +70,7 @@ public:
 	DeviceManager* deviceManager() const;
 	PluginManager* pluginManager() const;
 	SettingsManager* settingsManager() const;
+	FileTypeFactory* fileTypeFactory() const;
 
 	QDir settingsDir() const;
 
@@ -101,6 +103,7 @@ protected:
 	SongManager   *mSongManager;
 	DeviceManager *mDeviceManager;
 	PluginManager *mPluginManager;
+	FileTypeFactory *mFileTypeFactory;
 
 	QDir mSettingsDir;
 	SettingsManager *mSettingsManager;

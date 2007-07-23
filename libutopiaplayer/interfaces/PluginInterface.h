@@ -24,10 +24,11 @@
 #ifndef __Plugin_h__
 #define __Plugin_h__
 
+#include <QtCore/QtPlugin>
+
 #include <QtCore/QString>
 #include <QtCore/QPointer>
 #include <QtCore/QStringList>
-#include <QtCore/QtPlugin>
 #include <QtGui/QWidget>
 #include <QtGui/QIcon>
 

@@ -19,21 +19,79 @@
 
 #include "ALSAPlugin.h"
 
-#include "AudioThread.h"
+#include "Application.h"
+#include "PluginManager.h"
+
+//#include "AudioThread.h"
 #include "WavPackFile.h"
 #include "OGGFile.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+
+ALSAPlugin::ALSAPlugin()
+{
+	mLoaded = false;
+	mInterface = 0;
+};
+
+ALSAPlugin::~ALSAPlugin()
+{
+	unload();
+};
+
+QString ALSAPlugin::name() const
+{
+	return "ALSA";
+};
+
+QString ALSAPlugin::version() const
+{
+	return "0.1.0";
+};
+
+QStringList ALSAPlugin::authors() const
+{
+	return QStringList() << "John Eric Martin <john.eric.martin@gmail.com>";
+};
+
+QString ALSAPlugin::copyrightNotice() const
+{
+	return "Copyright (C) 2007 John Eric Martin";
+};
+	
+void ALSAPlugin::load()
+{
+	//if(mLoaded)
+		return;
+
+	mInterface = new ALSAInterface;
+
+	// uApp->pluginManager()->addOutputPlugin(mInterface);
+	mLoaded = true;
+};
+
+void ALSAPlugin::unload()
+{
+	if(!mLoaded)
+		return;
+
+	delete mInterface;
+};
+
+bool ALSAPlugin::isLoaded()
+{
+	return mLoaded;
+};
 
 Q_EXPORT_PLUGIN2(alsaplugin, ALSAPlugin)
 
 void AlsaSndCallback(snd_async_handler_t *callback)
 {
-	( (ALSAPlugin*)snd_async_handler_get_callback_private(callback) )->buffer();
+	( (ALSAInterface*)snd_async_handler_get_callback_private(callback) )->buffer();
 };
 
-void ALSAPlugin::buffer()
+void ALSAInterface::buffer()
 {
 	snd_pcm_sframes_t avail = snd_pcm_avail_update(mPlaybackHandle);
 	int err;
@@ -61,7 +119,7 @@ void ALSAPlugin::buffer()
 	}
 };
 
-void ALSAPlugin::fill()
+void ALSAInterface::fill()
 {
 	int currentPeriod = mCurrentPeriod - mEmptyPeriods + mPeriodCount;
 
@@ -78,7 +136,7 @@ void ALSAPlugin::fill()
 	mEmptyPeriods = 0;
 };
 
-void ALSAPlugin::load()
+ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 {
 	//if(!mThread)
 		//return;
@@ -119,7 +177,7 @@ void ALSAPlugin::load()
 
 	if( (err = snd_pcm_hw_params_set_rate_near(mPlaybackHandle, hwparams, &mRate, 0)) < 0 )
 	{
-		fprintf(stderr, "Error setting mRate. (%s)\n", snd_strerror(err));
+		fprintf(stderr, "Error setting rate. (%s)\n", snd_strerror(err));
 		return;
 	}
 
@@ -145,7 +203,7 @@ void ALSAPlugin::load()
 
 	if( (err = snd_pcm_hw_params_set_buffer_size_near(mPlaybackHandle, hwparams, &mBufferSize)) < 0 )
 	{
-		fprintf(stderr, "Error setting mBufferSize. (%s)\n", snd_strerror(err));
+		fprintf(stderr, "Error setting buffer size. (%s)\n", snd_strerror(err));
 		return;
 	}
 
@@ -206,7 +264,7 @@ void ALSAPlugin::load()
 	}
 
 	//mAudioFile = new WavPackFile( "/home/erikku/Bokura ga Ikiru MY ASIA/track01.cdda.wv" );
-	mAudioFile = new OGGFile( "/home/erikku/Bokura ga Ikiru MY ASIA/track01.cdda.ogg" );
+	mAudioFile = new OGGFile( QString::fromUtf8("/media/utopia/Lossless/OGG/愛の第6感.ogg") );
 	mAudioFile->load();
 
 	// Fill the audio devive with two periods
@@ -226,11 +284,9 @@ void ALSAPlugin::load()
 
 	// Start the device
 	snd_pcm_start(mPlaybackHandle);
-
-	PluginInterface::load();
 };
 
-void ALSAPlugin::unload()
+ALSAInterface::~ALSAInterface()
 {
 	fprintf(stderr, "Unloading the ALSA plugin\n");
 
@@ -247,11 +303,9 @@ void ALSAPlugin::unload()
 	delete[] mPeriodSizes;
 
 	mSampleBuffer = 0;
-
-	PluginInterface::unload();
 };
 
-void ALSAPlugin::play(const QUrl& url)
+void ALSAInterface::play(const QUrl& url)
 {
 	mCurrentFile = url;
 };

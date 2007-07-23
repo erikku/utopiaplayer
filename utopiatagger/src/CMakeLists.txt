@@ -1,7 +1,7 @@
 INCLUDE(${QT_USE_FILE})
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core/src ${CMAKE_BINARY_DIR}/core/src)
-LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/core/src)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libutopiaplayer/src ${CMAKE_BINARY_DIR}/libutopiaplayer/src)
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/libutopiaplayer/src)
 
 SET(UtopiaTagger_app_SRCS
 	FileList.cpp

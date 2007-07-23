@@ -56,7 +56,6 @@ SET(UtopiaPlayer_SRCS
     Login.cpp
 	MainTabWidget.cpp
     MainWindow.cpp
-	MP3File.cpp
 	Node.cpp
 	OGGFile.cpp
     OptionsDialog.cpp

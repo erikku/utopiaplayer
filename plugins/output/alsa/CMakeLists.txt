@@ -1,3 +1,3 @@
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core/src)
+MESSAGE("** Configuring ALSA output plugin **")
 
 ADD_SUBDIRECTORY(src)

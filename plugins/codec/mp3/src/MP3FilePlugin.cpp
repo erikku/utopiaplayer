@@ -17,53 +17,62 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-/**
- * @file OutputInterface.h The base class defining output engines/plugins
- */
+#include "MP3FilePlugin.h"
 
-#ifndef __OutputInterface_h__
-#define __OutputInterface_h__
+#include "MP3File.h"
+#include "Application.h"
+#include "FileTypeFactory.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QObject>
+bool gMP3FilePluginLoaded = false;
 
-class OutputInterface : public QObject
+AudioFile* createMP3File(const QString& file)
 {
-	Q_OBJECT
-
-public:
-	OutputInterface(QObject *parent = 0) : QObject(parent) { };
-	virtual ~OutputInterface() { };
-
-	virtual float volume() const = 0;
-	virtual bool isMuted() { if(volume() == 0.0) return true; return false; };
-
-    virtual qint64 totalTime() const = 0;
-    virtual qint64 currentTime() const = 0;
-
-	virtual QUrl currentUrl() const { return mCurrentFile; };
-
-	virtual bool isPlaying() const = 0;
-	virtual bool isPaused() const = 0;
-
-	virtual bool hasAudio() const = 0;
-	virtual QStringList audioFormats() const = 0;
-
-	virtual bool hasVideo() const = 0;
-	virtual QStringList videoFormats() const = 0;
-
-public slots:
-	virtual void mute() { setVolume(0.0); };
-	virtual void setVolume(float volume = 1.0) = 0;
-
-	virtual void play(const QUrl& url = QUrl()) = 0;
-	virtual void pause() = 0;
-	virtual void unpause() = 0;
-	virtual void stop() = 0;
-    virtual void seek(qint64 ms) = 0;
-
-protected:
-	QUrl mCurrentFile;
+	return new MP3File(file);
 };
 
-#endif // __OutputInterface_h__
+MP3FilePlugin::~MP3FilePlugin()
+{
+	unload();
+};
+
+QString MP3FilePlugin::name() const
+{
+	return "MP3 File";
+};
+
+QString MP3FilePlugin::version() const
+{
+	return "0.1.0";
+};
+
+QStringList MP3FilePlugin::authors() const
+{
+	return QStringList() << "John Eric Martin <john.eric.martin@gmail.com>";
+};
+
+QString MP3FilePlugin::copyrightNotice() const
+{
+	return "Copyright (C) 2007 John Eric Martin";
+};
+	
+void MP3FilePlugin::load()
+{
+	uApp->fileTypeFactory()->addType(createMP3File);
+	gMP3FilePluginLoaded = true;
+};
+
+void MP3FilePlugin::unload()
+{
+	if(!gMP3FilePluginLoaded)
+		return;
+
+	uApp->fileTypeFactory()->removeType("MPEG 1 Layer 3");
+	gMP3FilePluginLoaded = false;
+};
+
+bool MP3FilePlugin::isLoaded()
+{
+	return gMP3FilePluginLoaded;
+};
+
+Q_EXPORT_PLUGIN2(mp3fileplugin, MP3FilePlugin)

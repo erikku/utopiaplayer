@@ -36,7 +36,7 @@
 
 FileList::FileList(QWidget *parent) : QTreeWidget(parent)
 {
-	mFileTypeFactory = new FileTypeFactory;
+	mFileTypeFactory = uApp->fileTypeFactory();
 
 	setColumnCount(2);
 	setAcceptDrops(true);
@@ -49,7 +49,7 @@ FileList::~FileList()
 	foreach(AudioFile *file, mFiles.values())
 		delete file;
 
-	delete mFileTypeFactory;
+	// delete mFileTypeFactory;
 };
 
 void FileList::dragEnterEvent(QDragEnterEvent *event)

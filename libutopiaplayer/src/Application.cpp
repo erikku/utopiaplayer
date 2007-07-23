@@ -38,6 +38,7 @@
 #include "DeviceManager.h"
 #include "PluginManager.h"
 #include "SettingsManager.h"
+#include "FileTypeFactory.h"
 #include "GUIManager.h"
 #include "AudioThread.h"
 #include "Login.h"
@@ -63,6 +64,7 @@ Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
 	mDeviceManager = 0;
 	mPluginManager = 0;
  	mSettingsManager = 0;
+	mFileTypeFactory = 0;
 };
 
 QIcon Application::icon(const QString& name, bool useCache)
@@ -139,6 +141,7 @@ Application::~Application()
 	delete mDeviceManager;
 	delete mPluginManager;
 	delete mSettingsManager;
+	delete mFileTypeFactory;
 
 	Utopia::BlockParser::cleanupParsers();
 };
@@ -150,10 +153,10 @@ void Application::Init(StartupMode mode)
 	loadSettings();
 	checkArgs();
 	loadCore();
+	loadPlugins();
 
 	if(mStartupMode != Minimal)
 	{
-		//loadPlugins();
 		loadGUI();
 		displayGUI();
 	}
@@ -202,6 +205,11 @@ AudioThread* Application::audioThread() const
 SettingsManager* Application::settingsManager() const
 {
 	return mSettingsManager;
+};
+
+FileTypeFactory* Application::fileTypeFactory() const
+{
+	return mFileTypeFactory;
 };
 
 void Application::loadSettings()
@@ -283,11 +291,13 @@ void Application::loadCore()
 	}
 #endif
 
+	mDeviceManager = new DeviceManager;
+	mPluginManager = new PluginManager;
+	mFileTypeFactory = new FileTypeFactory;
+
 	if(mStartupMode != Minimal)
 	{
 		mSongManager = new SongManager;
-		mDeviceManager = new DeviceManager;
-		mPluginManager = new PluginManager;
 
 		/*
 		new CarAdaptor(car);
@@ -329,7 +339,10 @@ void Application::loadPlugins()
 	{
 		QPluginLoader loader( QDir::toNativeSeparators(fileName) );
 		if( mPluginManager->registerPlugin(loader.instance()) )
+		{
 			std::cout << "Found Plugin \"" << qobject_cast<PluginInterface*>( loader.instance() )->name().toLocal8Bit().data() << "\"" << std::endl;
+			qobject_cast<PluginInterface*>( loader.instance() )->load();
+		}
 		else
 			QMessageBox::critical(0, applicationName(), tr("Error loading plugin: %1").arg(loader.errorString()));
 	}
