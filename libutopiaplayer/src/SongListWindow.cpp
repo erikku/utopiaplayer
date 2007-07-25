@@ -439,7 +439,7 @@ void SongListWindow::saveTags()
 		QString artist;
 		QString genre;
 
-		std::cout << "Song " << query.record().value( QString::fromUtf8("ID") ).toInt() << std:: endl;
+		uDebug("SongListWindow", tr("Song "%1 ).arg( query.record().value( QString::fromUtf8("ID") ).toInt() );
 
 		QSqlQuery qartist(QString::fromUtf8("SELECT * FROM `un_artists` WHERE `ID` = '") + query.record().value( QString::fromUtf8("Artist") ).toString() + QString::fromUtf8("'"));
 		QSqlQuery qalbum(QString::fromUtf8("SELECT * FROM `un_albums` WHERE `ID` = '") + query.record().value( QString::fromUtf8("Album") ).toString() + QString::fromUtf8("'"));
@@ -468,8 +468,7 @@ void SongListWindow::saveTags()
 
 		TagLib::FileRef f( path.toUtf8().data() );
 
-		std::cout << title.toUtf8().data() << " - ";
-		std::cout << artist.toUtf8().data() << std::endl;
+		uDebug("SongListWindow", title + " - " + artist);
 		f.tag()->setTitle( TagLib::String(title.toUtf8().data(), TagLib::String::UTF8) );
 		f.tag()->setArtist( TagLib::String(artist.toUtf8().data(), TagLib::String::UTF8) );
 		f.tag()->setAlbum( TagLib::String(album.toUtf8().data(), TagLib::String::UTF8) );
@@ -479,10 +478,10 @@ void SongListWindow::saveTags()
 		f.tag()->setTrack( query.record().value( QString::fromUtf8("Track") ).toInt() );
 
 		if(!f.save())
-			std::cout << "FAIL!" << std::endl;
+			uError("SongListWindow", tr("FAIL!"));
 	}
 
-	std::cout << "Finished Tags!!!" << std::endl;
+	uDebug("SongListWindow", tr("Finished Tags!!!"));
 
 	delete mTagProgress;*/
 };
@@ -609,7 +608,7 @@ void SongListWindow::playRandomTrack()
 	QSettings settings;
 	int rnum = rand() % (mSongList->rowCount() - 1);
 	//uApp->pluginManager()->currentOutputPlugin()->play( settings.value("General/MusicDirectory").toString() + mSongList->getSongAtRow( rnum ) );
-	//std::cout << "Track: " << rnum << " of " << mSongList->rowCount() << std::endl;
+	//uDebug("SongListWindow", tr("Track: %1 of %2").arg(rnum).arg(mSongList->rowCount()));
 };
 
 void SongListWindow::adjustVolume(int volume)

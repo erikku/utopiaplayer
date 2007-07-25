@@ -17,69 +17,69 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#include "DeviceManager.h"
-#include "DeviceInterface.h"
-#include "Application.h"
-#include "MainWindow.h"
+#ifndef __Logger_h__
+#define __Logger_h__
 
-#include <QtGui/QTreeWidget>
+/*
+ * 0 - Debug
+ * 1 - Info
+ * 2 - Warning
+ * 3 - Error
+ * 4-  Critical
+ * 5 - Fatal
+ */
 
-DeviceManager::DeviceManager(QObject *parent) : QObject(parent)
+#include <QtCore/QDateTime>
+#include <QtCore/QString>
+#include <QtCore/QObject>
+#include <QtCore/QList>
+
+//#include <QtGui/QTextBrowser>
+
+class LogLine
 {
-	/*
-	Solid::DeviceList list = Solid::DeviceManager::self().allDevices();
-	for(int i = 0; i < list.count(); i++)
-	{
-		uDebug("DeviceManager", tr("%1 - %2").arg( list.at(i).vendor() ).arg( list.at(i).product() ));
-	}
-	*/
+public:
+	QString component;
+	QString message;
+	QDateTime stamp;
+	QString file;
+	int level;
+	int line;
 };
 
-DeviceManager::~DeviceManager()
+/*
+class LogWidget : public QWidget
 {
+	Q_OBJECT
+
+public:
+	LogWidget(QWidget *widget);
+
+public slots:
+	addLogLine(LogLine *line);
+};
+*/
+
+class Logger : public QObject
+{
+	Q_OBJECT
+
+public:
+	Logger(QObject *parent = 0);
+	~Logger();
+
+	int messageCount();
+	LogLine* message(int index);
+
+public slots:
+	void log(int level, const QString& component, const QString& message, const QString& file, int line);
+
+signals:
+	void logMessage(const LogLine *line);
+
+protected:
+	QString mSourcePath;
+	QList<LogLine*> mLog;
 };
 
-void DeviceManager::registerPlugin(DeviceInterface* plugin)
-{
-	if(mDevicePlugins.contains(plugin->deviceName()))
-		return;
-
-	mDevicePlugins[plugin->deviceName()] = plugin;
-
-	//connect(plugin, SIGNAL(deviceAdded(Device*)), this, SIGNAL(deviceAdded(Device*)));
-	//connect(plugin, SIGNAL(deviceRemoved(Device*)), this, SIGNAL(deviceRemoved(Device*)));
-
-	//QList<Device*> devices = plugin->devices();
-	//foreach(Device *device, devices)
-	//{
-		//emit deviceAdded(device);
-	//}
-
-	//uApp->mainWindow()->refreshSourceList();
-};
-
-QList<QTreeWidgetItem*> DeviceManager::deviceItems() const
-{
-	QList<QTreeWidgetItem*> list;
-
-	foreach(DeviceInterface* plugin, mDevicePlugins)
-		list << plugin->deviceItems();
-
-	return list;
-};
-
-QStringList DeviceManager::pluginsList() const
-{
-	return mDevicePlugins.keys();
-};
-
-DeviceInterface* DeviceManager::devicePluginFromTreeItem(QTreeWidgetItem *item)
-{
-	foreach(DeviceInterface* plugin, mDevicePlugins)
-	{
-		if(plugin->deviceItems().contains(item))
-			return plugin;
-	}
-
-	return 0;
-};
+#endif // __Logger_h__

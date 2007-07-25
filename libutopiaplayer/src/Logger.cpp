@@ -17,69 +17,48 @@
 *  59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.                   *
 \******************************************************************************/
 
-#include "DeviceManager.h"
-#include "DeviceInterface.h"
-#include "Application.h"
-#include "MainWindow.h"
+#include "Logger.h"
 
-#include <QtGui/QTreeWidget>
+#include <QtCore/QRegExp>
+#include <iostream>
 
-DeviceManager::DeviceManager(QObject *parent) : QObject(parent)
+/*
+LogWidget::addLogLine(LogLine *line)
 {
-	/*
-	Solid::DeviceList list = Solid::DeviceManager::self().allDevices();
-	for(int i = 0; i < list.count(); i++)
-	{
-		uDebug("DeviceManager", tr("%1 - %2").arg( list.at(i).vendor() ).arg( list.at(i).product() ));
-	}
-	*/
+	QString text;
+
+	if(logline = 
+
+	insertHtml(text);
+};
+*/
+
+Logger::Logger(QObject *parent) : QObject(parent)
+{
+	mSourcePath = QString(__FILE__).replace( QRegExp("libutopiaplayer[\\\\\\/]+src[\\\\\\/]+Logger.cpp"), QString() );
 };
 
-DeviceManager::~DeviceManager()
+Logger::~Logger()
 {
+	foreach(LogLine *line, mLog)
+		delete line;
 };
 
-void DeviceManager::registerPlugin(DeviceInterface* plugin)
+void Logger::log(int level, const QString& component, const QString& message, const QString& file, int line)
 {
-	if(mDevicePlugins.contains(plugin->deviceName()))
-		return;
+	QDateTime stamp = QDateTime::currentDateTime();
+	QString sourceFile = file;
+	sourceFile.replace(mSourcePath, QString());
 
-	mDevicePlugins[plugin->deviceName()] = plugin;
+	std::cout << QString("[%1] <%2> %3:%4 : %5").arg( stamp.toString(Qt::ISODate) ).arg(component).arg(sourceFile).arg(line).arg(message).toLocal8Bit().data() << std::endl;
 
-	//connect(plugin, SIGNAL(deviceAdded(Device*)), this, SIGNAL(deviceAdded(Device*)));
-	//connect(plugin, SIGNAL(deviceRemoved(Device*)), this, SIGNAL(deviceRemoved(Device*)));
+	LogLine *logLine = new LogLine;
+	logLine->component = component;
+	logLine->message = message;
+	logLine->stamp = stamp;
+	logLine->file = sourceFile;
+	logLine->level = level;
+	logLine->line = line;
 
-	//QList<Device*> devices = plugin->devices();
-	//foreach(Device *device, devices)
-	//{
-		//emit deviceAdded(device);
-	//}
-
-	//uApp->mainWindow()->refreshSourceList();
-};
-
-QList<QTreeWidgetItem*> DeviceManager::deviceItems() const
-{
-	QList<QTreeWidgetItem*> list;
-
-	foreach(DeviceInterface* plugin, mDevicePlugins)
-		list << plugin->deviceItems();
-
-	return list;
-};
-
-QStringList DeviceManager::pluginsList() const
-{
-	return mDevicePlugins.keys();
-};
-
-DeviceInterface* DeviceManager::devicePluginFromTreeItem(QTreeWidgetItem *item)
-{
-	foreach(DeviceInterface* plugin, mDevicePlugins)
-	{
-		if(plugin->deviceItems().contains(item))
-			return plugin;
-	}
-
-	return 0;
+	mLog << logLine;
 };

@@ -22,13 +22,13 @@
  */
 
 #include "SongList.h"
+#include "Application.h"
 
 #include <QtCore/QSettings>
 #include <QtCore/QSignalMapper>
 #include <QtGui/QAction>
 #include <QtGui/QHeaderView>
 #include <QtSql/QSqlRelationalDelegate>
-#include <iostream>
 
 /**
  * @brief Creates a QTableView to display and handle the list of songs.
@@ -86,7 +86,7 @@ QString SongList::getSongAtRow(int row) const
 	if(row < 0)
 		return QString();
 
-	std::cout << "Song: " << mDatabaseModel->data( mDatabaseModel->index(row, 8) ).toString().toUtf8().data() << std::endl;
+	uInfo("SongList", tr("Song: %1").arg( mDatabaseModel->data( mDatabaseModel->index(row, 8) ).toString() ));
 
 	return mDatabaseModel->data( mDatabaseModel->index(row, 8) ).toString();
 };

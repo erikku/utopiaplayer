@@ -19,9 +19,9 @@
 
 #include "APEv2.h"
 #include "Cuesheet.h"
+#include "Application.h"
 
 #include <QtCore/QFile>
-#include <iostream>
 
 namespace MetaData
 {
@@ -335,12 +335,10 @@ bool APEv2::read(const QString& path, const QString& encoding)
 	QString key;
 	QByteArray value;
 
-	std::cout << "Header size: " << sizeof(APEv2Header) << std::endl;
-
-	std::cout << "Position: " << pos << std::endl;
-	std::cout << "Size: " << size << std::endl;
-
-	std::cout << "Reading in " << count << " tags" << std::endl;
+	uDebug( "APEv2", tr("Header size: %1").arg(sizeof(APEv2Header)) );
+	uDebug( "APEv2", tr("Position: %1").arg(pos) );
+	uDebug( "APEv2", tr("Size: %1").arg(size) );
+	uDebug( "APEv2", tr("Reading in %1 tags").arg(count) );
 
 	// Read in each tag item
 	for(int i = 0; i < count; i++)
@@ -358,8 +356,8 @@ bool APEv2::read(const QString& path, const QString& encoding)
 			file.read(&keyBuffer, 1);
 		}
 
-		std::cout << "Key: " << key.toLocal8Bit().data() << std::endl;
-		std::cout << "Tag value size: " << item.valueSize << std::endl;
+		uDebug( "APEv2", tr("Key: %1").arg(key) );
+		uDebug( "APEv2", tr("Tag value size: %1").arg(item.valueSize) );
 
 		type = (item.flags && 0x06) >> 1;
 		switch(type)
@@ -378,7 +376,7 @@ bool APEv2::read(const QString& path, const QString& encoding)
 				break;
 		}
 
-		std::cout << "Tag type: " << type << std::endl;
+		uDebug( "APEv2", tr("Tag type: %1").arg(type) );
 
 		// Read in the tag value
 		QByteArray data = file.read(item.valueSize);
@@ -391,7 +389,7 @@ bool APEv2::read(const QString& path, const QString& encoding)
 			TagData list;
 			foreach(QByteArray array, data.split(0x00))
 			{
-				std::cout << "Value: " << QString::fromUtf8( array.data() ).toLocal8Bit().data() << std::endl;
+				uDebug( "APEv2", tr("Value: %1").arg( QString::fromUtf8( array.data() ) ) );
 				list << array;
 			}
 

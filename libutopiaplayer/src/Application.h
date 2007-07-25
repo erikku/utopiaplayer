@@ -26,11 +26,14 @@
 #include <QtCore/QStringList>
 #include <QtGui/QApplication>
 
+#include "Logger.h"
+
 namespace Utopia
 {
 	class MetaBase;
 };
 
+class Logger;
 class GUIManager;
 class SettingsManager;
 class MainWindow;
@@ -64,6 +67,7 @@ public:
 
 	Utopia::MetaBase* metaBase() const;
 
+	Logger* logger() const;
 	MainWindow* mainWindow() const;
 	GUIManager* guiManager() const;
 	SongManager* songManager() const;
@@ -98,6 +102,7 @@ protected:
 
 	Utopia::MetaBase *mMetaBase;
 
+	Logger        *mLogger;
 	MainWindow    *mMainWindow;
 	GUIManager    *mGUIManager;
 	SongManager   *mSongManager;
@@ -114,7 +119,13 @@ protected:
 	QMap<QString, QIcon> mIconCache;
 };
 
-//#define uApp ( reinterpret_cast<Application*>( KApplication::kApplication() ) )
 #define uApp ( reinterpret_cast<Application*>( QApplication::instance() ) )
+
+#define uDebug(component, msg)    ( uApp->logger()->log(0, (component), (msg), __FILE__, __LINE__) )
+#define uInfo(component, msg)     ( uApp->logger()->log(1, (component), (msg), __FILE__, __LINE__) )
+#define uWarning(component, msg)  ( uApp->logger()->log(2, (component), (msg), __FILE__, __LINE__) )
+#define uError(component, msg)    ( uApp->logger()->log(3, (component), (msg), __FILE__, __LINE__) )
+#define uCritical(component, msg) ( uApp->logger()->log(4, (component), (msg), __FILE__, __LINE__) )
+#define uFatal(component, msg)    ( uApp->logger()->log(5, (component), (msg), __FILE__, __LINE__) )
 
 #endif // __Application_h__

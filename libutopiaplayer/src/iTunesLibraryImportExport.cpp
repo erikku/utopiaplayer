@@ -29,8 +29,6 @@
 #include <QtGui/QAction>
 #include <QtGui/QMessageBox>
 
-#include <iostream>
-
 iTunesLibraryImportExport::iTunesLibraryImportExport() : ImportExportInterface(0)
 {
 	mImportAction = new QAction(tr("iTunes Music Library..."), 0);
@@ -131,12 +129,12 @@ bool iTunesLibraryParser::endElement(const QString& namespaceURI, const QString&
 		{
 			QUrl url = QUrl::fromEncoded(mCurrentDict.value("Music Folder").toByteArray());
 			mMusicFolder = url.toLocalFile().replace("//localhost/", "");
-			std::cout << mMusicFolder.toUtf8().data() << std::endl;
+			uDebug("iTunesLibraryParser", mMusicFolder);
 		}
 		if(mCurrentDict.contains("Library Persistent ID"))
 		{
 			mLibraryID = mCurrentDict.value("Library Persistent ID").toString().trimmed();
-			std::cout << mLibraryID.toUtf8().data() << std::endl;
+			uDebug("iTunesLibraryParser", mLibraryID);
 		}
 	}
 
@@ -246,7 +244,7 @@ void iTunesLibraryParser::proccessSong(const QMap<QString, QVariant>& keyPairs)
 		path = mFiles2.at( mFiles.indexOf( keyPairs.value("Name").toString().trimmed() ) );
 	}
 
-	std::cout << "File: " << path.toUtf8().data() << std::endl;
+	uDebug("iTunesLibraryParser", tr("File: %1").arg(path));
 
 	TagLib::ID3v2::FrameFactory::instance()->setDefaultTextEncoding( TagLib::String::UTF8 );
 
@@ -273,6 +271,6 @@ void iTunesLibraryParser::proccessSong(const QMap<QString, QVariant>& keyPairs)
 
 	f.save();
 
-	std::cout << "Wrote tag: " << keyPairs.value("Name").toString().toUtf8().data() << std::endl;
+	uDebug("iTunesLibraryParser", tr("Wrote tag: %1").arg( keyPairs.value("Name").toString() ));
 	*/
 };

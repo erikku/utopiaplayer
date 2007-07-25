@@ -41,8 +41,6 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
 
-#include <iostream>
-
 using namespace Utopia;
 
 Browser::Browser(QWidget *parent) : QMainWindow(parent), mCurrentMetabase(0), mCurrentID(0)
@@ -147,7 +145,7 @@ void Browser::openSQLite()
 	query.prepare("SELECT `uid`, `rev`, `type` FROM " + mPrefix + "blocks");
 	if( !query.exec() )
 	{
-		std::cout << query.lastQuery().toLocal8Bit().data() << ": " << query.lastError().driverText().toLocal8Bit().data() << std::endl;
+		uError("Browser", query.lastQuery() + ": " + query.lastError().driverText());
 		return;
 	}
 
@@ -184,7 +182,7 @@ void Browser::updateSelection()
 	query.bindValue(":uid", id);
 	if( !query.exec() )
 	{
-		std::cout << query.lastQuery().toLocal8Bit().data() << ": " << query.lastError().driverText().toLocal8Bit().data() << std::endl;
+		uError("Browser", query.lastQuery() + ": " + query.lastError().driverText());
 		return;
 	}
 

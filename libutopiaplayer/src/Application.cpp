@@ -25,7 +25,6 @@
 #include <QtGui/QIcon>
 #include <QtGui/QFont>
 #include <QtGui/QStyleFactory>
-#include <iostream>
 
 // UtopiaPlayer includes
 #include "UtopiaPlayer.h"
@@ -58,6 +57,8 @@ Application::Application(int argc, char *argv[]) : QApplication(argc, argv)
 	setApplicationName("Utopia Player");
 	setOrganizationName("Utopia Player Team");
 	setOrganizationDomain("code.google.com");
+
+	mLogger = new Logger;
 
 	mMetaBase = 0;
 	mSongManager = 0;
@@ -142,6 +143,7 @@ Application::~Application()
 	delete mPluginManager;
 	delete mSettingsManager;
 	delete mFileTypeFactory;
+	delete mLogger;
 
 	Utopia::BlockParser::cleanupParsers();
 };
@@ -165,6 +167,11 @@ void Application::Init(StartupMode mode)
 Utopia::MetaBase* Application::metaBase() const
 {
 	return mMetaBase;
+};
+
+Logger* Application::logger() const
+{
+	return mLogger;
 };
 
 MainWindow* Application::mainWindow() const
@@ -314,14 +321,14 @@ void Application::loadCore()
 
 void Application::loadPlugins()
 {
-	//mDeviceManager->registerPlugin(new VolumePlugin);
-	//std::cout << "Found Plugin \"Volume\" (Built-In)" << std::endl;
+	// mDeviceManager->registerPlugin(new VolumePlugin);
+	// uInfo("Application", tr("Found Plugin \"Volume\" (Built-In)"));
 
 	// Do our static plugins
 	foreach(QObject *object, QPluginLoader::staticInstances())
 	{
 		if( mPluginManager->registerPlugin(object) )
-			std::cout << "Found Plugin \"" << qobject_cast<PluginInterface*>(object)->name().toLocal8Bit().data() << "\" (Built-In)" << std::endl;
+			uInfo("Application", tr("Found Plugin \"%1\" (Built-In)").arg( qobject_cast<PluginInterface*>(object)->name() ));
 		else
 			QMessageBox::critical(0, applicationName(), tr("Error loading plugin!"));
 	}
@@ -340,7 +347,7 @@ void Application::loadPlugins()
 		QPluginLoader loader( QDir::toNativeSeparators(fileName) );
 		if( mPluginManager->registerPlugin(loader.instance()) )
 		{
-			std::cout << "Found Plugin \"" << qobject_cast<PluginInterface*>( loader.instance() )->name().toLocal8Bit().data() << "\"" << std::endl;
+			uInfo("Application", "Found Plugin \"" + qobject_cast<PluginInterface*>( loader.instance() )->name() + "\"");
 			qobject_cast<PluginInterface*>( loader.instance() )->load();
 		}
 		else

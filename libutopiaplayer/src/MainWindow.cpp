@@ -178,8 +178,8 @@ void MainWindow::refreshSourceList()
 
 #include "sha1.h"
 #include <QtGui/QMessageBox>
-#include <iostream>
 #include <utopiadb/blockparser.h>
+
 void MainWindow::createSidebars()
 {
 	/*QFile file("/media/windows/Documents and Settings/Eric/My Documents/My Music/iTunes/iTunes Music Library.xml");
@@ -533,7 +533,7 @@ void MainWindow::rapidFire(const QString& location)
 
 	if( QFile(cover.join("/")).exists() )
 	{
-		std::cout << "Loading cover: " << cover.join("/").toLocal8Bit().data() << std::endl;
+		uInfo("MainWindow", tr("Loading cover: %1").arg( cover.join("/") ));
 		mCoverLabel->setPixmap( QPixmap(cover.join("/")) );
 	}
 

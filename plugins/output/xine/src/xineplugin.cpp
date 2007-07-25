@@ -22,7 +22,6 @@
  */
 
 #include <xine/xineutils.h>
-#include <iostream>
 
 #include "Application.h"
 #include "xineplugin.h"
@@ -40,7 +39,7 @@ void XinePlugin::load()
 {
 	PluginInterface::load();
 
-	std::cout << "Loading the Xine plugin" << std::endl;
+	uInfo("XinePlugin", tr("Loading the Xine plugin"));
 	xine = xine_new();
 	QString configfile = xine_get_homedir() + QString("/.xine/config");
 	xine_config_load(xine, configfile.toLocal8Bit().data());
@@ -60,7 +59,7 @@ XinePlugin::~XinePlugin()
 
 void XinePlugin::unload()
 {
-	std::cout << "Unloading the Xine plugin" << std::endl;
+	uInfo("XinePlugin", tr("Unloading the Xine plugin"));
 	stop();
 
 	xine_close(stream);
@@ -99,7 +98,7 @@ void XinePlugin::play(const QUrl& url)
 	xine_open(stream, url.toString().toUtf8().data());
 	mCurrentFile = url;
 
-	std::cout << "Using the Xine plugin to play " << url.toString().toUtf8().data() << std::endl;
+	uDebug("XinePlugin", tr("Using the Xine plugin to play %1").arg( url.toString() ));
 
 	xine_play(stream, 0, 0);
 };

@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "OGGFile.h"
+#include "Application.h"
 
 #include <QtCore/QFile>
 #include <QtCore/QObject>
@@ -49,14 +50,14 @@ bool OGGFile::load()
 	mFile = fopen(d->path.toLocal8Bit().data(), "rb");
 	if(!mFile)
 	{
-		fprintf(stderr, "Couldn't open file '%s'\n", d->path.toLocal8Bit().data());
+		uError("OGGFile", QObject::tr("Couldn't open file '%1'").arg(d->path));
 		return false;
     }
 
 	int result;
     if( (result = ov_open(mFile, &mVorbisFile, NULL, 0)) < 0 )
     {
-		fprintf(stderr, "Couldn't process '%s'", d->path.toLocal8Bit().data());
+		uError("OGGFile", QObject::tr("Couldn't process '%1'").arg(d->path));
         return false;
     }
 

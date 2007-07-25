@@ -18,6 +18,7 @@
 \******************************************************************************/
 
 #include "WavPackFile.h"
+#include "Application.h"
 #include "APEv2.h"
 
 #include <QtCore/QFile>
@@ -56,7 +57,7 @@ bool WavPackFile::load()
 	wvContext = WavpackOpenFileInput(d->path.toLocal8Bit().data(), wvError, OPEN_WVC | OPEN_NORMALIZE, 0);
 	if(!wvContext)
 	{
-		fprintf(stderr, "Error opening file!\n");
+		uError("WavPackFile", QObject::tr("Error opening file '%1'").arg(d->path));
 		return false;
 	}
 

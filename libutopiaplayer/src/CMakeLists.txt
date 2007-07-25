@@ -50,6 +50,7 @@ SET(UtopiaPlayer_SRCS
 	iTunesImportOptions.cpp
 	iTunesLibraryImportExport.cpp
 	iTunesLibraryPreParser.cpp
+	Logger.cpp
     Login.cpp
 	MainTabWidget.cpp
     MainWindow.cpp
@@ -108,6 +109,7 @@ SET(UtopiaPlayer_HDRS
 	iTunesImportOptions.h
 	iTunesLibraryImportExport.h
     #Library.h
+	Logger.h
     Login.h
 	MainTabWidget.h
     MainWindow.h

@@ -98,7 +98,7 @@ void ALSAInterface::buffer()
 
 	if(avail == -EPIPE)
 	{
-		fprintf(stderr, "An xrun occurred!!!\n");
+		uError("ALSAInterface", tr("An xrun occurred!!!"));
 		snd_pcm_prepare(mPlaybackHandle);
 		return;
 	}
@@ -141,7 +141,7 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 	//if(!mThread)
 		//return;
 
-	fprintf(stderr, "Loading the ALSA plugin\n");
+	uInfo("ALSAInterface", tr("Loading the ALSA plugin"));
 
 	unsigned int err, periods = 16;
 	snd_pcm_hw_params_t *hwparams;
@@ -153,49 +153,49 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 
 	if( (err = snd_pcm_open(&mPlaybackHandle, "default", SND_PCM_STREAM_PLAYBACK, 0)) < 0 )
 	{
-		fprintf(stderr, "Error opening PCM device %s (%s)\n", "default", snd_strerror(err));
+		uError("ALSAInterface", tr("Error opening PCM device %1 (%2)").arg("default").arg(snd_strerror(err)));;
 		return;
 	}
 
     if( (err = snd_pcm_hw_params_any(mPlaybackHandle, hwparams)) < 0 )
 	{
-		fprintf(stderr, "Can not configure this PCM device. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Can not configure this PCM device. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_access(mPlaybackHandle, hwparams, SND_PCM_ACCESS_RW_NONINTERLEAVED)) < 0 )
 	{
-		fprintf(stderr, "Error setting access. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting access. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_format(mPlaybackHandle, hwparams, SND_PCM_FORMAT_FLOAT_LE)) < 0 )
 	{
-		fprintf(stderr, "Error setting format. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting format. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_rate_near(mPlaybackHandle, hwparams, &mRate, 0)) < 0 )
 	{
-		fprintf(stderr, "Error setting rate. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting rate. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_channels(mPlaybackHandle, hwparams, 2)) < 0 )
 	{
-		fprintf(stderr, "Error setting channels. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting channels. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_period_size_near(mPlaybackHandle, hwparams, &mPeriodSize, 0)) < 0 )
 	{
-		fprintf(stderr, "Error setting period size. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting period size. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params_set_periods_near(mPlaybackHandle, hwparams, &periods, 0)) < 0 )
 	{
-		fprintf(stderr, "Error setting periods. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting periods. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
@@ -203,13 +203,13 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 
 	if( (err = snd_pcm_hw_params_set_buffer_size_near(mPlaybackHandle, hwparams, &mBufferSize)) < 0 )
 	{
-		fprintf(stderr, "Error setting buffer size. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting buffer size. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_hw_params(mPlaybackHandle, hwparams)) < 0 )
 	{
-		fprintf(stderr, "Error setting HW params. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting HW params. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
@@ -221,25 +221,25 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 
 	if( (err = snd_pcm_sw_params_current(mPlaybackHandle, swparams)) < 0 )
 	{
-		fprintf(stderr, "Can not get software params. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Can not get software params. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_sw_params_set_start_threshold(mPlaybackHandle, swparams, mBufferSize - mPeriodSize)) < 0 )
 	{
-		fprintf(stderr, "Can not set callback threshold. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Can not set callback threshold. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_sw_params_set_avail_min(mPlaybackHandle, swparams, mPeriodSize)) < 0 )
 	{
-		fprintf(stderr, "Can not set callback minimum. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Can not set callback minimum. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
 	if( (err = snd_pcm_sw_params(mPlaybackHandle, swparams)) < 0 )
 	{
-		fprintf(stderr, "Error setting SW params. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error setting SW params. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
@@ -278,7 +278,7 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 
 	if( (err = snd_async_add_pcm_handler(&mCallback, mPlaybackHandle, AlsaSndCallback, this)) < 0)
 	{
-		fprintf(stderr, "Error creating callback. (%s)\n", snd_strerror(err));
+		uError("ALSAInterface", tr("Error creating callback. (%1)").arg(snd_strerror(err)));
 		return;
 	}
 
@@ -288,7 +288,7 @@ ALSAInterface::ALSAInterface(QObject *parent) : OutputInterface(parent)
 
 ALSAInterface::~ALSAInterface()
 {
-	fprintf(stderr, "Unloading the ALSA plugin\n");
+	uInfo("ALSAInterface", tr("Unloading the ALSA plugin"));
 
 	snd_pcm_close(mPlaybackHandle);
 

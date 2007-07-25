@@ -26,8 +26,6 @@
 #include "qrubylabel.h"
 #include "Application.h"
 
-#include <iostream>
-
 // Qt includes
 #include <QtCore/QRegExp>
 #include <QtGui/QIcon>
@@ -139,7 +137,7 @@ void VerseEdit::updatePreview()
 				lines[i] = bracketRegExp.cap(1) + "<font color=\"#" + color + "\">" + bracketRegExp.cap(3) + "</font>" + bracketRegExp.cap(4);
 			} 
 		}		
-		std::cout << lines.at(i).toUtf8().data() << std::endl;
+		uDebug("VerseEdit", lines.at(i));
 		// Create and add our label(s)
 		label = new QRubyLabel(lines.at(i));
 		previewLayout->insertWidget((previewLayout->count() - 1), label);

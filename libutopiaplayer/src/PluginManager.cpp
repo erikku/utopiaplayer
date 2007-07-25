@@ -28,13 +28,10 @@
 
 #include <QtCore/QFile>
 
-#include <iostream>
-using namespace std;
-
 PluginManager::PluginManager(QObject* parent) : QObject(parent)
 {
 	OutputInterface* plugin = new NullOutput;
-	std::cout << "Found Plugin \"Null\" (Built-In)" << std::endl;
+	uInfo("PluginManager", tr("Found Plugin \"Null\" (Built-In)"));
 	addOutputPlugin(plugin);
 	mCurrentOutputPlugin = plugin;
 	//connect(mCurrentOutputPlugin, SIGNAL(finishedSong(const QUrl&)), this, SIGNAL(finishedSong(const QUrl&)));
@@ -66,14 +63,14 @@ bool PluginManager::registerPlugin(QObject *object)
 	OutputInterface *output = qobject_cast<OutputInterface*>(object);
 	if(output)
 	{
-		std::cout << "-- Found Audio Device Driver" << std::endl;
+		uInfo("PluginManager", tr("-- Found Audio Device Driver"));
 		addOutputPlugin(output);
 	}
 	
 	DeviceInterface *device = qobject_cast<DeviceInterface*>(object);
 	if(device)
 	{
-		std::cout << "-- Found Hardware Device Driver" << std::endl;
+		uInfo("PluginManager", tr("-- Found Hardware Device Driver"));
 		
 		// Load the device
 		((PluginInterface*)device)->load();

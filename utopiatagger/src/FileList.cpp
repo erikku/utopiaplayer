@@ -32,7 +32,6 @@
 #include <QtCore/QMimeData>
 #include <QtGui/QDragEnterEvent>
 #include <QtGui/QTreeWidgetItem>
-#include <iostream>
 
 FileList::FileList(QWidget *parent) : QTreeWidget(parent)
 {
@@ -99,7 +98,7 @@ void FileList::dropEvent(QDropEvent *event)
 			continue;
 		}
 
-		std::cout << "File not found: " << path.toLocal8Bit().data() << std::endl;
+		uError("FileList", tr("File not found: %1").arg(path));
 	}
 
 	event->acceptProposedAction();
@@ -114,7 +113,7 @@ void FileList::addFile(const QString& file)
 {
 	QString mimeType, fileType = "Unknown", title = "File Not Loaded";
 
-	std::cout << file.toLocal8Bit().data() << std::endl;
+	uDebug("FileList", file);
 
 	AudioFile *audioFile = mFileTypeFactory->getHandle(file);
 	if(audioFile)

@@ -90,20 +90,20 @@ void LyricsViewer::initializeGL()
 	glEnable(GL_CULL_FACE);
 
 	if(FT_Init_FreeType( &library ))
-		std::cout << "OMG!E&*(@4@ It didn't start!!!" << std::endl;
+		uError("LyricsViewer", tr("OMG!E&*(@4@ It didn't start!!!"));
 
 	switch(FT_New_Face(library, "/usr/share/fonts/truetype/sazanami/sazanami-mincho.ttf", 0, &face))
 	{
 		case 0: // Everything is OK
 			break;
 		case FT_Err_Unknown_File_Format:
-			std::cout << "Unknow file format!" << std::endl;
+			uError("LyricsViewer", tr("Unknow file format!"));
 		default:
-			std::cout << "Error opening font!" << std::endl;
+			uError("LyricsViewer", tr("Error opening font!"));
 	}
 
 	if(FT_Set_Pixel_Sizes(face, 0, 32))
-		std::cout << "Error setting font size!" << std::endl;
+		uError("LyricsViewer", tr("Error setting font size!"));
 };
 
 void LyricsViewer::loadText(const QString& text)

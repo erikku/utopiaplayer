@@ -22,7 +22,6 @@
  */
 
 #include <QtCore/QTimer>
-#include <iostream>
 
 #include "Application.h"
 #include "gstreamerplugin.h"
@@ -38,7 +37,7 @@ void GStreamerPlugin::load()
 {
 	PluginInterface::load();
 
-	std::cout << "Loading the GStreamer plugin" << std::endl;
+	uInfo("GStreamerPlugin", tr("Loading the GStreamer plugin"));
 	setupPipeline();
 };
 
@@ -50,7 +49,7 @@ GStreamerPlugin::~GStreamerPlugin()
 
 void GStreamerPlugin::unload()
 {
-	std::cout << "Unloading the GStreamer plugin" << std::endl;
+	uInfo("GStreamerPlugin", tr("Unloading the GStreamer plugin"));
 	stop();
 	gst_object_unref(GST_OBJECT(mPlayBin));
 
@@ -73,7 +72,7 @@ void GStreamerPlugin::play(const QUrl& url)
 {
 	if(!url.isValid())
 	{
-		std::cout << "Invalid URL: " << url.errorString().toLocal8Bit().data() << std::endl;
+		uError("GStreamerPlugin", tr("Invalid URL: %1").arg( url.errorString() ));
 		return;
 	}
 
@@ -81,7 +80,7 @@ void GStreamerPlugin::play(const QUrl& url)
 	g_object_set(G_OBJECT(mPlayBin), "uri", url.toString().toLocal8Bit().data(), static_cast<gpointer>(0));
 	mCurrentFile = url;
 
-	std::cout << "Using the GStreamer plugin to play " << url.toString().toLocal8Bit().data() << std::endl;
+	uDebug("GStreamerPlugin", tr("Using the GStreamer plugin to play %1").arg( url.toString() ));
 
 	gst_element_set_state(mPlayBin, GST_STATE_PLAYING);
 };
