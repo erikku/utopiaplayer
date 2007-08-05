@@ -26,6 +26,7 @@
 #include "utopiablock.h"
 
 #include <QtCore/QStringList>
+#include <QtXml/QXmlStreamWriter>
 
 using namespace Utopia;
 
@@ -275,75 +276,69 @@ void UtopiaBlock::clear()
 	d->mNativeLang.clear();
 };
 
-QString UtopiaBlock::xml(bool encased) const
+QString UtopiaBlock::xml() const
 {
-	QString string;
+	QString markup;
+	{
+		QXmlStreamWriter writer(&markup);
+		writer.setAutoFormatting(true);
+		xmlSegment(&writer);
+	}
+	markup = markup.right( markup.length() - 1 );
+	markup += "\n";
 
-	if(encased)
-		string += "<block>\n";
-
-	string += "  <id>" + QString::number(d->mID) + "</id>\n";
-
-	if(!d->mName.isEmpty())
-		string += "  <objname>" + xmlSafe(d->mName) + "</objname>\n";
-	if(!d->mComments.isEmpty())
-		string += "  <comments>" + xmlSafe(d->mComments) + "</comments>\n";
-	if(!d->mLangOverride.isEmpty())
-		string += "  <langoverride>" + d->mLangOverride + "</langoverride>\n";
-	if(!d->mNativeLang.isEmpty())
-		string += "  <nativelang>" + d->mNativeLang + "</nativelang>\n";
-
-	if(encased)
-		string += "</block>\n";
-
-	return string;
+	return markup;
 };
 
-QString UtopiaBlock::xmlSafe(const QString& string)
+void UtopiaBlock::xmlStream(QXmlStreamWriter *writer) const
 {
-	QString escaped = string;
-
-	escaped.replace("<", "&lt;");
-	escaped.replace("&", "&amp;");
-	escaped.replace(">", "&gt;");
-	escaped.replace("\'", "&apos;");
-	escaped.replace("\"", "&quot;");
-
-	return escaped;
+	xmlSegment(writer);
 };
 
-QString UtopiaBlock::xmlIDList(const QString& tagName, const QList<uid>& ids)
+void UtopiaBlock::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("artist");
+
+	if(d->mID > 0)
+		writer->writeTextElement("id", QString::number(d->mID));
+	if( !d->mName.isEmpty() )
+		writer->writeTextElement("objname", d->mName);
+	if( !d->mComments.isEmpty() )
+		writer->writeTextElement("comments", d->mComments);
+	if( !d->mLangOverride.isEmpty() )
+		writer->writeTextElement("langoverride", d->mLangOverride);
+	if( !d->mNativeLang.isEmpty() )
+		writer->writeTextElement("nativelang", d->mNativeLang);
+
+	if(encased)
+		writer->writeEndElement();
+};
+
+void UtopiaBlock::xmlIdList(QXmlStreamWriter *writer, const QString& tagName, const QList<uid>& ids)
+{
 	QStringList list;
-
 	for(int i = 0; i < ids.count(); i++)
-	{
 		list << QString::number(ids.at(i));
-	}
 
-	string += "  <" + tagName + ">";
-	string += list.join(",");
-	string += "  </" + tagName + ">";
-
-	return string;
+	writer->writeTextElement(tagName, list.join(","));
 };
 
-QString UtopiaBlock::xmlLangMap(const QString& tagName, const QMap<QString, QString>& map)
+void UtopiaBlock::xmlLangMap(QXmlStreamWriter *writer, const QString& tagName, const QMap<QString, QString>& map)
 {
-	QString string;
-	QStringList keys( map.keys() );
+	writer->writeStartElement(tagName);
 
-	string += "  <" + tagName + ">\n";
-
-	for(int i = 0; i < keys.count(); i++)
+	QMapIterator<QString, QString> i(map);
+	while( i.hasNext() )
 	{
-		string += "    <value lang=\"" + keys.at(i) + "\">" + xmlSafe( map.value( keys.at(i) ) ) + "</value>\n";
+		i.next();
+		writer->writeStartElement("value");
+		writer->writeAttribute("lang", i.key());
+		writer->writeCharacters(i.value());
+		writer->writeEndElement();
 	}
 
-	string += "  </" + tagName + ">\n";
-
-	return string;
+	writer->writeEndElement();
 };
 
 bool UtopiaBlockParser::startDocument()

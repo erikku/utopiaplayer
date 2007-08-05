@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Song::Song() : UtopiaBlock()
 {
 	d = new SongData;
@@ -277,36 +279,32 @@ void Song::clear()
 	UtopiaBlock::clear();
 };
 
-QString Song::xml(bool encased) const
+void Song::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("song");
+
+	UtopiaBlock::xmlSegment(writer, false);
+
+	if( !d->mGenres.isEmpty() )
+		xmlIdList(writer, "genres", d->mGenres);
+	if( !d->mMoods.isEmpty() )
+		xmlIdList(writer, "moods", d->mMoods);
+	if( !d->mArtists.isEmpty() )
+		xmlIdList(writer, "artists", d->mArtists);
+	if( !d->mPublishers.isEmpty() )
+		xmlIdList(writer, "publishers", d->mPublishers);
+	if( !d->mComposers.isEmpty() )
+		xmlIdList(writer, "composers", d->mComposers);
+	if( !d->mStaff.isEmpty() )
+		xmlIdList(writer, "staff", d->mStaff);
+	if( !d->mCredits.isEmpty() )
+		xmlIdList(writer, "credits", d->mCredits);
+	if( !d->mSongEditions.isEmpty() )
+		xmlIdList(writer, "songeditions", d->mSongEditions);
 
 	if(encased)
-		string += "<song>\n";
-
-	string += UtopiaBlock::xml(false);
-
-	if(d->mGenres.count())
-		string += xmlIDList("genres", d->mGenres);
-	if(d->mMoods.count())
-		string += xmlIDList("moods", d->mMoods);
-	if(d->mArtists.count())
-		string += xmlIDList("artists", d->mArtists);
-	if(d->mPublishers.count())
-		string += xmlIDList("publishers", d->mPublishers);
-	if(d->mComposers.count())
-		string += xmlIDList("composers", d->mComposers);
-	if(d->mStaff.count())
-		string += xmlIDList("staff", d->mStaff);
-	if(d->mCredits.count())
-		string += xmlIDList("credits", d->mCredits);
-	if(d->mSongEditions.count())
-		string += xmlIDList("songeditions", d->mSongEditions);
-
-	if(encased)
-		string += "</song>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool SongParser::startDocument()

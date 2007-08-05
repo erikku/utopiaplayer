@@ -50,7 +50,8 @@ public:
 	void removePublisherName(const QString& name = "", const QString& lang = CURRENT_LANG);
 	void clearPublisherNames();
 
-	virtual QString xml(bool encased = true) const;
+protected:
+	virtual void xmlSegment(QXmlStreamWriter *writer, bool encased = true) const;
 };
 
 class PublisherParser : public IndividualParser

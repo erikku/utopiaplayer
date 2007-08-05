@@ -28,6 +28,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 bool TagID::operator==(const TagID& block)
 {
 	if(mSystemID == block.mSystemID && mSongID == block.mSongID)
@@ -67,11 +69,10 @@ void TagID::clear()
 	mSongID = QString();
 };
 
-QString TagID::xml(bool encased) const
+void TagID::xmlSegment(QXmlStreamWriter *writer) const
 {
-	QString string;
-
-	string += "<tagid systemid=\"" + UtopiaBlock::xmlSafe(mSystemID) + "\" songid=\"" + UtopiaBlock::xmlSafe(mSongID) + "\" />\n";
-
-	return string;
+	writer->writeEmptyElement("tagid");
+	writer->writeAttribute("systemid", mSystemID);
+	writer->writeAttribute("songid", mSongID);
+	writer->writeEndElement();
 };

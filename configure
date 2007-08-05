@@ -53,7 +53,7 @@ $CMAKE .. -DCMAKE_BUILD_TYPE=$build -DCMAKE_INSTALL_PREFIX=$prefix ${defines} -G
 cd ..
 
 echo ""
-echo -e "Your configure completed "$GREEN"successfully"$NORMAL", now type "$BOLD"make"$NORMAL
+echo "Your configure completed "$GREEN"successfully"$NORMAL", now type "$BOLD"make"$NORMAL
 echo ""
 
 cat > Makefile << EOF

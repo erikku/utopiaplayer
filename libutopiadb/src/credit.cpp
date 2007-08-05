@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Credit::Credit() : UtopiaBlock()
 {
 	d = new CreditData;
@@ -152,39 +154,35 @@ void Credit::clear()
 	UtopiaBlock::clear();
 };
 
-QString Credit::xml(bool encased) const
+void Credit::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<credit>\n";
+		writer->writeStartElement("credit");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(!d->mPre.isEmpty())
-		string += "  <pre>" + d->mPre + "</pre>\n";
+		writer->writeTextElement("pre", d->mPre);
 	if(!d->mFirstName.isEmpty())
-		string += "  <firstname>" + d->mFirstName + "</firstname>\n";
+		writer->writeTextElement("firstname", d->mFirstName);
 	if(!d->mMiddleName.isEmpty())
-		string += "  <middlename>" + d->mMiddleName + "</middlename>\n";
+		writer->writeTextElement("middlename", d->mMiddleName);
 	if(!d->mLastName.isEmpty())
-		string += "  <lastname>" + d->mLastName + "</lastname>\n";
+		writer->writeTextElement("lastname", d->mLastName);
 	if(!d->mPost.isEmpty())
-		string += "  <post>" + d->mPost + "</post>\n";
+		writer->writeTextElement("post", d->mPost);
 
 	if(!d->mRole.isEmpty())
-		string += "  <role>" + d->mRole + "</role>\n";
+		writer->writeTextElement("role", d->mRole);
 	if(!d->mNick.isEmpty())
-		string += "  <nick>" + d->mNick + "</nick>\n";
+		writer->writeTextElement("nick", d->mNick);
 	if(!d->mURL.isEmpty())
-		string += "  <url>" + d->mURL + "</url>\n";
+		writer->writeTextElement("url", d->mURL);
 	if(!d->mSite.isEmpty())
-		string += "  <site>" + d->mSite + "</site>\n";
+		writer->writeTextElement("site", d->mSite);
 
 	if(encased)
-		string += "</credit>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool CreditParser::startDocument()

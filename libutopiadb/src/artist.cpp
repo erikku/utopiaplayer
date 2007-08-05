@@ -25,6 +25,8 @@
 
 #include "artist.h"
 
+#include <QtXml/QXmlStreamWriter>
+
 using namespace Utopia;
 
 Artist::Artist() : Individual()
@@ -82,19 +84,15 @@ void Artist::clearArtistNames()
 	Individual::clearIndividualNames();
 };
 
-QString Artist::xml(bool encased) const
+void Artist::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("artist");
+
+	Individual::xmlSegment(writer, false);
 
 	if(encased)
-		string += "<artist>\n";
-
-	string += Individual::xml(false);
-
-	if(encased)
-		string += "</artist>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool ArtistParser::startDocument()

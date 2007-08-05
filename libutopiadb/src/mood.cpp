@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Mood::Mood() : UtopiaBlock()
 {
 	d = new MoodData;
@@ -107,22 +109,18 @@ void Mood::remove(const QString& mood, const QString& lang)
 	}
 };
 
-QString Mood::xml(bool encased) const
+void Mood::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<mood>\n";
+		writer->writeStartElement("mood");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(d->mMood.count())
-		string += xmlLangMap("name", d->mMood);
+		xmlLangMap(writer, "name", d->mMood);
 
 	if(encased)
-		string += "</mood>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool MoodParser::startDocument()

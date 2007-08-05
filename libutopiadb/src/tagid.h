@@ -28,6 +28,8 @@
 
 #include <QtCore/QString>
 
+class QXmlStreamWriter;
+
 namespace Utopia
 {
 
@@ -45,7 +47,7 @@ public:
 
 	void clear();
 
-	QString xml(bool encased = true) const;
+	void xmlSegment(QXmlStreamWriter *writer) const;
 
 protected:
 	QString mSystemID;

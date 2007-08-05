@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 AlbumSet::AlbumSet()
 {
 	clear();
@@ -93,11 +95,11 @@ void AlbumSet::clear()
 	mAlbum = 0;
 };
 
-QString AlbumSet::xml(bool encased) const
+void AlbumSet::xmlSegment(QXmlStreamWriter *writer) const
 {
-	QString string;
-
-	string += "<album id=\"" + QString::number(mAlbum) + "\" disc=\"" + QString::number(mTrack.disc()) + "\" track=\"" + QString::number(mTrack.track()) + "\" />\n";
-
-	return string;
+	writer->writeEmptyElement("album");
+	writer->writeAttribute("id", QString::number(mAlbum));
+	writer->writeAttribute("disc", QString::number(mTrack.disc()));
+	writer->writeAttribute("track", QString::number(mTrack.track()));
+	writer->writeEndElement();
 };

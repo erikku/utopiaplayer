@@ -513,7 +513,7 @@ QString SqlMetaBase::patchText(const QString& text, const QString& patch) const
 
 	QProcess proc;
 	proc.setWorkingDirectory( QDir::tempPath() );
-	proc.start("/usr/bin/patch", QStringList() << "-u" << "-i" << "utopiadb_old" << "utopiadb_patch");
+	proc.start("/usr/bin/patch", QStringList() << "-u" << "-i" << "utopiadb_patch" << "utopiadb_old");
 	if(!proc.waitForStarted())
 	{
 		// "Failed to start proccess";

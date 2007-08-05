@@ -132,7 +132,8 @@ public:
 
 	virtual void clear();
 
-	virtual QString xml(bool encased = true) const;
+protected:
+	virtual void xmlSegment(QXmlStreamWriter *writer, bool encased = true) const;
 
 private:
 	QSharedDataPointer<SongEditionData> d;

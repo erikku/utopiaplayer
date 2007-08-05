@@ -25,6 +25,8 @@
 
 #include "composer.h"
 
+#include <QtXml/QXmlStreamWriter>
+
 using namespace Utopia;
 
 Composer::Composer() : Individual()
@@ -82,19 +84,15 @@ void Composer::clearComposerNames()
 	Individual::clearIndividualNames();
 };
 
-QString Composer::xml(bool encased) const
+void Composer::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("composer");
+
+	Individual::xmlSegment(writer, false);
 
 	if(encased)
-		string += "<composer>\n";
-
-	string += Individual::xml(false);
-
-	if(encased)
-		string += "</composer>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool ComposerParser::startDocument()

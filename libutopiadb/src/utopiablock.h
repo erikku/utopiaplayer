@@ -34,6 +34,8 @@
 #include <QtCore/QSharedData>
 #include <QtCore/QSharedDataPointer>
 
+class QXmlStreamWriter;
+
 namespace Utopia
 {
 
@@ -105,11 +107,14 @@ public:
 
 	virtual void clear();
 
-	virtual QString xml(bool encased = true) const;
+	virtual QString xml() const;
+	virtual void xmlStream(QXmlStreamWriter *writer) const;
 
-	static QString xmlSafe(const QString& string);
-	static QString xmlIDList(const QString& tagName, const QList<uid>& ids);
-	static QString xmlLangMap(const QString& tagName, const QMap<QString, QString>& map);
+	static void xmlIdList(QXmlStreamWriter *writer, const QString& tagName, const QList<uid>& ids);
+	static void xmlLangMap(QXmlStreamWriter *writer, const QString& tagName, const QMap<QString, QString>& map);
+
+protected:
+	virtual void xmlSegment(QXmlStreamWriter *writer, bool encased = true) const;
 
 private:
 	QSharedDataPointer<UtopiaBlockData> d;

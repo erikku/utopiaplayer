@@ -50,7 +50,8 @@ public:
 	void removeArtistName(const QString& name = "", const QString& lang = CURRENT_LANG);
 	void clearArtistNames();
 
-	virtual QString xml(bool encased = true) const;
+protected:
+	virtual void xmlSegment(QXmlStreamWriter *writer, bool encased = true) const;
 };
 
 class ArtistParser : public IndividualParser

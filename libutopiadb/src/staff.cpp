@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Staff::Staff() : Individual()
 {
 	d = new StaffData;
@@ -140,22 +142,18 @@ void Staff::clear()
 	Individual::clear();
 };
 
-QString Staff::xml(bool encased) const
+void Staff::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("staff");
+
+	Individual::xmlSegment(writer, false);
+
+	if( !d->mRole.isEmpty() )
+		xmlLangMap(writer, "role", d->mRole);
 
 	if(encased)
-		string += "<staff>\n";
-
-	string += Individual::xml(false);
-
-	if(d->mRole.count())
-		string += xmlLangMap("role", d->mRole);
-
-	if(encased)
-		string += "</staff>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool StaffParser::startDocument()

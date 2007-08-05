@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Publisher::Publisher() : Individual()
 {
 	// Nothing here
@@ -82,19 +84,15 @@ void Publisher::clearPublisherNames()
 	Individual::clearIndividualNames();
 };
 
-QString Publisher::xml(bool encased) const
+void Publisher::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
+	if(encased)
+		writer->writeStartElement("publisher");
+
+	Individual::xmlSegment(writer, false);
 
 	if(encased)
-		string += "<publisher>\n";
-
-	string += Individual::xml(false);
-
-	if(encased)
-		string += "</publisher>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool PublisherParser::startDocument()

@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 SongFile::SongFile() : UtopiaBlock()
 {
 	d = new SongFileData;
@@ -163,52 +165,44 @@ void SongFile::clear()
 	UtopiaBlock::clear();
 };
 
-QString SongFile::xml(bool encased) const
+void SongFile::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<songfile>\n";
+		writer->writeStartElement("songfile");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(d->mSyncDevices.count())
 	{
-		string += "  <syncdevices>\n";
+		writer->writeStartElement("syncdevices");
+
 		for(int i = 0; i < d->mSyncDevices.count(); i++)
-		{
-			string += "    <device>" + xmlSafe(d->mSyncDevices.at(i)) + "</device>\n";
-		}
-		string += "  </syncdevices>\n";
+			writer->writeTextElement("device", d->mSyncDevices.at(i));
+
+		writer->writeEndElement();
 	}
 
-	if(d->mTagIDs.count())
+	if( !d->mTagIDs.isEmpty() )
 	{
-		string += "  <tagids>\n";
+		writer->writeStartElement("tagids");
+
 		for(int i = 0; i < d->mTagIDs.count(); i++)
-		{
-			string += d->mTagIDs.at(i).xml();
-		}
-		string += "  </tagids>\n";
+			d->mTagIDs.at(i).xmlSegment(writer);
+
+		writer->writeEndElement();
 	}
 
 	if(d->mBitrate)
-		string += "  <bitrate>" + QString::number(d->mBitrate) + "</bitrate>\n";
+		writer->writeTextElement("bitrate", QString::number(d->mBitrate));
 	if(d->mFreq)
-		string += "  <freq>" + QString::number(d->mFreq) + "</freq>\n";
+		writer->writeTextElement("freq", QString::number(d->mFreq));
 	if(d->mFormat != "Unknown")
-	{
-		string += "  <format>" + d->mFormat + "</format>\n";
-	}
-	if(!d->mPath.isEmpty())
-	{
-		string += "  <path>" + xmlSafe(d->mPath) + "</path>\n";
-	}
+		writer->writeTextElement("format", d->mFormat);
+	if( !d->mPath.isEmpty() )
+		writer->writeTextElement("path", d->mPath);
 
 	if(encased)
-		string += "</songfile>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool SongFileParser::startDocument()

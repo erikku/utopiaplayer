@@ -103,7 +103,8 @@ public:
 
 	virtual QStringList type() const { return QStringList() << "Song" << UtopiaBlock::type(); };
 
-	virtual QString xml(bool encased = true) const;
+protected:
+	virtual void xmlSegment(QXmlStreamWriter *writer, bool encased = true) const;
 
 private:
 	QSharedDataPointer<SongData> d;

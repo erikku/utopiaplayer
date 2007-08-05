@@ -25,6 +25,8 @@
 
 #include "cover.h"
 
+#include <QtXml/QXmlStreamWriter>
+
 using namespace Utopia;
 
 Cover::Cover() : UtopiaBlock()
@@ -113,22 +115,18 @@ void Cover::clear()
 	UtopiaBlock::clear();
 };
 
-QString Cover::xml(bool encased) const
+void Cover::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<cover>\n";
+		writer->writeStartElement("cover");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(!d->mPath.isEmpty())
-		string += "  <path>" + xmlSafe(d->mPath) + "</path>\n";
+		writer->writeTextElement("path", d->mPath);
 
 	if(encased)
-		string += "</cover>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool CoverParser::startDocument()

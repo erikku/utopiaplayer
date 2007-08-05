@@ -28,6 +28,8 @@
 
 #include "common.h"
 
+class QXmlStreamWriter;
+
 namespace Utopia
 {
 
@@ -52,7 +54,7 @@ public:
 	void setSongEdition(uid value);
 	void clear();
 
-	QString xml(bool encased = true) const;
+	void xmlSegment(QXmlStreamWriter *writer) const;
 
 protected:
 	Track mTrack;

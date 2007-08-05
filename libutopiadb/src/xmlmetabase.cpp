@@ -25,6 +25,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 XmlMetaBase::XmlMetaBase(QObject *parent) : MetaBase(parent)
 {
 	mNextAvailableID = 1;
@@ -239,22 +241,36 @@ void XmlMetaBase::toFile(const QString& path, bool compressed)
 
 	file->open(QIODevice::WriteOnly);
 
-	file->write( QString("<utopiadb>\n\n").toUtf8() );
+	{
 
-	file->write( QString("<settings>\n").toUtf8() );
-	file->write( QString("  <setting key=\"next_avaliable_id\">" + QString::number(mNextAvailableID) + "</setting>\n").toUtf8() );
+	QXmlStreamWriter writer(file);
+	writer.setAutoFormatting(true);
+
+	writer.writeStartElement("utopiadb");
+
+	writer.writeStartElement("settings");
+
+	writer.writeStartElement("setting");
+	writer.writeAttribute("key", "next_avaliable_id");
+	writer.writeCharacters( QString::number(mNextAvailableID) );
+	writer.writeEndElement();
+
 	for(int i = 0; i < mSettings.keys().count(); i++)
 	{
-		file->write( QString("  <setting key=\"" + UtopiaBlock::xmlSafe(mSettings.keys().at(i)) + "\">" + UtopiaBlock::xmlSafe(mSettings.value(mSettings.keys().at(i))) + "</setting>\n").toUtf8() );
+		writer.writeStartElement("setting");
+		writer.writeAttribute("key", mSettings.keys().at(i));
+		writer.writeCharacters( mSettings.value(mSettings.keys().at(i)) );
+		writer.writeEndElement();
 	}
-	file->write( QString("</settings>\n").toUtf8() );
+
+	writer.writeEndElement();
 
 	for(int i = 0; i < mBlocks.values().count(); i++)
-	{
-		file->write( mBlocks.values().at(i).xml().toUtf8() );
-	}
+		mBlocks.values().at(i).xmlStream(&writer);
 
-	file->write( QString("\n</utopiadb>\n").toUtf8() );
+	writer.writeEndElement();
+
+	}
 
 	file->close();
 	delete file;

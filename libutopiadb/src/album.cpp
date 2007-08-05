@@ -25,6 +25,8 @@
 
 #include "album.h"
 
+#include <QtXml/QXmlStreamWriter>
+
 using namespace Utopia;
 
 Album::Album() : UtopiaBlock()
@@ -401,71 +403,78 @@ void Album::clearTags()
 	d->mPropertyTags.clear();
 };
 
-QString Album::xml(bool encased) const
+void Album::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<album>\n";
+		writer->writeStartElement("album");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(d->mTitle.count())
-		string += xmlLangMap("title", d->mTitle);
+		xmlLangMap(writer, "title", d->mTitle);
 	if(d->mVariation.count())
-		string += xmlLangMap("variation", d->mVariation);
+		xmlLangMap(writer, "variation", d->mVariation);
 	if(!d->mReleaseDate.isValid())
-		string += "  <releasedate>" + d->mReleaseDate.toString("yyyy-MM-dd") + "</releasedate>\n";
+		writer->writeTextElement("releasedate>", d->mReleaseDate.toString("yyyy-MM-dd"));
 	if(d->mArtists.count())
-		string += xmlIDList("artists", d->mArtists);
+		xmlIdList(writer, "artists", d->mArtists);
 	if(d->mPublishers.count())
-		string += xmlIDList("publishers", d->mPublishers);
+		xmlIdList(writer, "publishers", d->mPublishers);
 
 	if(d->mCovers.count())
 	{
-		string += "  <covers>\n";
+		writer->writeStartElement("covers");
+
 		QStringList keys = d->mCovers.keys();
 		for(int i = 0; i < keys.count(); i++)
 		{
-			string += "    <cover name=\"" + xmlSafe(keys.at(i)) + "\">" + QString::number(d->mCovers.value(keys.at(i))) + "</cover>\n";
+			writer->writeStartElement("cover");
+			writer->writeAttribute("name", keys.at(i));
+			writer->writeCharacters( QString::number(d->mCovers.value(keys.at(i))) );
+			writer->writeEndElement();
 		}
-		string += "  </covers>\n";
+
+		writer->writeEndElement();
 	}
 
 	if(d->mIdentifiers.count())
 	{
-		string += "  <identifiers>\n";
+		writer->writeStartElement("identifiers");
+
 		QStringList keys = d->mIdentifiers.keys();
 		for(int i = 0; i < keys.count(); i++)
 		{
-			string += "    <identifier name=\"" + xmlSafe(keys.at(i)) + "\">" + xmlSafe(d->mIdentifiers.value(keys.at(i))) + "</identifier>\n";
+			writer->writeStartElement("identifier");
+			writer->writeAttribute("name", keys.at(i));
+			writer->writeCharacters( d->mIdentifiers.value(keys.at(i)) );
+			writer->writeEndElement();
 		}
-		string += "  </identifiers>\n";
+
+		writer->writeEndElement();
 	}
 
 	if(!d->mFormat.isEmpty())
-		string += "  <format>" + xmlSafe(d->mFormat) + "</format>\n";
+		writer->writeTextElement("format", d->mFormat);
 
 	if(d->mTracks.count())
 	{
-		string += "  <tracks>\n";
+		writer->writeStartElement("tracks");
+
+		QStringList tracks;
 		for(int i = 0; i < d->mTracks.count(); i++)
-		{
-			string += d->mTracks.at(i).xml();
-		}
-		string += "  </tracks>\n";
+			d->mTracks.at(i).xmlSegment(writer);
+
+		writer->writeEndElement();
 	}
 
 	if(d->mPropertyTags.count())
-		string += "  <tags>" + d->mPropertyTags.join(",") + "</tags>\n";
+		writer->writeTextElement("tags", d->mPropertyTags.join(","));
 
 	if(d->mCompilation)
-		string += "  <compilation/>\n";
+		writer->writeEmptyElement("compilation");
 
 	if(encased)
-		string += "</album>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool AlbumParser::startDocument()

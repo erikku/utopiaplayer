@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 Genre::Genre() : UtopiaBlock()
 {
 	d = new GenreData;
@@ -108,22 +110,18 @@ void Genre::remove(const QString& genre, const QString& lang)
 	}
 };
 
-QString Genre::xml(bool encased) const
+void Genre::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<genre>\n";
+		writer->writeStartElement("genre");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(d->mGenre.count())
-		string += xmlLangMap("name", d->mGenre);
+		xmlLangMap(writer, "name", d->mGenre);
 
 	if(encased)
-		string += "</genre>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool GenreParser::startDocument()

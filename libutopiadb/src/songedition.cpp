@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 SongEdition::SongEdition() : UtopiaBlock()
 {
 	d = new SongEditionData;
@@ -331,55 +333,54 @@ void SongEdition::setSong(uid song)
 	d->mSong = song;
 };
 
-QString SongEdition::xml(bool encased) const
+void SongEdition::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<songedition>\n";
+		writer->writeStartElement("songedition");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
-	if(d->mTitle.count())
-		string += xmlLangMap("title", d->mTitle);
-	if(d->mSubTitle.count())
-		string += xmlLangMap("subtitle", d->mSubTitle);
-	if(d->mPropertyTags.count())
-		string += "  <tags>" + d->mPropertyTags.join(",") + "</tags>\n";
+	if( !d->mTitle.isEmpty() )
+		xmlLangMap(writer, "title", d->mTitle);
+	if( !d->mSubTitle.isEmpty() )
+		xmlLangMap(writer, "subtitle", d->mSubTitle);
+	if( !d->mPropertyTags.isEmpty() )
+		writer->writeTextElement("tags", d->mPropertyTags.join(","));
 
-	if(!d->mLastPlayed.count())
+	if( !d->mLastPlayed.isEmpty() )
 	{
-		string += "  <lastplayed>\n";
+		writer->writeStartElement("lastplayed");
+
 		for(int i = 0; i < d->mLastPlayed.count(); i++)
-		{
-			string += "    <timestamp>" + d->mLastPlayed.at(i).toString(Qt::ISODate) + "</timestamp>\n";
-		}
-		string += "  </lastplayed>\n";
+			writer->writeTextElement("timestamp", d->mLastPlayed.at(i).toString(Qt::ISODate));
+
+		writer->writeEndElement();
 	}
 
 	if(d->mRandomPlay)
-		string += "  <randomplay/>\n";
+	{
+		writer->writeEmptyElement("randomplay");
+		writer->writeEndElement();
+	}
 	if(d->mPlayCount)
-		string += "  <playcount>" + QString::number(d->mPlayCount) + "</playcount>\n";
+		writer->writeTextElement("playcount", QString::number(d->mPlayCount));
 	if(d->mRating)
-		string += "  <rating>" + QString::number(d->mRating) + "</rating>\n";
+		writer->writeTextElement("rating", QString::number(d->mRating));
 	if(d->mSong)
-		string += "  <song>" + QString::number(d->mSong) + "</song>\n";
+		writer->writeTextElement("song", QString::number(d->mSong));
 
 	if(d->mAlbums.count())
 	{
-		string += "  <albums>\n";
+		writer->writeStartElement("albums");
+
 		for(int i = 0; i < d->mAlbums.count(); i++)
-		{
-			string += d->mAlbums.at(i).xml();
-		}
-		string += "  </albums>\n";
+			d->mAlbums.at(i).xmlSegment(writer);
+
+		writer->writeEndElement();
 	}
 
 	if(encased)
-		string += "</songedition>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool SongEditionParser::startDocument()

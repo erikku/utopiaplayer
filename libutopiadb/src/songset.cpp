@@ -27,6 +27,8 @@
 
 using namespace Utopia;
 
+#include <QtXml/QXmlStreamWriter>
+
 SongSet::SongSet()
 {
 	clear();
@@ -105,11 +107,11 @@ void SongSet::clear()
 	mSongEdition = 0;
 };
 
-QString SongSet::xml(bool encased) const
+void SongSet::xmlSegment(QXmlStreamWriter *writer) const
 {
-	QString string;
-
-	string += "<song id=\"" + QString::number(mSong) + "\" disc=\"" + QString::number(mTrack.disc()) + "\" track=\"" + QString::number(mTrack.track()) + "\" />\n";
-
-	return string;
+	writer->writeEmptyElement("song");
+	writer->writeAttribute("id", QString::number(mSong));
+	writer->writeAttribute("disc", QString::number(mTrack.disc()));
+	writer->writeAttribute("track", QString::number(mTrack.track()));
+	writer->writeEndElement();
 };

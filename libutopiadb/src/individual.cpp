@@ -25,6 +25,8 @@
 
 #include "individual.h"
 
+#include <QtXml/QXmlStreamWriter>
+
 using namespace Utopia;
 
 //#define d( reinterpret_cast<const IndividualData*>(d.constData()) )
@@ -217,24 +219,26 @@ void Individual::clear()
 	UtopiaBlock::clear();
 };
 
-QString Individual::xml(bool encased) const
+void Individual::xmlSegment(QXmlStreamWriter *writer, bool encased) const
 {
-	QString string;
-
 	if(encased)
-		string += "<individual>\n";
+		writer->writeStartElement("individual");
 
-	string += UtopiaBlock::xml(false);
+	UtopiaBlock::xmlSegment(writer, false);
 
 	if(d->mIndividualNames.count())
-		string += xmlLangMap("name", d->mIndividualNames);
+		xmlLangMap(writer, "name", d->mIndividualNames);
 	if(d->mColor != QColor())
-		string += "  <color r=\"" + QString::number(d->mColor.red()) + "\" g=\"" + QString::number(d->mColor.green()) + "\" b=\"" + QString::number(d->mColor.blue()) + "\" />";
+	{
+		writer->writeEmptyElement("color");
+		writer->writeAttribute("r", QString::number(d->mColor.red()));
+		writer->writeAttribute("g", QString::number(d->mColor.green()));
+		writer->writeAttribute("b", QString::number(d->mColor.blue()));
+		writer->writeEndElement();
+	}
 
 	if(encased)
-		string += "</individual>\n";
-
-	return string;
+		writer->writeEndElement();
 };
 
 bool IndividualParser::startDocument()
