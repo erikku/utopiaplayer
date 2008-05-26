@@ -33,10 +33,10 @@ SearchEdit::SearchEdit(QWidget *parent) : QLineEdit(parent)
 	setToolTip(mNoticeText);
 
 	setPalette(mNoticePalette);
-	setText(mNoticeText);
+	QLineEdit::setText(mNoticeText);
 };
 
-SearchEdit::SearchEdit(const QString& notice, QWidget *parent)
+SearchEdit::SearchEdit(const QString& notice, QWidget *parent) : QLineEdit(parent)
 {
 	QPalette pal = palette();
 	pal.setBrush( QPalette::Active, QPalette::Text, pal.brush(QPalette::Inactive, QPalette::Text) );
@@ -50,7 +50,7 @@ SearchEdit::SearchEdit(const QString& notice, QWidget *parent)
 	setToolTip(notice);
 
 	setPalette(mNoticePalette);
-	setText(mNoticeText);
+	QLineEdit::setText(mNoticeText);
 };
 
 QString SearchEdit::text() const
@@ -97,7 +97,7 @@ void SearchEdit::focusInEvent(QFocusEvent *event)
 	setPalette(mNormalPalette);
 
 	if(mNotice)
-		setText( QString() );
+		QLineEdit::setText( QString() );
 
 	QLineEdit::focusInEvent(event);
 };
@@ -107,7 +107,7 @@ void SearchEdit::focusOutEvent(QFocusEvent *event)
 	if(mNotice)
 	{
 		setPalette(mNoticePalette);
-		setText(mNoticeText);
+		QLineEdit::setText(mNoticeText);
 	}
 	else
 	{
@@ -117,12 +117,23 @@ void SearchEdit::focusOutEvent(QFocusEvent *event)
 	QLineEdit::focusOutEvent(event);
 };
 
+void SearchEdit::setText(const QString& text)
+{
+	if( text.isEmpty() )
+		return clear();
+
+	QLineEdit::setText(text);
+
+	mNotice = false;
+	setPalette(mNormalPalette);
+};
+
 void SearchEdit::dragEnterEvent(QDragEnterEvent *event)
 {
 	setPalette(mNormalPalette);
 
 	if(mNotice)
-		setText( QString() );
+		QLineEdit::setText( QString() );
 
 	QLineEdit::dragEnterEvent(event);
 };
@@ -133,7 +144,7 @@ void SearchEdit::dragLeaveEvent(QDragLeaveEvent *event)
 	if(mNotice)
 	{
 		setPalette(mNoticePalette);
-		setText(mNoticeText);
+		QLineEdit::setText(mNoticeText);
 	}
 	else
 	{
@@ -146,12 +157,12 @@ void SearchEdit::dragLeaveEvent(QDragLeaveEvent *event)
 void SearchEdit::dropEvent(QDropEvent *event)
 {
 	QLineEdit::dropEvent(event);
-	
+
 	mNotice = text().isEmpty();
 	if(mNotice)
 	{
 		setPalette(mNoticePalette);
-		setText(mNoticeText);
+		QLineEdit::setText(mNoticeText);
 	}
 	else
 	{
@@ -172,6 +183,6 @@ void SearchEdit::clear()
 	{
 		mNotice = true;
 		setPalette(mNoticePalette);
-		setText(mNoticeText);
+		QLineEdit::setText(mNoticeText);
 	}
 };

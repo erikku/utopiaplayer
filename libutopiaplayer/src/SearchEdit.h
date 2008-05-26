@@ -40,6 +40,7 @@ public:
 public slots:
 	void clear();
 
+	void setText(const QString& text);
 	void setNoticeText(const QString& text);
 	void setNormalPalette(const QPalette& palette);
 	void setNoticePalette(const QPalette& palette);
